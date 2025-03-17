@@ -14,9 +14,14 @@ export default async function ReaderPage({
   const request = await fetch(
     `https://api.wikisubmission.org/quran/${params.chapter}`,
   );
-
   const data = (await request.json())
     ?.results as Database["public"]["Tables"]["DataQuran"]["Row"][];
+
+  const request2 = await fetch(
+    `https://api.wikisubmission.org/quran/word-by-word/${params.chapter}`,
+  );
+  const data2 = (await request2.json())
+    ?.results as Database["public"]["Tables"]["DataQuranWordByWord"]["Row"][];
 
   if (!data || data.length === 0) {
     return (
@@ -41,7 +46,11 @@ export default async function ReaderPage({
         </section>
         <section>
           {data.map((v) => (
-            <VerseComponent key={`${v.verse_index}`} verse={v} />
+            <VerseComponent
+              key={`${v.verse_index}`}
+              verse={v}
+              wordByWordData={data2}
+            />
           ))}
         </section>
       </div>
