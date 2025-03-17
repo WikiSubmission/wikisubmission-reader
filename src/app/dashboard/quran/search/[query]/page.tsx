@@ -24,8 +24,8 @@ export default async function QuranSearchPage({
           <QuranSearchbar defaultValue={decodeURIComponent(params.query)} />
         </section>
         <section className="space-y-2 mx-2 text-slate-800 dark:text-slate-300">
-          Found {result.length} results with &apos
-          {decodeURIComponent(params.query)}&apos
+          Found {result.length} results with
+          {decodeURIComponent(params.query)}
         </section>
         <section className="space-y-1">
           {result.map((r) => (
