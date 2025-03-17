@@ -1,10 +1,4 @@
-import { Database } from "@/types/generated/database.types";
-
 export const Data = {
-  DataQuran:
-    require("@/data/DataQuran.json") as Database["public"]["Tables"]["DataQuran"]["Row"][],
-  DataQuranWordByWord:
-    require("@/data/DataQuranWordByWord.json") as Database["public"]["Tables"]["DataQuranWordByWord"]["Row"][],
   DataAppendices: [
     {
       appendix_number: 0,
