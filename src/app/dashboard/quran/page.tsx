@@ -5,18 +5,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Data } from "@/data";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import QuranSearchbar from "./_searchbar";
+import { Database } from "@/types/generated/database.types";
 
-export default function QuranPage({
+export default async function QuranPage({
   params,
   searchParams,
 }: {
   params: { request: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const request = await fetch(
+    `https://api.wikisubmission.org/quran/data/chapters`,
+  );
+  const DataQuranChapters =
+    (await request.json()) as Database["public"]["Tables"]["DataQuran"]["Row"][];
   return (
     <ContentLayout title="Quran: The Final Testament">
       <div className="flex flex-col space-y-8">
@@ -26,7 +31,7 @@ export default function QuranPage({
         <section className="space-y-2">
           <h1 className="text-3xl">Browse</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {Data.DataQuran.filter((q) => q.verse_number === 1).map((d) => {
+            {DataQuranChapters.filter((q) => q.verse_number === 1).map((d) => {
               return (
                 <Link
                   key={`${d.chapter_number}`}
