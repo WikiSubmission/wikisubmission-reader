@@ -5,9 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Data } from "@/data";
-import { TabsContent } from "@radix-ui/react-tabs";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import QuranSearchbar from "./_searchbar";
