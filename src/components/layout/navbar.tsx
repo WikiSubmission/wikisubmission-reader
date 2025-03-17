@@ -15,14 +15,14 @@ export function Navbar() {
           className="flex justify-start items-center hover:opacity-85 transition-opacity duration-300"
         >
           <Globe className="w-5 h-5 mr-2 text-blue-500" />
-          <span className={`${Fonts.title.className} text-2xl font-light`}>{Identity.name}</span>
+          <span className={`${Fonts.title.className} text-2xl font-light`}>
+            {Identity.name}
+          </span>
           <span className="sr-only">{Identity.name}</span>
         </Link>
         <hr />
         <nav className="ml-auto flex items-center gap-2">
-          <header className="flex justify-end items-center gap-2 h-16">
-
-          </header>
+          <header className="flex justify-end items-center gap-2 h-16"></header>
           <ModeToggle />
         </nav>
       </div>

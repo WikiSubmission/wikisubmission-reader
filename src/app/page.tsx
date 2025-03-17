@@ -13,7 +13,9 @@ export default function HomePage() {
       <main className="min-h-[calc(100vh-57px-97px)] flex-1">
         <div className="container relative pb-10">
           <section className="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-6">
-            <h1 className={`text-center font-bold text-5xl md:text-7xl leading-tight tracking-tighter lg:leading-[1.1] ${StylingClasses.Chromatic} ${Fonts.title.className}`}>
+            <h1
+              className={`text-center font-bold text-5xl md:text-7xl leading-tight tracking-tighter lg:leading-[1.1] ${StylingClasses.Chromatic} ${Fonts.title.className}`}
+            >
               {Identity.name}
             </h1>
             <span className="max-w-[750px] text-center text-lg font-light text-foreground text-slate-700 dark:text-slate-200">
@@ -26,9 +28,8 @@ export default function HomePage() {
                   <ArrowRightIcon className="ml-2" />
                 </Link>
               </Button>
-              
-              {/* Add more buttons here... */}
 
+              {/* Add more buttons here... */}
             </div>
           </section>
           <div className="w-full flex justify-center relative">

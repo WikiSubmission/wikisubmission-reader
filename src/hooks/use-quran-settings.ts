@@ -26,7 +26,14 @@ type QuranSettingsStore = {
 export const useQuranSettings = create(
   persist<QuranSettingsStore>(
     (set, get) => ({
-      settings: { language: "english", showWordByWord: false, showArabic: true, showTransliteration: false, showSubtitles: true, showFootnotes: true }, // Default settings
+      settings: {
+        language: "english",
+        showWordByWord: false,
+        showArabic: true,
+        showTransliteration: false,
+        showSubtitles: true,
+        showFootnotes: true,
+      }, // Default settings
       setLanguage: (language: string) => {
         set({ settings: { ...get().settings, language } });
       },
@@ -49,13 +56,13 @@ export const useQuranSettings = create(
         set(
           produce((state: QuranSettingsStore) => {
             state.settings = { ...state.settings, ...settings };
-          })
+          }),
         );
-      }
+      },
     }),
     {
       name: "quran-settings", // Key for localStorage
-      storage: createJSONStorage(() => localStorage) // Using localStorage for persistence
-    }
-  )
+      storage: createJSONStorage(() => localStorage), // Using localStorage for persistence
+    },
+  ),
 );

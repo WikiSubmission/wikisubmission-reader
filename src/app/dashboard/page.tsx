@@ -6,7 +6,7 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
 export default function DashboardPage() {
@@ -27,9 +27,7 @@ export default function DashboardPage() {
       </Breadcrumb>
       <div className="flex flex-col space-y-8 my-6">
         <div className="flex flex-col space-y-4">
-          <h1 className={`text-6xl md:text-5xl font-semibold`}>
-            Welcome!
-          </h1>
+          <h1 className={`text-6xl md:text-5xl font-semibold`}>Welcome!</h1>
           <span className="text-slate-700 dark:text-slate-200">
             Use the sidebar on the left to explore the different sections.
           </span>

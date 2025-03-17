@@ -16,7 +16,7 @@ export default function PlaceholderContent() {
               priority
             />
             <div className="absolute -bottom-8 right-0">
-             {/* Insert text here */}
+              {/* Insert text here */}
             </div>
           </div>
         </div>

@@ -40,7 +40,7 @@ export function getMenuList(pathname: string): Group[] {
         label: "Dashboard",
         icon: LayoutGrid,
         submenus: [],
-        active: false
+        active: false,
       },
     ],
   };
@@ -57,17 +57,17 @@ export function getMenuList(pathname: string): Group[] {
           {
             href: "/dashboard/quran",
             label: "Read Now",
-            active: pathname.endsWith("/dashboard/quran")
+            active: pathname.endsWith("/dashboard/quran"),
           },
           {
             href: "/dashboard/quran/appendices",
-            label: "Appendices"
+            label: "Appendices",
           },
           {
             href: "/dashboard/quran/resources",
-            label: "Downloads & PDFs"
-          }
-        ]
+            label: "Downloads & PDFs",
+          },
+        ],
       },
     ],
   };
