@@ -10,7 +10,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Data } from "@/data";
 import { useQuranSettings } from "@/hooks/use-quran-settings";
 import { Database } from "@/types/generated/database.types";
 import { Suspense } from "react";
@@ -18,9 +17,11 @@ import clsx from "clsx";
 
 export default function VerseComponent({
   verse,
+  wordByWordData,
   isLink,
 }: {
   verse: Database["public"]["Tables"]["DataQuran"]["Row"];
+  wordByWordData?: Database["public"]["Tables"]["DataQuranWordByWord"]["Row"][];
   isLink?: boolean;
 }) {
   const useSettings = useQuranSettings();
@@ -28,10 +29,6 @@ export default function VerseComponent({
   const [isHighlighted, setIsHighlighted] = useState(false);
 
   const verseSearchParam = searchParams.get("verse");
-
-  const wordByWordData = Data.DataQuranWordByWord.filter(
-    (i) => i.verse_id === verse.verse_id,
-  );
 
   const renderHighlightedText = (text?: string | null) => {
     if (!text) return null; // Prevent rendering "null" or "undefined"
@@ -152,7 +149,7 @@ export default function VerseComponent({
           <section>
             <div className="flex flex-col space-y-1 md:w-3/6">
               {wordByWordData
-                .filter((w) => w.verse_id == verse.verse_id)
+                ?.filter((w) => w.verse_id == verse.verse_id)
                 ?.map((w, idx) => (
                   <div key={`${w.verse_id}:${w.id}:${idx}`}>
                     <Badge variant="outline" className="flex grid grid-cols-3">
