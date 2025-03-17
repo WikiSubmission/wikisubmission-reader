@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Ellipsis, LogOut } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { getMenuList } from "@/lib/menu-list";
+import { getMenuList } from "@/constants/menu-list";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CollapseMenuButton } from "@/components/admin-panel/collapse-menu-button";
@@ -13,7 +13,7 @@ import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-  TooltipProvider
+  TooltipProvider,
 } from "@/components/ui/tooltip";
 
 interface MenuProps {
@@ -79,7 +79,7 @@ export function Menu({ isOpen }: MenuProps) {
                                     "max-w-[200px] truncate",
                                     isOpen === false
                                       ? "-translate-x-96 opacity-0"
-                                      : "translate-x-0 opacity-100"
+                                      : "translate-x-0 opacity-100",
                                   )}
                                 >
                                   {label}
@@ -109,15 +109,16 @@ export function Menu({ isOpen }: MenuProps) {
                         isOpen={isOpen}
                       />
                     </div>
-                  )
+                  ),
               )}
             </li>
           ))}
           <li className="w-full grow flex items-end">
             <TooltipProvider disableHoverableContent>
               <Tooltip delayDuration={100}>
+                {/* Sidebar bottom area */}
                 <TooltipTrigger asChild>
-                  <Button
+                  {/* <Button
                     onClick={() => {}}
                     variant="outline"
                     className="w-full justify-center h-10 mt-5"
@@ -133,11 +134,11 @@ export function Menu({ isOpen }: MenuProps) {
                     >
                       Sign out
                     </p>
-                  </Button>
+                  </Button> */}
                 </TooltipTrigger>
-                {isOpen === false && (
+                {/* {isOpen === false && (
                   <TooltipContent side="right">Sign out</TooltipContent>
-                )}
+                )} */}
               </Tooltip>
             </TooltipProvider>
           </li>

@@ -8,8 +8,9 @@ import {
   SheetHeader,
   SheetContent,
   SheetTrigger,
-  SheetTitle
+  SheetTitle,
 } from "@/components/ui/sheet";
+import { Identity } from "@/constants/identity";
 
 export function SheetMenu() {
   return (
@@ -28,7 +29,9 @@ export function SheetMenu() {
           >
             <Link href="/dashboard" className="flex items-center gap-2">
               <PanelsTopLeft className="w-6 h-6 mr-1" />
-              <SheetTitle className="font-bold text-lg">Brand</SheetTitle>
+              <SheetTitle className="font-bold text-lg">
+                {Identity.name}
+              </SheetTitle>
             </Link>
           </Button>
         </SheetHeader>
