@@ -5,7 +5,11 @@ const nextConfig = {
             {
                 protocol: 'https',
                 hostname: 'library.wikisubmission.org',
-            }
+            },
+            {
+                protocol: 'https',
+                hostname: 'www.masjidtucson.org',
+            },
         ]
     },
     async redirects() {
