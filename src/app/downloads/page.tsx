@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ExternalLink } from "lucide-react";
+import Image from "next/image";
 
 const LinkButton = ({ href, label }: { href: string; label: string }) => (
     <a
@@ -26,7 +27,7 @@ export default function Resources() {
             {/* Quran: The Final Testament */}
             <section className="space-y-6">
                 <div className="flex flex-col md:flex-row items-center gap-4">
-                    <img
+                    <Image
                         src="https://www.masjidtucson.org/images/catalog/bQuranCoverThumb.jpg"
                         alt="Quran Cover"
                         className="rounded-lg w-32 md:w-40 shadow"
@@ -122,7 +123,7 @@ export default function Resources() {
             {/* Visual Presentation */}
             <section className="space-y-4">
                 <div className="flex flex-col md:flex-row items-center gap-4">
-                    <img
+                    <Image
                         src="https://www.masjidtucson.org/images/catalog/quran_VP_thumb.png"
                         alt="Quran VP Cover"
                         className="rounded-lg w-32 md:w-40 shadow"
@@ -141,7 +142,7 @@ export default function Resources() {
             {/* QHI */}
             <section className="space-y-4">
                 <div className="flex flex-col md:flex-row items-center gap-4">
-                    <img
+                    <Image
                         src="https://www.masjidtucson.org/images/catalog/QHICoverThumb.jpg"
                         alt="QHI Cover"
                         className="rounded-lg w-32 md:w-40 shadow"
@@ -171,13 +172,13 @@ export default function Resources() {
             {/* The Computer Speaks */}
             <section className="space-y-4">
                 <div className="flex flex-col md:flex-row items-center gap-4">
-                    <img
+                    <Image
                         src="https://www.masjidtucson.org/images/catalog/CompSpksCoverThumb.jpg"
                         alt="Computer Speaks Cover"
                         className="rounded-lg w-32 md:w-40 shadow"
                     />
                     <div>
-                        <h3 className="text-2xl font-semibold">The Computer Speaks: God's Message to The World</h3>
+                        <h3 className="text-2xl font-semibold">The Computer Speaks: God&apos;s Message to The World</h3>
                         <p className="text-sm text-muted-foreground">Dr. Rashad Khalifa, Ph.D.</p>
                     </div>
                 </div>
