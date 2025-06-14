@@ -4,34 +4,34 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Navbar } from "@/components/layout/header";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Toaster } from "@/components/ui/toaster";
+import { Suspense } from "react";
+import { LoadingIcon } from "@/components/ui/loading-icon";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.APP_URL
       ? `${process.env.APP_URL}`
       : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : `http://localhost:${process.env.PORT || 3000}`
+        ? `https://${process.env.VERCEL_URL}`
+        : `http://localhost:${process.env.PORT || 3000}`
   ),
-  title: "shadcn/ui sidebar",
+  title: "WikiSubmission",
   description:
-    "A stunning and functional retractable sidebar for Next.js built on top of shadcn/ui complete with desktop and mobile responsiveness.",
+    "Access The Final Testament. A free and open-source platform for Submission.",
   alternates: {
     canonical: "/"
   },
   openGraph: {
     url: "/",
-    title: "shadcn/ui sidebar",
+    title: "WikiSubmission",
     description:
-      "A stunning and functional retractable sidebar for Next.js built on top of shadcn/ui complete with desktop and mobile responsiveness.",
+      "Access The Final Testament. A free and open-source platform for Submission.",
     type: "website"
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "shadcn/ui sidebar",
-    description:
-      "A stunning and functional retractable sidebar for Next.js built on top of shadcn/ui complete with desktop and mobile responsiveness."
-  }
 };
 
 export default function RootLayout({
@@ -42,8 +42,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={GeistSans.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          <Suspense
+            fallback={
+              <div className="flex min-h-screen flex-col items-center justify-center text-center">
+                <LoadingIcon />
+              </div>
+            }
+          />
+          <Navbar />
+          <Toaster />
           {children}
+          <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>

@@ -1,104 +1,19 @@
-# [shadcn/ui sidebar](https://shadcn-ui-sidebar.salimi.my) &middot; [![Author Salimi](https://img.shields.io/badge/Author-Salimi-%3C%3E)](https://www.salimi.my)
+# WikiSubmission Web
 
-A stunning and functional retractable sidebar for Next.js built on top of [shadcn/ui](https://ui.shadcn.com) complete with desktop and mobile responsiveness.
+Source code for [WikiSubmission.org](https://wikisubmission.org).
 
-## Features
+## Running
 
-- Retractable mini and wide sidebar
-- Scrollable sidebar menu
-- Sheet menu for mobile
-- Grouped menu with labels
-- Collapsible submenu
-- Extracted menu items list
+Clone the repository with `git clone git@github.com:wikisubmission/wikisubmission-web`.
 
-## Tech/framework used
+Run `npm install` to install dependencies. 
 
-- Next.js 14
-- Shadcn/ui
-- Tailwind CSS
-- TypeScript
-- Zustand
+Launch the site locally with `npm run dev` on port 3000.
 
-## Installation
+## License
 
-### Custom registry
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for more information.
 
-If you are using @shadcn/ui 2.0.0 or later, you can install the component directly from the registry.
+## Contact
 
-```bash
-npx shadcn@latest add https://raw.githubusercontent.com/salimi-my/shadcn-ui-sidebar/refs/heads/master/public/registry/shadcn-sidebar.json
-
-or
-
-npx shadcn@latest add https://shadcn-ui-sidebar.salimi.my/registry/shadcn-sidebar.json
-```
-
-### Usage example for Nextjs
-```tsx
-//layout.tsx
-import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
-
-export default async function Layout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return <AdminPanelLayout>{children}</AdminPanelLayout>;
-}
-
-//page.tsx
-import { ContentLayout } from "@/components/admin-panel/content-layout";
-
-export default function Page() {
-  return (
-    <ContentLayout title="Test">
-      <div>Test</div>
-    </ContentLayout>
-  );
-}
-```
-
-## Starting the project locally
-
-1. Clone the repository
-
-   ```bash
-   git clone https://github.com/salimi-my/shadcn-ui-sidebar
-   ```
-
-2. Install dependencies
-
-   ```bash
-   cd shadcn-ui-sidebar
-   npm install
-   ```
-
-3. Run the development server
-
-   ```bash
-   npm run dev
-   ```
-
-## Demo
-
-The app is hosted on Vercel. [Click here](https://shadcn-ui-sidebar.salimi.my) to visit.
-<br>
-Direct demo link: `https://shadcn-ui-sidebar.salimi.my`
-
-## Screenshots
-
-#### Light mode
-
-![Light mode](/screenshots/screenshot-1.png)
-
-#### Dark mode
-
-![Dark mode](/screenshots/screenshot-2.png)
-
-#### Mini sidebar
-
-![Mini sidebar](/screenshots/screenshot-3.png)
-
-#### Sheet menu
-
-<img src="/screenshots/screenshot-4.png" width="300">
+Email: developer@wikisubmission.org
