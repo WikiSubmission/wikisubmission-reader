@@ -20,6 +20,16 @@ const nextConfig = {
                 permanent: true,
             },
             {
+                source: '/dashboard/quran/:query*',
+                destination: '/quran/:query*',
+                permanent: true,
+            },
+            {
+                source: '/dashboard/:query*',
+                destination: '/quran/:query*',
+                permanent: true,
+            },
+            {
                 source: '/library/:path*',
                 destination: 'https://library.wikisubmission.org/:path*',
                 permanent: true,
