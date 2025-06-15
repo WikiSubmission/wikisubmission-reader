@@ -1,10 +1,10 @@
-# WikiSubmission Web
+# WikiSubmission Reader
 
-Source code for [WikiSubmission.org](https://wikisubmission.org).
+Source code for [reader.wikisubmission.org](https://reader.wikisubmission.org).
 
 ## Running
 
-Clone the repository with `git clone git@github.com:wikisubmission/wikisubmission-web`.
+Clone the repository with `git clone git@github.com:wikisubmission/wikisubmission-reader`.
 
 Run `npm install` to install dependencies. 
 
