@@ -66,7 +66,7 @@ export function RootWordView({ root }: { root: string }) {
                     <div className="space-y-2">
                         <div className="max-h-60 overflow-y-auto">
                             <p className="text-xs text-muted-foreground">
-                                {data.length} verse{data.length !== 1 ? 's' : ''} with this root:
+                                {data.length} instance{data.length !== 1 ? 's' : ''} with this root:
                             </p>
                             <div className="space-y-1">
                                 {data.map((entry, idx) => (
