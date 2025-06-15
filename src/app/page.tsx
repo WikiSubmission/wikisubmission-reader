@@ -37,7 +37,7 @@ export default function HomePage() {
       </main>
 
       <footer className="text-center text-sm text-muted-foreground p-4">
-        <p>&copy; 2025 WikiSubmission. An <a href="https://github.com/WikiSubmission/wikisubmission-web" target="_blank" className="text-primary">open-source</a> project.</p>
+        <p>&copy; 2025 WikiSubmission. An <a href="https://github.com/WikiSubmission/wikisubmission-reader" target="_blank" className="text-primary">open-source</a> project.</p>
       </footer>
     </div>
   );

@@ -1,7 +1,6 @@
 {
-  "name": "shadcn-sidebar",
-  "version": "0.1.0",
-  "private": true,
+  "name": "wikisubmission-reader",
+  "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
