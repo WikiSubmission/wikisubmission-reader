@@ -68,12 +68,6 @@ const nextConfig = {
                     'https://library.wikisubmission.org/file/quran-the-final-testament-appendices',
                 permanent: true,
             },
-            {
-                source: '/appendices',
-                destination:
-                    'https://library.wikisubmission.org/file/quran-the-final-testament-appendices',
-                permanent: true,
-            },
         ];
     },
 };
