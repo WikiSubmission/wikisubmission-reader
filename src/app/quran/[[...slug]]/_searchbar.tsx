@@ -25,6 +25,7 @@ export default function SearchBar() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [highlighted, setHighlighted] = useState(false);
   const timeout = useRef<NodeJS.Timeout>();
+  const searchRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();

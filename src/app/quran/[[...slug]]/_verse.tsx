@@ -114,7 +114,7 @@ export function VerseCard({ verse, requestType }: { verse: WQuranVerse, requestT
 
                 {/* Arabic Text */}
                 {settings.settings.showArabic && (
-                    <div className="text-2xl leading-relaxed font-arabic text-gray-900 dark:text-gray-100 text-right">
+                    <div className="text-2xl leading-relaxed font-arabic text-gray-900 dark:text-gray-100 text-right" dir="rtl">
                         <HoverableArabicText verse={verse} />
                     </div>
                 )}
