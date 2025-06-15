@@ -22,7 +22,7 @@ export async function generateMetadata(
     if (!slug?.[0]) {
         return {
             title: `Quran: The Final Testament | WikiSubmission`,
-            description: `Access The Final Testament`,
+            description: `Access the Final Testament at WikiSubmission, a free and open-source platform for Submission`,
         };
     }
 
@@ -44,10 +44,10 @@ export async function generateMetadata(
 
     return {
         title: `${query} | Quran: The Final Testament | WikiSubmission`,
-        description: `Access The Final Testament`,
+        description: `Access the Final Testament at WikiSubmission, a free and open-source platform for Submission`,
         openGraph: {
             title: `${query} | Quran: The Final Testament | WikiSubmission`,
-            description: `Access The Final Testament`,
+            description: `Access the Final Testament at WikiSubmission, a free and open-source platform for Submission`,
             url: `https://wikisubmission.org/quran/${parsedQuranQuery.raw_query}`,
             images: [
                 {

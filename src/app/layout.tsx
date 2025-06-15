@@ -32,7 +32,15 @@ export const metadata: Metadata = {
     title: "WikiSubmission",
     description:
       "Access The Final Testament. A free and open-source platform for Submission.",
-    type: "website"
+    type: "website",
+    images: [
+      {
+        url: "https://library.wikisubmission.org/file/logo.png",
+        width: 250,
+        height: 250,
+        alt: "WikiSubmission Logo"
+      }
+    ]
   },
 };
 
