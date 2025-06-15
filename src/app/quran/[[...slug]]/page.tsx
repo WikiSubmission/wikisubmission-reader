@@ -11,6 +11,7 @@ import BackButton from "@/components/ui/back-button";
 import DefaultView from "./_defaultview";
 import QuranSettings from "./_settings";
 import Link from "next/link";
+import { stringifyRequestType } from "@/utils/stringify-request-type";
 
 export async function generateMetadata(
     { params, searchParams }: GlobalPageProps,
@@ -27,10 +28,7 @@ export async function generateMetadata(
 
     const parsedQuranQuery = parseQuranQuery(slug?.[0], searchParams);
 
-    var query = `${decodeURIComponent(parsedQuranQuery.raw_query).replace(/-/g, "–")
-        .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ")}`
+    var query = `${stringifyRequestType(decodeURIComponent(parsedQuranQuery.raw_query))}`
 
     if (parsedQuranQuery.type === "chapter") {
         query = `Chapter ${parsedQuranQuery.parsed_query.chapter}`;
@@ -133,10 +131,7 @@ export default async function QuranPage({
                             <section className="flex gap-1 items-center">
                                 <BackButton />
                                 <Badge>
-                                    {result.request.type.replace(/-/g, "–")
-                                        .split(" ")
-                                        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                                        .join(" ")}
+                                    {stringifyRequestType(result.request.type)}
                                 </Badge>
                             </section>
 
@@ -149,7 +144,6 @@ export default async function QuranPage({
                                     </div>
                                 </section>
                             )}
-
                         </div>
                         <QuranSettings />
                     </div>
