@@ -21,6 +21,7 @@ export default function HomePage() {
             className="rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
             width={200}
             height={200}
+            priority
           />
         </div>
 
