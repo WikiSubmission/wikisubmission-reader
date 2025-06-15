@@ -130,7 +130,15 @@ export default async function QuranPage({
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <BackButton />
+                            <section className="flex gap-1 items-center">
+                                <BackButton />
+                                <Badge>
+                                    {result.request.type.replace(/-/g, "–")
+                                        .split(" ")
+                                        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                                        .join(" ")}
+                                </Badge>
+                            </section>
 
                             {result.request.type === "chapter" && (
                                 <section>
