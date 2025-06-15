@@ -58,6 +58,19 @@ export default function SearchBar() {
     return () => clearTimeout(timeout.current);
   }, [query]);
 
+  // Handle clicks outside the search component
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
+        setHighlighted(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const getLabelFromParsedQuery = (parsed: any): string | null => {
     switch (parsed.type) {
       case "chapter":
@@ -123,7 +136,7 @@ export default function SearchBar() {
   };
 
   return (
-    <main className="relative w-full max-w-2xl mx-auto">
+    <main className="relative w-full max-w-2xl mx-auto" ref={searchRef}>
       <div className="flex items-center justify-end mb-2">
         <div className="flex items-center gap-1">
           <Button
@@ -165,8 +178,11 @@ export default function SearchBar() {
               setShowSuggestions(true);
               setHighlighted(false);
             }}
-            onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+            onFocus={() => {
+              if (query.trim()) {
+                setShowSuggestions(true);
+              }
+            }}
             onKeyDown={handleKeyDown}
             className="pl-10 pr-4 py-3 text-base rounded-lg border-2 focus:border-primary transition-all duration-200"
             autoComplete="off"
