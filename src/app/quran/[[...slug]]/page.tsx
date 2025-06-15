@@ -151,7 +151,7 @@ export default async function QuranPage({
 
                     {(result.request.type === "chapter" || result.request.type === "verse" || result.request.type === "verse_range") && (
                         <div className="flex flex-wrap items-center gap-2 justify-between">
-                            <section>
+                            <section className="space-y-1">
                                 <p className="text-muted-foreground tracking-widest">
                                     SURA {result.response.data?.[0]?.chapter_number}
                                 </p>
@@ -159,7 +159,7 @@ export default async function QuranPage({
                                     {result.response.data?.[0]?.chapter_title_english}
                                 </h1>
                             </section>
-                            <section className="hidden md:block">
+                            <section className="space-y-1 hidden md:block">
                                 <p className="text-muted-foreground tracking-widest uppercase">
                                     {result.response.data?.[0]?.chapter_title_transliterated}
                                 </p>
@@ -174,7 +174,7 @@ export default async function QuranPage({
                     {result.request.type === "multiple_verses" && (
                         result.response.data.every(v => v.chapter_number === result.response.data[0].chapter_number) ? (
                             <div className="flex flex-wrap items-center gap-2 justify-between">
-                                <section>
+                                <section className="space-y-1">
                                     <p className="text-muted-foreground tracking-widest">
                                         Chapter {result.response.data?.[0]?.chapter_number} (verses {result.response.data.map(v => v.verse_number).join(", ")})
                                     </p>
@@ -182,7 +182,7 @@ export default async function QuranPage({
                                         {result.response.data?.[0]?.chapter_title_english}
                                     </h1>
                                 </section>
-                                <section className="hidden md:block">
+                                <section className="space-y-1 hidden md:block">
                                     <p className="text-muted-foreground tracking-widest uppercase">
                                         {result.response.data?.[0]?.chapter_title_transliterated}
                                     </p>
@@ -290,9 +290,7 @@ export default async function QuranPage({
                         {decodeURIComponent(result.message) || "Try adjusting your search terms."}
                     </p>
                     <div className="flex justify-center space-x-2">
-                        <Badge variant="outline">Try: &quot;angels&quot;</Badge>
-                        <Badge variant="outline">Try: &quot;2:255&quot;</Badge>
-                        <Badge variant="outline">Try: &quot;1&quot;</Badge>
+                        <Badge variant="outline">Try another query?</Badge>
                     </div>
                 </div>
             )}

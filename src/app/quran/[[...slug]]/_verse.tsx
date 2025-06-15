@@ -8,6 +8,8 @@ import { WQuranVerse, WQuranWordByWord } from "@/types/w-quran";
 import { ExternalLink } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { RootWordView } from "./_rootwordview";
 import Link from "next/link";
 
 export function VerseCard({ verse, requestType }: { verse: WQuranVerse, requestType?: "chapter" | "verse" | "verse_range" | "search" | "multiple_verses" }) {
@@ -179,40 +181,78 @@ const renderHighlightedText = (text?: string | null) => {
     ));
 };
 
-// Tooltip component for word hover
-const WordTooltip = ({ word, children }: { word: WQuranWordByWord; children: React.ReactNode }) => {
+const HoverableArabicText = ({ verse }: { verse: WQuranVerse }) => {
+    if (!verse.word_by_word || verse.word_by_word.length === 0) {
+        return <>{verse.verse_text_arabic}</>;
+    }
+
+    return (
+        <span className="select-text">
+            {verse.word_by_word.map((word, index) => (
+                <span key={index}>
+                    <WordTooltip word={word}>
+                        <span>{word.arabic_text}</span>
+                    </WordTooltip>
+                    {index < (verse.word_by_word?.length ?? 0) - 1 && '\u00A0'}
+                </span>
+            ))}
+        </span>
+    );
+};
+
+
+export const WordTooltip = ({ word, children }: { word: WQuranWordByWord; children: React.ReactNode }) => {
     const [isVisible, setIsVisible] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
     const handleMouseEnter = () => {
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-            setTimeoutId(null);
-        }
-        setIsVisible(true);
+        if (timeoutId) clearTimeout(timeoutId);
+        if (!modalOpen) setIsVisible(true);
     };
 
     const handleMouseLeave = () => {
-        const id = setTimeout(() => {
-            setIsVisible(false);
-        }, 57); // 200ms delay before hiding
+        const id = setTimeout(() => setIsVisible(false), 57);
         setTimeoutId(id);
     };
 
+    const handleClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (word.root_word && !modalOpen) {
+            setIsVisible(false);
+            setModalOpen(true);
+        }
+    };
+
+    const handleOpenChange = (open: boolean) => {
+        setModalOpen(open);
+        if (!open) {
+            // Small delay to prevent immediate reopening
+            setTimeout(() => {
+                // Reset states when dialog closes
+            }, 100);
+        }
+    };
+
     return (
-        <div className="relative inline-block overflow-visible">
-            <span
-                className="cursor-pointer hover:bg-violet-100 dark:hover:bg-violet-900 p-1 rounded transition-colors"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-            >
+        <div
+            className="relative inline-block overflow-visible"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
+        >
+            <span className="cursor-pointer hover:bg-violet-100 dark:hover:bg-violet-900 p-1 rounded transition-colors">
                 {children}
             </span>
-            {isVisible && (
+
+            {/* Hover Tooltip */}
+            {isVisible && !modalOpen && (
                 <div
                     className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 bg-white dark:bg-violet-100 text-white dark:text-violet-900 text-xs rounded p-1 shadow-lg z-10 select-text"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    onClick={(e) => e.stopPropagation()}
                 >
                     <div className="space-y-1 p-1">
                         <div className="text-gray-600 dark:text-gray-600 text-center text-xs" dir="ltr">{word.transliteration}</div>
@@ -225,25 +265,13 @@ const WordTooltip = ({ word, children }: { word: WQuranWordByWord; children: Rea
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-100"></div>
                 </div>
             )}
+
+            {/* Clickable Dialog */}
+            <Dialog open={modalOpen} onOpenChange={handleOpenChange}>
+                <DialogContent className="max-w-md">
+                    <RootWordView root={word.root_word!} />
+                </DialogContent>
+            </Dialog>
         </div>
-    );
-};
-
-const HoverableArabicText = ({ verse }: { verse: WQuranVerse }) => {
-    if (!verse.word_by_word || verse.word_by_word.length === 0) {
-        return <>{verse.verse_text_arabic}</>;
-    }
-
-    return (
-        <span dir="rtl" className="select-text">
-            {verse.word_by_word.map((word, index) => (
-                <span key={index}>
-                    <WordTooltip word={word}>
-                        <span>{word.arabic_text}</span>
-                    </WordTooltip>
-                    {index < (verse.word_by_word?.length ?? 0) - 1 && '\u00A0'}
-                </span>
-            ))}
-        </span>
     );
 };

@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { useState, useEffect, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { parseQuranQuery } from "@/utils/parse-quran-query";
 import { Button } from "@/components/ui/button";
 import { Search, Book, Hash, FileText, RefreshCcw } from "lucide-react";
@@ -27,6 +27,7 @@ export default function SearchBar() {
   const timeout = useRef<NodeJS.Timeout>();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (timeout.current) clearTimeout(timeout.current);
@@ -126,7 +127,7 @@ export default function SearchBar() {
         <div className="flex items-center gap-1">
           <Button
             type="button"
-            variant="ghost"
+            variant="secondary"
             size="sm"
             className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-foreground"
             onClick={() => {
@@ -139,7 +140,7 @@ export default function SearchBar() {
           </Button>
           <Button
             type="button"
-            variant="ghost"
+            variant="secondary"
             size="sm"
             className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-foreground"
             onClick={() => {
@@ -177,9 +178,8 @@ export default function SearchBar() {
               <Button
                 type="button"
                 variant="ghost"
-                className={`w-full justify-start px-4 py-3 h-auto text-left rounded-none hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
-                  highlighted ? "bg-gray-50 dark:bg-gray-700" : ""
-                }`}
+                className={`w-full justify-start px-4 py-3 h-auto text-left rounded-none hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${highlighted ? "bg-gray-50 dark:bg-gray-700" : ""
+                  }`}
                 onClick={() => {
                   router.push(suggestion.url);
                   reset();
@@ -208,7 +208,7 @@ export default function SearchBar() {
           </div>
         )}
 
-        {!query.trim() && !showSuggestions && searchParams.size === 0 && (
+        {!query.trim() && !showSuggestions && searchParams.size === 0 && pathname === '/quran' && (
           <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2">
             {[
               { text: "Chapter 13", query: "13", icon: Book },
