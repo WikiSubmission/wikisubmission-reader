@@ -92,8 +92,8 @@ export function RootWordView({ root }: { root: string }) {
                                                     {entry.transliterated_text}
                                                 </p>
                                             </div>
-                                            <div>
-                                                <p className="text-right text-sm text-primary" dir="rtl">
+                                            <div className="text-right">
+                                                <p className="text-sm text-primary" dir="rtl">
                                                     {entry.arabic_text}
                                                 </p>
                                                 <p className="text-xs text-muted-foreground" dir="ltr">
