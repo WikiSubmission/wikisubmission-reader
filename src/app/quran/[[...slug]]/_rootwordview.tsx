@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Hash } from "lucide-react";
 import Link from "next/link";
 
 export function RootWordView({ root }: { root: string }) {
-    const [data, setData] = useState<{ verse_id: string; word_index: number }[] | null>(null);
+    const [data, setData] = useState<{ verse_id: string; word_index: number, english_text: string; arabic_text: string; transliterated_text: string }[] | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -46,6 +46,7 @@ export function RootWordView({ root }: { root: string }) {
 
             <CardContent className="pt-0">
                 {loading ? (
+                    // Loading animation.
                     <div className="animate-pulse space-y-2">
                         <div className="h-3 bg-muted rounded w-3/4"></div>
                         <div className="space-y-2">
@@ -61,12 +62,12 @@ export function RootWordView({ root }: { root: string }) {
                         </div>
                     </div>
                 ) : error ? (
-                    <p className="text-xs text-destructive">{error}</p>
+                    <p className="text-xs text-destructive">No data found for this root word</p>
                 ) : data && data.length > 0 ? (
                     <div className="space-y-2">
                         <div className="max-h-60 overflow-y-auto">
                             <p className="text-xs text-muted-foreground">
-                                {data.length} instance{data.length !== 1 ? 's' : ''} with this root:
+                                <strong>{data.length}</strong> instance{data.length !== 1 ? 's' : ''} with this root:
                             </p>
                             <div className="space-y-1">
                                 {data.map((entry, idx) => (
@@ -76,19 +77,29 @@ export function RootWordView({ root }: { root: string }) {
                                         className="flex items-center gap-2 p-2 rounded hover:bg-muted/50 transition-colors group cursor-pointer block"
                                     >
                                         <div className="flex-shrink-0">
-                                            <div className="w-5 h-5 bg-primary/10 rounded-full flex items-center justify-center">
+                                            <div className="w-7 h-7 bg-primary/10 rounded-full flex items-center justify-center">
                                                 <span className="text-xs font-medium text-primary">
                                                     {idx + 1}
                                                 </span>
                                             </div>
                                         </div>
-                                        <div className="flex-1 min-w-0">
-                                            <div className="text-xs font-medium text-primary hover:text-primary/80 transition-colors">
-                                                {entry.verse_id}
+                                        <div className="flex-1 min-w-0 flex items-center justify-between">
+                                            <div>
+                                                <div className="text-xs font-medium text-primary hover:text-primary/80 transition-colors">
+                                                    {entry.verse_id}<span className="text-muted-foreground"> (word #{entry.word_index + 1})</span>
+                                                </div>
+                                                <p className="text-xs text-muted-foreground">
+                                                    {entry.transliterated_text}
+                                                </p>
                                             </div>
-                                            {/* <p className="text-xs text-muted-foreground">
-                                                Word #{entry.word_index + 1}
-                                            </p> */}
+                                            <div>
+                                                <p className="text-right text-sm text-primary" dir="rtl">
+                                                    {entry.arabic_text}
+                                                </p>
+                                                <p className="text-xs text-muted-foreground" dir="ltr">
+                                                    {entry.english_text}
+                                                </p>
+                                            </div>
                                         </div>
                                         <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <div className="w-3 h-3 text-muted-foreground text-xs">
@@ -98,12 +109,6 @@ export function RootWordView({ root }: { root: string }) {
                                     </Link>
                                 ))}
                             </div>
-                        </div>
-
-                        <div className="pt-2 border-t">
-                            <p className="text-xs text-muted-foreground text-center">
-                                UNDER DEVELOPMENT
-                            </p>
                         </div>
                     </div>
                 ) : (
