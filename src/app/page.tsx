@@ -16,13 +16,12 @@ export default function HomePage() {
         </section>
         <div className="animate-fade-in animation-delay-400">
           <Image
-            src="https://library.wikisubmission.org/file/godalone.gif"
+            src="/god-alone.gif"
             alt="WikiSubmission"
             className="rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
             width={200}
             height={200}
             priority
-            unoptimized
           />
         </div>
 
