@@ -32,15 +32,12 @@ export function RootWordView({ root }: { root: string }) {
         <Card className="w-full max-w-md mt-2 mr-2">
             <CardHeader className="pb-2 pr-10">
                 <div className="flex items-center justify-between">
-                    <div>
-                        <CardTitle className="flex items-center gap-2 text-base">
-                            Root
-                        </CardTitle>
-                        <p className="text-xl text-muted-foreground mt-1">
-                            <span className="font-arabic font-medium text-primary">{root}</span>
-                        </p>
-                    </div>
-
+                    <CardTitle className="flex items-center gap-2 text-base">
+                        Root
+                    </CardTitle>
+                    <p className="text-xl text-muted-foreground mt-1 text-right" dir="rtl">
+                        <span className="font-medium text-primary">{root}</span>
+                    </p>
                 </div>
             </CardHeader>
 
@@ -73,7 +70,7 @@ export function RootWordView({ root }: { root: string }) {
                                 {data.map((entry, idx) => (
                                     <Link
                                         key={idx}
-                                        href={`/quran/${entry.verse_id}`}
+                                        href={`/quran/${entry.verse_id}?word=${entry.word_index}`}
                                         className="flex items-center gap-2 p-2 rounded hover:bg-muted/50 transition-colors group cursor-pointer block"
                                     >
                                         <div className="flex-shrink-0">

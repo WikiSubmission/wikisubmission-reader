@@ -19,6 +19,8 @@ export function VerseCard({ verse, requestType }: { verse: WQuranVerse, requestT
     const settings = useQuranSettings();
     const searchParams = useSearchParams();
     const verseSearchParam = searchParams.get("verse");
+    const wordSearchParam = searchParams.get("word");
+    const wordIndexToHighlight = wordSearchParam ? parseInt(wordSearchParam, 10) : null;
 
     useEffect(() => {
         if (verse && verse.verse_number.toString() === verseSearchParam) {
@@ -115,7 +117,7 @@ export function VerseCard({ verse, requestType }: { verse: WQuranVerse, requestT
                 {/* Arabic Text */}
                 {settings.settings.showArabic && (
                     <div className="text-2xl leading-relaxed font-arabic text-gray-900 dark:text-gray-100 text-right" dir="rtl">
-                        <HoverableArabicText verse={verse} />
+                        <HoverableArabicText verse={verse} highlightWordIndex={wordIndexToHighlight} />
                     </div>
                 )}
                 {settings.settings.showTransliteration && (
@@ -181,7 +183,24 @@ const renderHighlightedText = (text?: string | null) => {
     ));
 };
 
-const HoverableArabicText = ({ verse }: { verse: WQuranVerse }) => {
+const HoverableArabicText = ({
+    verse,
+    highlightWordIndex,
+}: {
+    verse: WQuranVerse;
+    highlightWordIndex?: number | null;
+}) => {
+
+    const [fade, setFade] = useState(false);
+
+    useEffect(() => {
+        if (highlightWordIndex !== undefined) {
+            // Trigger fade after short delay
+            const timeout = setTimeout(() => setFade(true), 1500);
+            return () => clearTimeout(timeout);
+        }
+    }, [highlightWordIndex]);
+
     if (!verse.word_by_word || verse.word_by_word.length === 0) {
         return <>{verse.verse_text_arabic}</>;
     }
@@ -191,9 +210,13 @@ const HoverableArabicText = ({ verse }: { verse: WQuranVerse }) => {
             {verse.word_by_word.map((word, index) => (
                 <span key={index}>
                     <WordTooltip word={word}>
-                        <span>{word.arabic_text}</span>
+                        <span
+                            className={highlightWordIndex === index ? "bg-yellow-300 dark:bg-yellow-800 rounded-lg p-1 transition-all" : ""}
+                        >
+                            {word.arabic_text}
+                        </span>
                     </WordTooltip>
-                    {index < (verse.word_by_word?.length ?? 0) - 1 && '\u00A0'}
+                    {index < (verse.word_by_word?.length ?? 0) - 1 && "\u00A0"}
                 </span>
             ))}
         </span>
