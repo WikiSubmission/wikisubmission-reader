@@ -200,8 +200,13 @@ const HoverableArabicText = ({ verse }: { verse: WQuranVerse }) => {
     );
 };
 
-
-export const WordTooltip = ({ word, children }: { word: WQuranWordByWord; children: React.ReactNode }) => {
+export const WordTooltip = ({
+    word,
+    children,
+}: {
+    word: WQuranWordByWord;
+    children: React.ReactNode;
+}) => {
     const [isVisible, setIsVisible] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
@@ -228,10 +233,8 @@ export const WordTooltip = ({ word, children }: { word: WQuranWordByWord; childr
     const handleOpenChange = (open: boolean) => {
         setModalOpen(open);
         if (!open) {
-            // Small delay to prevent immediate reopening
-            setTimeout(() => {
-                // Reset states when dialog closes
-            }, 100);
+            setIsVisible(false);
+            if (timeoutId) clearTimeout(timeoutId);
         }
     };
 
@@ -240,9 +243,11 @@ export const WordTooltip = ({ word, children }: { word: WQuranWordByWord; childr
             className="relative inline-block overflow-visible"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            onClick={handleClick}
         >
-            <span className="cursor-pointer hover:bg-violet-100 dark:hover:bg-violet-900 p-1 rounded transition-colors">
+            <span
+                className="cursor-pointer hover:bg-violet-100 dark:hover:bg-violet-900 p-1 rounded transition-colors"
+                onClick={handleClick}
+            >
                 {children}
             </span>
 
@@ -255,11 +260,19 @@ export const WordTooltip = ({ word, children }: { word: WQuranWordByWord; childr
                     onClick={(e) => e.stopPropagation()}
                 >
                     <div className="space-y-1 p-1">
-                        <div className="text-gray-600 dark:text-gray-600 text-center text-xs" dir="ltr">{word.transliteration}</div>
-                        <div className="text-gray-600 dark:text-gray-600 text-center text-xs" dir="ltr">{word.transliterated_text}</div>
-                        <div className="font-semibold text-lg text-center text-primary dark:text-secondary" dir="ltr">{word.english_text}</div>
+                        <div className="text-gray-600 dark:text-gray-600 text-center text-xs" dir="ltr">
+                            {word.transliteration}
+                        </div>
+                        <div className="text-gray-600 dark:text-gray-600 text-center text-xs" dir="ltr">
+                            {word.transliterated_text}
+                        </div>
+                        <div className="font-semibold text-lg text-center text-primary dark:text-secondary" dir="ltr">
+                            {word.english_text}
+                        </div>
                         {word.root_word && (
-                            <div className="text-gray-400 dark:text-gray-500 text-xs text-center font-arabic" dir="rtl">{word.root_word}</div>
+                            <div className="text-gray-400 dark:text-gray-500 text-xs text-center font-arabic" dir="rtl">
+                                {word.root_word}
+                            </div>
                         )}
                     </div>
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-100"></div>
