@@ -153,19 +153,19 @@ export default async function QuranPage({
 
                     {(result.request.type === "chapter" || result.request.type === "verse" || result.request.type === "verse_range") && (
                         <div className="flex flex-wrap items-center gap-2 justify-between">
-                            <section className="space-y-1">
-                                <p className="text-muted-foreground tracking-widest">
+                            <section>
+                                <p className="text-muted-foreground font-light tracking-widest">
                                     SURA {result.response.data?.[0]?.chapter_number}
                                 </p>
-                                <h1 className="text-4xl font-bold">
+                                <h1 className="text-xl font-bold">
                                     {result.response.data?.[0]?.chapter_title_english}
                                 </h1>
                             </section>
-                            <section className="space-y-1 hidden md:block">
-                                <p className="text-muted-foreground tracking-widest uppercase">
+                            <section className="hidden md:block">
+                                <p className="text-muted-foreground font-light tracking-widest uppercase">
                                     {result.response.data?.[0]?.chapter_title_transliterated}
                                 </p>
-                                <h1 className="text-4xl font-bold text-right">
+                                <h1 className="text-xl font-bold text-right">
                                     {result.response.data?.[0]?.chapter_title_arabic}
                                 </h1>
                             </section>
