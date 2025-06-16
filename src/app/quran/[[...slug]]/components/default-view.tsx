@@ -1,14 +1,11 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardHeader,
   CardTitle,
-  CardContent,
   CardDescription,
 } from "@/components/ui/card";
 import { Data } from "@/data";
-import { Hash } from "lucide-react";
 import Link from "next/link";
 
 export default function DefaultView() {
@@ -22,7 +19,7 @@ export default function DefaultView() {
       </section>
 
       <section className="space-y-4 text-center">
-        <section className="space-y-2">
+        <section className="space-y-2 grid md:grid-cols-2">
           <Link
             href="https://library.wikisubmission.org/file/quran-the-final-testament-introduction"
             target="_blank"
@@ -31,8 +28,16 @@ export default function DefaultView() {
               Introduction
             </Button>
           </Link>
+          <Link
+            href="https://library.wikisubmission.org/file/quran-the-final-testament"
+            target="_blank"
+          >
+            <Button variant="default" className="w-full md:w-3/6">
+              PDF
+            </Button>
+          </Link>
         </section>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-2">
           {Data.Chapters.map((chapter) => (
             <Link
               key={chapter.chapter_number}
@@ -55,29 +60,6 @@ export default function DefaultView() {
               </Card>
             </Link>
           ))}
-        </div>
-      </section>
-
-      <section className="space-y-6">
-        <div className="grid md:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Hash className="h-5 w-5" />
-                Downloads
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <p className="text-sm text-muted-foreground">
-                Access PDFs and other formats.
-              </p>
-              <div className="flex space-x-2">
-                <a href="/downloads">
-                  <Badge variant="default">Downloads →</Badge>
-                </a>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </section>
     </main>
