@@ -42,8 +42,8 @@ export async function generateMetadata(
       images: [
         {
           url: `https://library.wikisubmission.org/file/logo.png`,
-          width: 250,
-          height: 250,
+          width: 150,
+          height: 150,
           alt: `${parsedQuranQuery.raw_query}`,
         },
       ],
