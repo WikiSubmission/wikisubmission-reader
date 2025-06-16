@@ -11,11 +11,7 @@
     "sheet",
     "tooltip"
   ],
-  "dependencies": [
-    "immer",
-    "zustand",
-    "next-themes"
-  ],
+  "dependencies": ["immer", "zustand", "next-themes"],
   "tailwind": {
     "config": {
       "theme": {

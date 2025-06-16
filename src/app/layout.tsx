@@ -11,7 +11,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Suspense } from "react";
 import { LoadingIcon } from "@/components/ui/loading-icon";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -19,13 +19,13 @@ export const metadata: Metadata = {
       ? `${process.env.APP_URL}`
       : process.env.VERCEL_URL
         ? `https://${process.env.VERCEL_URL}`
-        : `http://localhost:${process.env.PORT || 3000}`
+        : `http://localhost:${process.env.PORT || 3000}`,
   ),
   title: "WikiSubmission",
   description:
     "Access The Final Testament. A free and open-source platform for Submission.",
   alternates: {
-    canonical: "/"
+    canonical: "/",
   },
   openGraph: {
     url: "/",
@@ -38,14 +38,14 @@ export const metadata: Metadata = {
         url: "https://library.wikisubmission.org/file/logo.png",
         width: 250,
         height: 250,
-        alt: "WikiSubmission Logo"
-      }
-    ]
+        alt: "WikiSubmission Logo",
+      },
+    ],
   },
 };
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {

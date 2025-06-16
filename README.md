@@ -6,7 +6,7 @@ Source code for [reader.wikisubmission.org](https://reader.wikisubmission.org).
 
 Clone the repository with `git clone git@github.com:wikisubmission/wikisubmission-reader`.
 
-Run `npm install` to install dependencies. 
+Run `npm install` to install dependencies.
 
 Launch the site locally with `npm run dev` on port 3000.
 

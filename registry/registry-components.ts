@@ -39,7 +39,7 @@ export const ui: Registry = [
       "dropdown-menu",
       "scroll-area",
       "sheet",
-      "tooltip"
+      "tooltip",
     ],
     dependencies: ["immer", "zustand", "next-themes"],
     tailwind: {
@@ -49,31 +49,31 @@ export const ui: Registry = [
             keyframes: {
               "accordion-down": {
                 from: { height: "0" },
-                to: { height: "var(--radix-accordion-content-height)" }
+                to: { height: "var(--radix-accordion-content-height)" },
               },
               "accordion-up": {
                 from: { height: "var(--radix-accordion-content-height)" },
-                to: { height: "0" }
+                to: { height: "0" },
               },
               "collapsible-down": {
                 from: { height: "0" },
-                to: { height: "var(--radix-collapsible-content-height)" }
+                to: { height: "var(--radix-collapsible-content-height)" },
               },
               "collapsible-up": {
                 from: { height: "var(--radix-collapsible-content-height)" },
-                to: { height: "0" }
-              }
+                to: { height: "0" },
+              },
             },
             animation: {
               "accordion-down": "accordion-down 0.2s ease-out",
               "accordion-up": "accordion-up 0.2s ease-out",
               "collapsible-down": "collapsible-down 0.2s ease-out",
-              "collapsible-up": "collapsible-up 0.2s ease-out"
-            }
-          }
-        }
-      }
+              "collapsible-up": "collapsible-up 0.2s ease-out",
+            },
+          },
+        },
+      },
     },
-    files: [...hooks, ...components, "lib/menu-list.ts"]
-  }
+    files: [...hooks, ...components, "lib/menu-list.ts"],
+  },
 ];

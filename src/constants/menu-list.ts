@@ -41,7 +41,6 @@ export function getMenuList(pathname: string): Group[] {
         icon: FileDown,
         submenus: [],
       },
-
     ],
   };
 

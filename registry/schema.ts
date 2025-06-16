@@ -8,9 +8,9 @@ export const blockChunkSchema = z.object({
   code: z.string().optional(),
   container: z
     .object({
-      className: z.string().nullish()
+      className: z.string().nullish(),
     })
-    .optional()
+    .optional(),
 });
 
 export const registryItemTypeSchema = z.enum([
@@ -22,7 +22,7 @@ export const registryItemTypeSchema = z.enum([
   "registry:ui",
   "registry:hook",
   "registry:theme",
-  "registry:page"
+  "registry:page",
 ]);
 
 export const registryItemFileSchema = z.union([
@@ -31,21 +31,21 @@ export const registryItemFileSchema = z.union([
     path: z.string(),
     content: z.string().optional(),
     type: registryItemTypeSchema,
-    target: z.string().optional()
-  })
+    target: z.string().optional(),
+  }),
 ]);
 
 export const registryItemTailwindSchema = z.object({
   config: z.object({
     content: z.array(z.string()).optional(),
     theme: z.record(z.string(), z.any()).optional(),
-    plugins: z.array(z.string()).optional()
-  })
+    plugins: z.array(z.string()).optional(),
+  }),
 });
 
 export const registryItemCssVarsSchema = z.object({
   light: z.record(z.string(), z.string()).optional(),
-  dark: z.record(z.string(), z.string()).optional()
+  dark: z.record(z.string(), z.string()).optional(),
 });
 
 export const registryEntrySchema = z.object({
@@ -62,7 +62,7 @@ export const registryEntrySchema = z.object({
   category: z.string().optional(),
   subcategory: z.string().optional(),
   chunks: z.array(blockChunkSchema).optional(),
-  docs: z.string().optional()
+  docs: z.string().optional(),
 });
 
 export const registrySchema = z.array(registryEntrySchema);
@@ -78,11 +78,11 @@ export const blockSchema = registryEntrySchema.extend({
   container: z
     .object({
       height: z.string().nullish(),
-      className: z.string().nullish()
+      className: z.string().nullish(),
     })
     .optional(),
   code: z.string(),
-  highlightedCode: z.string()
+  highlightedCode: z.string(),
 });
 
 export type Block = z.infer<typeof blockSchema>;
