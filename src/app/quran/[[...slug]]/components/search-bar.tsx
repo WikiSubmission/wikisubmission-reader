@@ -10,8 +10,8 @@ import { Search, Book, Hash, FileText, RefreshCcw } from "lucide-react";
 function toReadableURL(query: string) {
   return query
     .trim()
-    .replace(/[^a-zA-Z0-9:\-\s]/g, "") // remove unsafe chars but keep :, -, space
-    .replace(/\s+/g, "+"); // convert space to +
+    .replace(/[^a-zA-Z0-9:\-,\s]/g, "") // allow colon, dash, comma, space
+    .replace(/\s+/g, "+");
 }
 
 export default function SearchBar() {
