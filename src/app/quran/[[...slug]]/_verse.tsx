@@ -96,7 +96,7 @@ export function VerseCard({ verse, requestType }: { verse: WQuranVerse, requestT
                         </span>
                     </div>
                 </div>
-                {settings.settings.showSubtitles && verse.verse_subtitle_english && (
+                {settings.settings.showSubtitles && verse.verse_subtitle_english && verse.verse_subtitle_english !== "null" && (
                     <div className="mt-2 p-2 rounded text-sm font-medium text-center italic text-violet-600 dark:text-violet-400">
                         {renderHighlightedText(verse.verse_subtitle_english)}
                     </div>
@@ -127,7 +127,7 @@ export function VerseCard({ verse, requestType }: { verse: WQuranVerse, requestT
                 )}
 
                 {/* Footnote */}
-                {settings.settings.showFootnotes && verse.verse_footnote_english && (
+                {settings.settings.showFootnotes && verse.verse_footnote_english && verse.verse_footnote_english !== "null" && (
                     <div className="mt-4 p-3 bg-violet-50 dark:bg-violet-950 rounded border-l-4 border-gray-500">
                         <div className="text-xs text-grey-600 italic">
                             {renderHighlightedText(verse.verse_footnote_english)}
