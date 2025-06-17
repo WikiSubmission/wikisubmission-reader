@@ -91,7 +91,11 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
           </section>
           <section className="space-y-4">
             {result.response.data.map((verse) => (
-              <VerseCard key={verse.verse_id} verse={verse} type={result.request.type} />
+              <VerseCard
+                key={verse.verse_id}
+                verse={verse}
+                type={result.request.type}
+              />
             ))}
           </section>
           <section>

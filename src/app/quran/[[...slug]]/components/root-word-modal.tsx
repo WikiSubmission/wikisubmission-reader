@@ -10,12 +10,12 @@ import Link from "next/link";
 export function RootWordView({ root }: { root: string }) {
   const [data, setData] = useState<
     | {
-      verse_id: string;
-      word_index: number;
-      english_text: string;
-      arabic_text: string;
-      transliterated_text: string;
-    }[]
+        verse_id: string;
+        word_index: number;
+        english_text: string;
+        arabic_text: string;
+        transliterated_text: string;
+      }[]
     | null
   >(null);
   const [loading, setLoading] = useState(true);
@@ -140,10 +140,7 @@ export function RootWordView({ root }: { root: string }) {
             </div>
             <h3 className="text-sm font-medium mb-1">No verses found</h3>
             <p className="text-xs text-muted-foreground">
-              No verses contain{" "}
-              <span dir="rtl">
-                {root}
-              </span>
+              No verses contain <span dir="rtl">{root}</span>
             </p>
           </div>
         )}

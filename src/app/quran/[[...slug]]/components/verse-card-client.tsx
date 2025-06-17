@@ -16,7 +16,13 @@ import CopyVerseButton from "./verse-buttons/copy-verse-button";
 import PlayVerseButton from "./verse-buttons/play-verse-button";
 import ContextButton from "./verse-buttons/context-button";
 
-export default function VerseCardClient({ verse, type }: { verse: WQuranVerse, type: WResult["request"]["type"] }) {
+export default function VerseCardClient({
+  verse,
+  type,
+}: {
+  verse: WQuranVerse;
+  type: WResult["request"]["type"];
+}) {
   const [hovering, setHovering] = useState(false);
 
   return (
