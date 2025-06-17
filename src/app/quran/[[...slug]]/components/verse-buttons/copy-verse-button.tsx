@@ -60,7 +60,7 @@ export default function CopyVerseButton({ verse }: CopyVerseButtonProps) {
       onClick={copyToClipboard}
     >
       {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-      {copied ? "Copied!" : "Copy Text"}
+      {copied ? "Copied!" : ""}
     </Button>
   );
 }

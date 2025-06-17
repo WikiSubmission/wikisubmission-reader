@@ -34,12 +34,6 @@ export default function PlayVerseButton({ verse }: PlayVerseButtonProps) {
     return <Play className="w-3 h-3" />;
   };
 
-  const getLabel = () => {
-    if (isLoading) return "Loading...";
-    if (isPlaying) return "Pause";
-    return "Play Audio";
-  };
-
   return (
     <Button
       variant="secondary"
@@ -49,7 +43,6 @@ export default function PlayVerseButton({ verse }: PlayVerseButtonProps) {
       disabled={isLoading}
     >
       {getIcon()}
-      {getLabel()}
     </Button>
   );
 }
