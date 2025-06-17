@@ -1,4 +1,4 @@
-// TODO: Move fetching to server. 
+// TODO: Move fetching to server.
 
 "use client";
 

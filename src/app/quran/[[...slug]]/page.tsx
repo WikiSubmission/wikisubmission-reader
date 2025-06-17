@@ -11,6 +11,7 @@ import FooterSection from "./components/footer-section";
 import HeaderSection from "./components/header-section";
 import UtilitySection from "./components/utility-section";
 import VerseCard from "./components/verse-card";
+import AudioPlayer from "./components/audio-player";
 
 export { generateMetadata } from "./metadata";
 
@@ -81,20 +82,23 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
   // [Render results]
   if (result.response.data.length > 0) {
     return (
-      <main className="space-y-2">
-        <section className="space-y-4">
-          <UtilitySection result={result} />
-          <HeaderSection data={result} />
-        </section>
-        <section className="space-y-4">
-          {result.response.data.map((verse) => (
-            <VerseCard key={verse.verse_id} verse={verse} />
-          ))}
-        </section>
-        <section>
-          <FooterSection data={result} />
-        </section>
-      </main>
+      <>
+        <main className="space-y-2">
+          <section className="space-y-4">
+            <UtilitySection result={result} />
+            <HeaderSection data={result} />
+          </section>
+          <section className="space-y-4">
+            {result.response.data.map((verse) => (
+              <VerseCard key={verse.verse_id} verse={verse} />
+            ))}
+          </section>
+          <section>
+            <FooterSection data={result} />
+          </section>
+        </main>
+        <AudioPlayer />
+      </>
     );
   } else {
     // [No results found]

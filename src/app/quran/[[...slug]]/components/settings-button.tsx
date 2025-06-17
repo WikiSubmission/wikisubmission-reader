@@ -16,7 +16,10 @@ export default function QuranSettingsButton() {
     <div>
       <Popover>
         <PopoverTrigger className="hover:bg-muted rounded-full">
-          <Badge variant="secondary" className="flex items-center gap-1">
+          <Badge
+            variant="secondary"
+            className="flex items-center gap-1 h-6 px-2"
+          >
             <SettingsIcon className="h-3 w-3 text-violet-500 dark:text-violet-700" />
             <span className="text-xs">Settings</span>
           </Badge>

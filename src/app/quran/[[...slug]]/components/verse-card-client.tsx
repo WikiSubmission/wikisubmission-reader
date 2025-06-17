@@ -1,0 +1,59 @@
+"use client";
+
+import { useState } from "react";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { WQuranVerse } from "@/types/w-quran";
+import { Separator } from "@/components/ui/separator";
+import VerseId from "./verse-components/verse-id";
+import VerseTextPrimary from "./verse-components/verse-text-primary";
+import VerseTextArabic from "./verse-components/verse-text-arabic";
+import VerseTextTransliterated from "./verse-components/verse-text-transliterated";
+import VerseWordByWord from "./verse-components/verse-word-by-word";
+import VerseSubtitle from "./verse-components/verse-subtitle";
+import VerseFootnote from "./verse-components/verse-footnote";
+import CopyVerseButton from "./verse-buttons/copy-verse-button";
+import PlayVerseButton from "./verse-buttons/play-verse-button";
+
+export default function VerseCardClient({ verse }: { verse: WQuranVerse }) {
+  const [hovering, setHovering] = useState(false);
+
+  return (
+    <Card
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+    >
+      <CardHeader className="relative">
+        <section className="flex items-center justify-between">
+          {/* Verse ID */}
+          <VerseId verse={verse} />
+          {/* Buttons: shows only on hover */}
+          {hovering && (
+            <div className="flex gap-2">
+              <PlayVerseButton verse={verse} />
+              <CopyVerseButton verse={verse} />
+            </div>
+          )}
+        </section>
+      </CardHeader>
+      <CardContent>
+        <section className="space-y-4">
+          {/* Subtitle */}
+          <VerseSubtitle verse={verse} />
+          {/* Primary Text */}
+          <VerseTextPrimary verse={verse} />
+          {/* Line Separator */}
+          <Separator />
+          {/* Arabic Text */}
+          <VerseTextArabic verse={verse} />
+          {/* Transliteration */}
+          <VerseTextTransliterated verse={verse} />
+          {/* Footnote */}
+          <VerseFootnote verse={verse} />
+          {/* Word-by-word */}
+          <VerseWordByWord verse={verse} />
+        </section>
+      </CardContent>
+    </Card>
+  );
+}

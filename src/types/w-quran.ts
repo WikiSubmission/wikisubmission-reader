@@ -2,6 +2,7 @@ export type WQuranVerse = {
   verse_id: string;
   chapter_number: number;
   verse_number: number;
+  verse_index: number;
   chapter_title_english: string;
   chapter_title_arabic: string;
   chapter_title_transliterated: string;

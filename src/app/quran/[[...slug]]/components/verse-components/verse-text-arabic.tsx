@@ -18,7 +18,7 @@ export default function VerseTextArabic({ verse }: { verse: WQuranVerse }) {
   if (quranSettings.settings.showArabic) {
     return (
       <section>
-        <p
+        <div
           className="text-2xl leading-relaxed font-arabic text-gray-900 dark:text-gray-100 text-right"
           dir="rtl"
         >
@@ -26,7 +26,7 @@ export default function VerseTextArabic({ verse }: { verse: WQuranVerse }) {
             verse={verse}
             highlightWordIndex={wordIndexToHighlight}
           />
-        </p>
+        </div>
       </section>
     );
   }

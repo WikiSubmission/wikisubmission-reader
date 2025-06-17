@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { WQuranAPIResponse } from "@/types/w-quran";
 import { stringifyRequestType } from "@/utils/stringify-request-type";
 import QuranSettingsButton from "./settings-button";
+import PlayAllButton from "./play-all-button";
 
 export default function UtilitySection({
   result,
@@ -28,7 +29,9 @@ export default function UtilitySection({
         )}
       </section>
       {/* Right side */}
-      <section>
+      <section className="flex gap-2 items-center">
+        {/* [Button: Play All] */}
+        <PlayAllButton verses={result.response.data} />
         {/* [Button: Settings] */}
         <QuranSettingsButton />
       </section>
