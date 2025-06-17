@@ -3,7 +3,7 @@ import VerseCardClient from "./verse-card-client";
 
 export default function VerseCard({ verse }: { verse: WQuranVerse }) {
   return (
-    <main>
+    <main id={verse.verse_id}>
       <VerseCardClient verse={verse} />
     </main>
   );
