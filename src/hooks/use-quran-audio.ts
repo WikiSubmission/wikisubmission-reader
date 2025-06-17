@@ -34,7 +34,7 @@ type QuranAudioState = {
 
 type QuranAudioActions = {
   // Settings
-  setReciter: (reciter: QuranReciter) => void;
+  setReciter: (reciter: QuranReciter) => Promise<void>;
   setAutoplay: (autoplay: boolean) => void;
   setVolume: (volume: number) => void;
 
@@ -109,10 +109,38 @@ export const useQuranAudio = create<QuranAudioStore>((set, get) => ({
   onVerseChange: null,
 
   // Settings actions
-  setReciter: (reciter: QuranReciter) => {
-    set((state) => ({
-      settings: { ...state.settings, reciter },
+  setReciter: async (reciter: QuranReciter) => {
+    const state = get();
+
+    // Update the reciter setting
+    set((currentState) => ({
+      settings: { ...currentState.settings, reciter },
     }));
+
+    // If there's a verse currently playing, restart it with the new reciter
+    if (state.currentVerse && state.audioElement) {
+      const currentTime = state.audioElement.currentTime;
+      const wasPlaying = state.isPlaying;
+
+      // Stop the current audio completely first
+      state.audioElement.pause();
+      state.audioElement.currentTime = 0;
+
+      // Restart the current verse with the new reciter
+      const actions = get();
+      await actions.playVerse(state.currentVerse);
+
+      // Restore the playback position and state after audio loads
+      setTimeout(() => {
+        const newState = get();
+        if (newState.audioElement) {
+          newState.audioElement.currentTime = currentTime;
+          if (wasPlaying) {
+            newState.audioElement.play().catch(console.error);
+          }
+        }
+      }, 200); // Small delay to ensure new audio is loaded
+    }
   },
 
   setAutoplay: (autoplay: boolean) => {
