@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useQuranAudio } from "./use-quran-audio";
 import { WQuranVerse } from "@/types/w-quran";
 
 export function useQuranUrlSync() {
-  const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const audio = useQuranAudio();
 
   const handleVerseChange = useCallback(
@@ -34,5 +32,6 @@ export function useQuranUrlSync() {
     return () => {
       audio.setOnVerseChange(null);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleVerseChange]); // Only depend on the stable callback
 }
