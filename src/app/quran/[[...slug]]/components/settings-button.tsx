@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
@@ -15,14 +16,15 @@ export default function QuranSettingsButton() {
   return (
     <div>
       <Popover>
-        <PopoverTrigger className="hover:bg-muted rounded-full">
-          <Badge
+        <PopoverTrigger asChild>
+          <Button
             variant="secondary"
-            className="flex items-center gap-1 h-6 px-2"
+            size="sm"
+            className="flex items-center gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-primary hover:text-foreground"
           >
             <SettingsIcon className="h-3 w-3 text-violet-500 dark:text-violet-700" />
             <span className="text-xs">Settings</span>
-          </Badge>
+          </Button>
         </PopoverTrigger>
         <PopoverContent>
           <div className="space-y-2">

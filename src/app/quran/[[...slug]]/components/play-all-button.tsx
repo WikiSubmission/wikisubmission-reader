@@ -35,7 +35,7 @@ export default function PlayAllButton({ verses }: PlayAllButtonProps) {
     <Button
       variant="secondary"
       size="sm"
-      className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-primary hover:text-foreground"
+      className="flex items-center gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-primary hover:text-foreground"
       onClick={handlePlayAll}
     >
       {getIcon()}
