@@ -26,24 +26,6 @@ export default function HeaderSection({ data }: { data: WQuranAPIResponse }) {
   // [All other requests]
   return (
     <main>
-      {/* Condition: search request */}
-      {/* Displays search query */}
-      {data.request.type === "search" && (
-        <div className="flex flex-wrap items-center gap-2 justify-between">
-          <section>
-            <p className="text-sm text-muted-foreground tracking-widest">
-              <strong className="text-red-500">
-                {data.response.data.length}
-              </strong>{" "}
-              verse{data.response.data.length !== 1 ? "s" : ""} found with{" "}
-              <span className="text-primary text-md font-bold">
-                {data.request.raw_query}
-              </span>
-            </p>
-          </section>
-        </div>
-      )}
-
       {/* Condition: all verses are from the same chapter */}
       {/* Displays chapter number + title (right: English, left: Arabic) */}
       {data.response.data.every(
