@@ -19,8 +19,9 @@ export default async function QuranPage({
   params,
   searchParams,
 }: GlobalPageProps) {
+  const { slug } = await params;
   return (
-    <Suspense fallback={<QuranSkeleton />}>
+    <Suspense key={slug?.join("-")} fallback={<QuranSkeleton />}>
       <QuranContent params={params} searchParams={searchParams} />
     </Suspense>
   );
