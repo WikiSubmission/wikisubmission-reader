@@ -19,7 +19,7 @@ export default function VerseTextArabic({ verse }: { verse: WQuranVerse }) {
     return (
       <section>
         <div
-          className="text-2xl leading-relaxed font-arabic text-gray-900 dark:text-gray-100 text-right"
+          className="text-2xl leading-relaxed text-gray-900 dark:text-gray-100 text-right"
           dir="rtl"
         >
           <HoverableArabicText
@@ -53,14 +53,19 @@ const HoverableArabicText = ({
     return <>{verse.verse_text_arabic}</>;
   }
 
+  // Sort words by word_index to ensure correct order
+  const sortedWords = [...verse.word_by_word].sort(
+    (a, b) => a.word_index - b.word_index,
+  );
+
   return (
     <span className="select-text">
-      {verse.word_by_word.map((word, index) => (
-        <span key={index}>
+      {sortedWords.map((word) => (
+        <span key={word.word_index}>
           <WordTooltip word={word}>
             <span
               className={
-                highlightWordIndex === index
+                highlightWordIndex === word.word_index
                   ? "bg-yellow-300 dark:bg-yellow-800 rounded-lg p-1 transition-all"
                   : ""
               }
@@ -68,7 +73,7 @@ const HoverableArabicText = ({
               {word.arabic_text}
             </span>
           </WordTooltip>
-          {index < (verse.word_by_word?.length ?? 0) - 1 && "\u00A0"}
+          {word.word_index < sortedWords.length - 1 && "\u00A0"}
         </span>
       ))}
     </span>
@@ -155,7 +160,7 @@ export const WordTooltip = ({
             </div>
             {word.root_word && (
               <div
-                className="text-gray-400 dark:text-gray-500 text-xs text-center font-arabic"
+                className="text-gray-400 dark:text-gray-500 text-xs text-center"
                 dir="rtl"
               >
                 {word.root_word}

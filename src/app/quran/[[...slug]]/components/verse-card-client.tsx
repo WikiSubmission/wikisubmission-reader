@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { WQuranVerse } from "@/types/w-quran";
 import { Separator } from "@/components/ui/separator";
+import { WResult } from "@/types/w-result";
 import VerseId from "./verse-components/verse-id";
 import VerseTextPrimary from "./verse-components/verse-text-primary";
 import VerseTextArabic from "./verse-components/verse-text-arabic";
@@ -13,8 +14,9 @@ import VerseSubtitle from "./verse-components/verse-subtitle";
 import VerseFootnote from "./verse-components/verse-footnote";
 import CopyVerseButton from "./verse-buttons/copy-verse-button";
 import PlayVerseButton from "./verse-buttons/play-verse-button";
+import ContextButton from "./verse-buttons/context-button";
 
-export default function VerseCardClient({ verse }: { verse: WQuranVerse }) {
+export default function VerseCardClient({ verse, type }: { verse: WQuranVerse, type: WResult["request"]["type"] }) {
   const [hovering, setHovering] = useState(false);
 
   return (
@@ -29,6 +31,7 @@ export default function VerseCardClient({ verse }: { verse: WQuranVerse }) {
           {/* Buttons: shows only on hover */}
           {hovering && (
             <div className="flex gap-2">
+              <ContextButton verse={verse} type={type} />
               <PlayVerseButton verse={verse} />
               <CopyVerseButton verse={verse} />
             </div>

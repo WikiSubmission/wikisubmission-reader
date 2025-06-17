@@ -1,3 +1,5 @@
+import { WResult } from "./w-result";
+
 export type WQuranVerse = {
   verse_id: string;
   chapter_number: number;
@@ -27,7 +29,7 @@ export type WQuranWordByWord = {
 export interface WQuranAPIResponse {
   message: string;
   request: {
-    type: string;
+    type: WResult["request"]["type"];
     parsed_query: any;
     raw_query: string;
   };
