@@ -15,6 +15,7 @@ export function useQuranUrlSync() {
       const currentParams = new URLSearchParams(window.location.search);
 
       // Update the verse parameter
+      currentParams.set("chapter", `${verse.chapter_number}`);
       currentParams.set("verse", `${verse.verse_number}`);
 
       // Update the URL using History API instead of Next.js router to avoid page refresh
