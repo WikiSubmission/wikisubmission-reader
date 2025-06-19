@@ -7,17 +7,32 @@ import { useEffect, useState } from "react";
 export default function VerseId({ verse }: { verse: WQuranVerse }) {
   const [isHighlighted, setIsHighlighted] = useState(false);
   const verseSearchParam = useSearchParams().get("verse");
+  const chapterSearchParam = useSearchParams().get("chapter"); // optional
 
   useEffect(() => {
-    if (verse.verse_number.toString() === verseSearchParam) {
-      const element = document.getElementById(verse.verse_id);
+    let shouldScroll = false;
+
+    if (verseSearchParam) {
+      if (chapterSearchParam === null) {
+        // No chapter specified - match verse number only (for single chapter contexts)
+        shouldScroll = verse.verse_number.toString() === verseSearchParam;
+      } else {
+        // Both chapter and verse specified - match both
+        shouldScroll =
+          verse.chapter_number.toString() === chapterSearchParam &&
+          verse.verse_number.toString() === verseSearchParam;
+      }
+    }
+
+    if (shouldScroll) {
+      const element = document.getElementById(`verse-${verse.verse_number}`);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "center" });
         setIsHighlighted(true);
         setTimeout(() => setIsHighlighted(false), 2000);
       }
     }
-  }, [verse, verseSearchParam]);
+  }, [verse, verseSearchParam, chapterSearchParam]);
 
   const highlightClass = isHighlighted ? "text-red-500" : "";
 
