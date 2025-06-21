@@ -3,9 +3,10 @@ import { SearchIcon, AlertCircleIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { WQuranAPIResponse } from "@/types/w-quran";
 import { GlobalPageProps } from "@/types/global-page-props";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { QuranSkeleton } from "@/components/skeletons/quran-skeleton";
 import { getUrlQuery } from "@/utils/get-url-query";
 import { getUrlSearchParams } from "@/utils/get-url-search-params";
-import { QuranSkeleton } from "@/components/skeletons/quran-skeleton";
 import DefaultView from "./components/default-view";
 import FooterSection from "./components/footer-section";
 import HeaderSection from "./components/header-section";
@@ -103,28 +104,32 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
           </section>
         </main>
         <AudioPlayer />
+        <ScrollToTop />
       </>
     );
   } else {
     // [No results found]
     return (
-      <main className="space-y-2">
-        {result.response.data.length === 0 && (
-          <div className="space-y-4 text-center">
-            <div className="flex justify-center">
-              <SearchIcon className="h-12 w-12 text-muted-foreground" />
+      <>
+        <main className="space-y-2">
+          {result.response.data.length === 0 && (
+            <div className="space-y-4 text-center">
+              <div className="flex justify-center">
+                <SearchIcon className="h-12 w-12 text-muted-foreground" />
+              </div>
+              <h3 className="text-lg font-semibold">No results found</h3>
+              <p className="text-muted-foreground">
+                {decodeURIComponent(result.message) ||
+                  "Try adjusting your search terms."}
+              </p>
+              <div className="flex justify-center space-x-2">
+                <Badge variant="outline">Try another query?</Badge>
+              </div>
             </div>
-            <h3 className="text-lg font-semibold">No results found</h3>
-            <p className="text-muted-foreground">
-              {decodeURIComponent(result.message) ||
-                "Try adjusting your search terms."}
-            </p>
-            <div className="flex justify-center space-x-2">
-              <Badge variant="outline">Try another query?</Badge>
-            </div>
-          </div>
-        )}
-      </main>
+          )}
+        </main>
+        <ScrollToTop />
+      </>
     );
   }
 }
