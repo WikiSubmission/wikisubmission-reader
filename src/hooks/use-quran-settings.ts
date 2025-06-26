@@ -28,7 +28,7 @@ export const useQuranSettings = create(
     (set, get) => ({
       settings: {
         language: "english",
-        showWordByWord: true,
+        showWordByWord: false,
         showArabic: true,
         showTransliteration: false,
         showSubtitles: true,
