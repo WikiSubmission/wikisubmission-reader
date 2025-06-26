@@ -67,7 +67,7 @@ export default function DefaultView() {
               }
             >
               Order:{" "}
-              {chapterDisplayOrder === "revelation" ? "Standard" : "Revelation"}
+              {chapterDisplayOrder === "revelation" ? "Revelation" : "Standard"}
             </Button>
           </div>
         </section>
