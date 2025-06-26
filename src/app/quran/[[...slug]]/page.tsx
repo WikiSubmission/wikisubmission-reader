@@ -88,7 +88,7 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
         <main className="space-y-2">
           <section className="space-y-4">
             <UtilitySection result={result} />
-            <HeaderSection data={result} />
+            <HeaderSection result={result} />
           </section>
           <section className="space-y-4">
             {result.response.data.map((verse) => (
