@@ -19,12 +19,15 @@ export default function VerseTextArabic({ verse }: { verse: WQuranVerse }) {
     return (
       <section>
         <div
-          className="text-2xl leading-relaxed text-gray-900 dark:text-gray-100 text-right"
+          className={`text-2xl leading-relaxed text-gray-900 dark:text-gray-100 text-right ${
+            quranSettings.settings.showWordByWord ? "leading-loose py-2" : ""
+          }`}
           dir="rtl"
         >
           <HoverableArabicText
             verse={verse}
             highlightWordIndex={wordIndexToHighlight}
+            showWordByWord={quranSettings.settings.showWordByWord}
           />
         </div>
       </section>
@@ -35,9 +38,11 @@ export default function VerseTextArabic({ verse }: { verse: WQuranVerse }) {
 const HoverableArabicText = ({
   verse,
   highlightWordIndex,
+  showWordByWord,
 }: {
   verse: WQuranVerse;
   highlightWordIndex?: number | null;
+  showWordByWord: boolean;
 }) => {
   const [fade, setFade] = useState(false);
 
@@ -62,18 +67,42 @@ const HoverableArabicText = ({
     <span className="select-text">
       {sortedWords.map((word) => (
         <span key={word.word_index}>
-          <WordTooltip word={word}>
+          <WordTooltip word={word} showWordByWord={showWordByWord}>
             <span
-              className={
+              className={`${
+                showWordByWord
+                  ? "inline-flex flex-col items-center text-center mx-2 mb-4"
+                  : "inline"
+              } ${
                 highlightWordIndex === word.word_index
                   ? "bg-yellow-300 dark:bg-yellow-800 rounded-lg p-1 transition-all"
                   : ""
-              }
+              }`}
             >
-              {word.arabic_text}
+              <span className={showWordByWord ? "text-3xl leading-none" : ""}>
+                {word.arabic_text}
+              </span>
+              {showWordByWord && (
+                <>
+                  <span
+                    className="text-xs text-gray-500 dark:text-gray-500 mt-1 max-w-[80px] text-center leading-tight font-normal italic break-words hyphens-auto"
+                    dir="ltr"
+                  >
+                    {word.transliterated_text}
+                  </span>
+                  <span
+                    className="text-xs text-gray-600 dark:text-gray-400 mt-0.5 max-w-[80px] text-center leading-tight font-medium break-words hyphens-auto"
+                    dir="ltr"
+                  >
+                    {word.english_text}
+                  </span>
+                </>
+              )}
             </span>
           </WordTooltip>
-          {word.word_index < sortedWords.length - 1 && "\u00A0"}
+          {!showWordByWord &&
+            word.word_index < sortedWords.length - 1 &&
+            "\u00A0"}
         </span>
       ))}
     </span>
@@ -83,9 +112,11 @@ const HoverableArabicText = ({
 export const WordTooltip = ({
   word,
   children,
+  showWordByWord,
 }: {
   word: WQuranWordByWord;
   children: React.ReactNode;
+  showWordByWord: boolean;
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -93,7 +124,7 @@ export const WordTooltip = ({
 
   const handleMouseEnter = () => {
     if (timeoutId) clearTimeout(timeoutId);
-    if (!modalOpen) setIsVisible(true);
+    if (!modalOpen && !showWordByWord) setIsVisible(true);
   };
 
   const handleMouseLeave = () => {
@@ -131,8 +162,8 @@ export const WordTooltip = ({
         {children}
       </span>
 
-      {/* Hover Tooltip */}
-      {isVisible && !modalOpen && (
+      {/* Hover Tooltip - only show when not in word-by-word mode */}
+      {isVisible && !modalOpen && !showWordByWord && (
         <div
           className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 bg-white dark:bg-violet-100 text-white dark:text-violet-900 text-xs rounded p-1 shadow-lg z-10 select-text"
           onMouseEnter={handleMouseEnter}
