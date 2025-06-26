@@ -146,7 +146,7 @@ export default function SearchBar() {
             type="button"
             variant="secondary"
             size="sm"
-            className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-foreground"
+            className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-violet-600 dark:hover:text-violet-400"
             onClick={() => {
               const timestamp = Date.now().toString();
               router.push(`/quran/random-chapter?t=${timestamp}`);
@@ -159,7 +159,7 @@ export default function SearchBar() {
             type="button"
             variant="secondary"
             size="sm"
-            className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-foreground"
+            className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-violet-600 dark:hover:text-violet-400"
             onClick={() => {
               const timestamp = Date.now().toString();
               router.push(`/quran/random-verse?t=${timestamp}`);
@@ -245,7 +245,7 @@ export default function SearchBar() {
                   type="button"
                   variant="secondary"
                   size="sm"
-                  className="justify-start gap-2 text-sm h-9 rounded-full hover:ring-1 ring-primary/50 transition"
+                  className="justify-start gap-2 text-sm h-9 rounded-full hover:text-violet-600 dark:hover:text-violet-400 transition"
                   onClick={() =>
                     router.push(`/quran/${toReadableURL(example.query)}`)
                   }
