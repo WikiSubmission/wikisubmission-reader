@@ -156,7 +156,9 @@ export const WordTooltip = ({
       onMouseLeave={handleMouseLeave}
     >
       <span
-        className="cursor-pointer hover:bg-violet-100 dark:hover:bg-violet-900 p-1 rounded transition-colors"
+        className={`${
+          word.root_word ? "cursor-pointer" : ""
+        } hover:text-violet-600 dark:hover:text-violet-400 p-1 rounded transition-colors`}
         onClick={handleClick}
       >
         {children}
