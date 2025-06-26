@@ -5,12 +5,29 @@ import { WQuranVerse, WQuranWordByWord } from "@/types/w-quran";
 import { RootWordView } from "../root-word-modal";
 import { useState, useEffect } from "react";
 import { useQuranSettings } from "@/hooks/use-quran-settings";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useParams } from "next/navigation";
 
 export default function VerseTextArabic({ verse }: { verse: WQuranVerse }) {
   const quranSettings = useQuranSettings();
   const searchParams = useSearchParams();
+  const params = useParams();
   const wordSearchParam = searchParams.get("word");
+
+  // Get query from URL path (/quran/{q} or /quran/?q={q})
+  const pathQuery = Array.isArray(params.slug)
+    ? params.slug.join("/")
+    : params.slug;
+  const searchQuery = searchParams.get("q");
+
+  // Only use pathQuery if it doesn't look like a verse reference (e.g., "1", "1:1", "1-10")
+  const isVerseReference = (query: string) => {
+    return /^[\d]+(?:[\:\-][\d]+)?(?:[\-][\d]+)?$/.test(query);
+  };
+
+  const queryHighlight =
+    searchQuery ||
+    (pathQuery && !isVerseReference(pathQuery) ? pathQuery : null);
+
   const wordIndexToHighlight = wordSearchParam
     ? parseInt(wordSearchParam, 10)
     : null;
@@ -28,6 +45,7 @@ export default function VerseTextArabic({ verse }: { verse: WQuranVerse }) {
             verse={verse}
             highlightWordIndex={wordIndexToHighlight}
             showWordByWord={quranSettings.settings.showWordByWord}
+            queryHighlight={queryHighlight}
           />
         </div>
       </section>
@@ -39,10 +57,12 @@ const HoverableArabicText = ({
   verse,
   highlightWordIndex,
   showWordByWord,
+  queryHighlight,
 }: {
   verse: WQuranVerse;
   highlightWordIndex?: number | null;
   showWordByWord: boolean;
+  queryHighlight?: string | null;
 }) => {
   const [fade, setFade] = useState(false);
 
@@ -63,48 +83,103 @@ const HoverableArabicText = ({
     (a, b) => a.word_index - b.word_index,
   );
 
+  const normalize = (str: string): string =>
+    str
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[^\w\s]/g, "")
+      .trim();
+
+  const wordMatchesQuery = (word: WQuranWordByWord): boolean => {
+    if (!queryHighlight || !word.english_text) return false;
+
+    // Decode URL and replace + with spaces
+    const decodedQuery = decodeURIComponent(queryHighlight).replace(/\+/g, " ");
+    const queryWords = normalize(decodedQuery).split(/\s+/).filter(Boolean);
+    const englishWords = normalize(word.english_text)
+      .split(/\s+/)
+      .filter(Boolean);
+
+    return queryWords.some((qWord) =>
+      englishWords.some((eWord) => eWord.includes(qWord)),
+    );
+  };
+
   return (
     <span className="select-text">
-      {sortedWords.map((word) => (
-        <span key={word.word_index}>
-          <WordTooltip word={word} showWordByWord={showWordByWord}>
-            <span
-              className={`${
-                showWordByWord
-                  ? "inline-flex flex-col items-center text-center mx-2 mb-4"
-                  : "inline"
-              } ${
-                highlightWordIndex === word.word_index
-                  ? "bg-yellow-300 dark:bg-yellow-800 rounded-lg p-1 transition-all"
+      {sortedWords.map((word) => {
+        const isQueryMatch = wordMatchesQuery(word);
+        const isWordIndexHighlight = highlightWordIndex === word.word_index;
+
+        // Debug when we have a match
+        if (isQueryMatch) {
+          console.log(`Rendering match for word ${word.word_index}:`, {
+            english_text: word.english_text,
+            isQueryMatch,
+            isWordIndexHighlight,
+            finalClassName: `${
+              showWordByWord
+                ? "inline-flex flex-col items-center text-center mx-2 mb-4"
+                : "inline"
+            } ${
+              isWordIndexHighlight
+                ? "bg-yellow-300 dark:bg-yellow-800 rounded-lg p-1 transition-all"
+                : isQueryMatch
+                  ? "!bg-yellow-300 !dark:bg-yellow-800 rounded p-1 border-2 border-yellow-500"
                   : ""
-              }`}
-            >
-              <span className={showWordByWord ? "text-3xl leading-none" : ""}>
-                {word.arabic_text?.replace(/�/g, "")}
+            }`,
+          });
+        }
+
+        return (
+          <span key={word.word_index}>
+            <WordTooltip word={word} showWordByWord={showWordByWord}>
+              <span
+                className={`${
+                  showWordByWord
+                    ? "inline-flex flex-col items-center text-center mx-2 mb-4"
+                    : "inline"
+                } ${
+                  isWordIndexHighlight
+                    ? "bg-yellow-300 dark:bg-yellow-800 rounded-lg p-1 transition-all"
+                    : ""
+                }`}
+                data-query-match={isQueryMatch ? "true" : "false"}
+                data-word-highlight={isWordIndexHighlight ? "true" : "false"}
+              >
+                <span
+                  className={`${showWordByWord ? "text-3xl leading-none" : ""} ${
+                    isQueryMatch && !isWordIndexHighlight
+                      ? "bg-violet-300 dark:bg-violet-800 rounded px-1"
+                      : ""
+                  }`}
+                >
+                  {word.arabic_text?.replace(/�/g, "")}
+                </span>
+                {showWordByWord && (
+                  <>
+                    <span
+                      className="mt-2 text-xs text-gray-500 dark:text-gray-500 mt-1 max-w-[80px] text-center leading-tight font-normal italic break-words hyphens-auto"
+                      dir="ltr"
+                    >
+                      {word.transliterated_text}
+                    </span>
+                    <span
+                      className="mt-1 text-xs text-gray-600 dark:text-gray-400 mt-0.5 max-w-[80px] text-center leading-tight font-medium break-words hyphens-auto"
+                      dir="ltr"
+                    >
+                      {word.english_text}
+                    </span>
+                  </>
+                )}
               </span>
-              {showWordByWord && (
-                <>
-                  <span
-                    className="mt-2 text-xs text-gray-500 dark:text-gray-500 mt-1 max-w-[80px] text-center leading-tight font-normal italic break-words hyphens-auto"
-                    dir="ltr"
-                  >
-                    {word.transliterated_text}
-                  </span>
-                  <span
-                    className="mt-1 text-xs text-gray-600 dark:text-gray-400 mt-0.5 max-w-[80px] text-center leading-tight font-medium break-words hyphens-auto"
-                    dir="ltr"
-                  >
-                    {word.english_text}
-                  </span>
-                </>
-              )}
-            </span>
-          </WordTooltip>
-          {!showWordByWord &&
-            word.word_index < sortedWords.length - 1 &&
-            "\u00A0"}
-        </span>
-      ))}
+            </WordTooltip>
+            {!showWordByWord &&
+              word.word_index < sortedWords.length - 1 &&
+              "\u00A0"}
+          </span>
+        );
+      })}
     </span>
   );
 };
