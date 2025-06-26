@@ -8,6 +8,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Data } from "@/data";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -17,10 +18,17 @@ export default function DefaultView() {
   >("standard");
   return (
     <main className="container px-4 pt-5 space-y-10">
-      <section className="text-center space-y-2">
-        <h1 className="text-3xl font-bold">Quran: The Final Testament</h1>
-        <p className="text-muted-foreground">
-          Search and explore the verses of the Quran
+      <section className="text-center space-y-2 flex flex-col items-center justify-center">
+        <Image
+          src="/book.png"
+          alt="Quran: The Final Testament"
+          className="rounded-full"
+          width={50}
+          height={50}
+        />
+        <h1 className="text-3xl font-semibold">Quran: The Final Testament</h1>
+        <p className="text-muted-foreground text-sm">
+          English Translation by Dr. Rashad Khalifa, Ph.D.
         </p>
       </section>
 
