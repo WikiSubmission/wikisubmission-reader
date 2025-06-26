@@ -9,7 +9,6 @@ import VerseId from "./verse-components/verse-id";
 import VerseTextPrimary from "./verse-components/verse-text-primary";
 import VerseTextArabic from "./verse-components/verse-text-arabic";
 import VerseTextTransliterated from "./verse-components/verse-text-transliterated";
-import VerseWordByWord from "./verse-components/verse-word-by-word";
 import VerseSubtitle from "./verse-components/verse-subtitle";
 import VerseFootnote from "./verse-components/verse-footnote";
 import CopyVerseButton from "./verse-buttons/copy-verse-button";
@@ -58,8 +57,6 @@ export default function VerseCardClient({
           <VerseTextTransliterated verse={verse} />
           {/* Footnote */}
           <VerseFootnote verse={verse} />
-          {/* Word-by-word */}
-          <VerseWordByWord verse={verse} />
         </section>
       </CardContent>
     </Card>
