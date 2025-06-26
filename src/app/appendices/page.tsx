@@ -12,11 +12,13 @@ import Link from "next/link";
 export default function QuranPage() {
   return (
     <main className="space-y-4">
-      <h1 className="text-3xl font-light text-primary">
-        From{" "}
-        <strong className={Fonts.wiki.className}>
-          Quran: The Final Testament
-        </strong>
+      <h1
+        className={`text-3xl font-light text-primary ${Fonts.wiki.className}`}
+      >
+        <p className="text-sm text-muted-foreground tracking-widest">
+          APPENDICES FROM
+        </p>
+        Quran: The Final Testament
       </h1>
       <div className="flex flex-wrap gap-2 justify-between">
         <section className="flex gap-2">
@@ -24,24 +26,15 @@ export default function QuranPage() {
             href="https://library.wikisubmission.org/file/quran-the-final-testament-appendices"
             target="_blank"
           >
-            <Button size="sm" variant="special" className="w-fit">
+            <Button size="sm" variant="default" className="w-fit">
               Appendices 1 → 38 (PDF)
-            </Button>
-          </Link>
-
-          <Link
-            href="https://library.wikisubmission.org/file/quran-the-final-testament-introduction"
-            target="_blank"
-          >
-            <Button size="sm" variant="secondary" className="w-fit">
-              Introduction (PDF)
             </Button>
           </Link>
         </section>
 
         <section className="flex gap-2">
           <Link href="/downloads">
-            <Button size="sm" variant="default" className="w-fit">
+            <Button size="sm" variant="secondary" className="w-fit">
               All Downloads
             </Button>
           </Link>
@@ -55,12 +48,12 @@ export default function QuranPage() {
             key={`appendix-${d.appendix_number}`}
             className="group hover:scale-[1.01] transition-transform"
           >
-            <Card className="h-full hover:border-primary/50 transition-colors">
+            <Card className="h-full transition-colors">
               <CardHeader>
                 <CardTitle className="text-lg group-hover:text-primary transition-colors">
                   {d.appendix_number}. {d.appendix_title_english} →
                 </CardTitle>
-                <CardDescription className="mt-2 line-clamp-5">
+                <CardDescription className="mt-2 line-clamp-3">
                   {d.appendix_preview_english}
                 </CardDescription>
               </CardHeader>
