@@ -75,7 +75,7 @@ export default function DefaultView() {
               href={`/quran/${chapter.chapter_number}`}
               className="block"
             >
-              <Card className="transition hover:shadow-md hover:ring-1 hover:ring-muted-foreground/20 cursor-pointer">
+              <Card className="transition hover:shadow-md hover:ring-1 hover:ring-muted-foreground/20 cursor-pointer hover:text-violet-500 dark:hover:text-violet-400">
                 <CardHeader>
                   <CardTitle>
                     Chapter {chapter.chapter_number},{" "}
