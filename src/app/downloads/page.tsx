@@ -30,9 +30,9 @@ export default function Resources() {
           <Image
             src="https://www.masjidtucson.org/images/catalog/bQuranCoverThumb.jpg"
             alt="Quran Cover"
-            width={128}
-            height={128}
-            className="rounded-lg w-32 md:w-40 shadow"
+            width={80}
+            height={80}
+            className="rounded-lg w-20 shadow-sm"
           />
           <div>
             <h3 className="text-2xl font-semibold">
@@ -136,10 +136,10 @@ export default function Resources() {
         <div className="flex flex-col md:flex-row items-center gap-4">
           <Image
             src="https://www.masjidtucson.org/images/catalog/quran_VP_thumb.png"
-            width={128}
-            height={128}
+            width={80}
+            height={80}
             alt="Quran VP Cover"
-            className="rounded-lg w-32 md:w-40 shadow"
+            className="rounded-lg w-20 shadow-sm"
           />
           <div>
             <h3 className="text-2xl font-semibold">
@@ -165,9 +165,9 @@ export default function Resources() {
           <Image
             src="https://www.masjidtucson.org/images/catalog/QHICoverThumb.jpg"
             alt="QHI Cover"
-            width={128}
-            height={128}
-            className="rounded-lg w-32 md:w-40 shadow"
+            width={80}
+            height={80}
+            className="rounded-lg w-20 shadow-sm"
           />
           <div>
             <h3 className="text-2xl font-semibold">Quran, Hadith, and Islam</h3>
@@ -199,9 +199,9 @@ export default function Resources() {
           <Image
             src="https://www.masjidtucson.org/images/catalog/CompSpksCoverThumb.jpg"
             alt="Computer Speaks Cover"
-            width={128}
-            height={128}
-            className="rounded-lg w-32 md:w-40 shadow"
+            width={80}
+            height={80}
+            className="rounded-lg w-20 shadow-sm"
           />
           <div>
             <h3 className="text-2xl font-semibold">
