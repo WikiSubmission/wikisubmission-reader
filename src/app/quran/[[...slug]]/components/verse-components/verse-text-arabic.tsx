@@ -85,13 +85,13 @@ const HoverableArabicText = ({
               {showWordByWord && (
                 <>
                   <span
-                    className="text-xs text-gray-500 dark:text-gray-500 mt-1 max-w-[80px] text-center leading-tight font-normal italic break-words hyphens-auto"
+                    className="mt-2 text-xs text-gray-500 dark:text-gray-500 mt-1 max-w-[80px] text-center leading-tight font-normal italic break-words hyphens-auto"
                     dir="ltr"
                   >
                     {word.transliterated_text}
                   </span>
                   <span
-                    className="text-xs text-gray-600 dark:text-gray-400 mt-0.5 max-w-[80px] text-center leading-tight font-medium break-words hyphens-auto"
+                    className="mt-1 text-xs text-gray-600 dark:text-gray-400 mt-0.5 max-w-[80px] text-center leading-tight font-medium break-words hyphens-auto"
                     dir="ltr"
                   >
                     {word.english_text}
