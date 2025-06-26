@@ -100,7 +100,7 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
             ))}
           </section>
           <section>
-            <FooterSection data={result} />
+            <FooterSection result={result} />
           </section>
         </main>
         <AudioPlayer />
