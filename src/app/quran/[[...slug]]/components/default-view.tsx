@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,8 +9,12 @@ import {
 } from "@/components/ui/card";
 import { Data } from "@/data";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function DefaultView() {
+  const [chapterDisplayOrder, setChapterDisplayOrder] = useState<
+    "standard" | "revelation"
+  >("standard");
   return (
     <main className="container px-4 pt-5 space-y-10">
       <section className="text-center space-y-2">
@@ -19,26 +25,51 @@ export default function DefaultView() {
       </section>
 
       <section className="space-y-4 text-center">
-        <section className="space-y-2 grid md:grid-cols-2">
-          <Link
-            href="https://library.wikisubmission.org/file/quran-the-final-testament-introduction"
-            target="_blank"
-          >
-            <Button variant="outline" className="w-full md:w-3/6">
-              Introduction
+        <section className="flex flex-wrap text-xs justify-between items-center">
+          {/* Left */}
+          <div className="flex gap-2">
+            <Link
+              href="https://library.wikisubmission.org/file/quran-the-final-testament"
+              target="_blank"
+            >
+              <Button variant="default" size="sm">
+                Full PDF
+              </Button>
+            </Link>
+            <Link
+              href="https://library.wikisubmission.org/file/quran-the-final-testament-introduction"
+              target="_blank"
+            >
+              <Button variant="outline" size="sm">
+                Introduction
+              </Button>
+            </Link>
+          </div>
+          {/* Right */}
+          <div>
+            <Button
+              variant="special"
+              size="sm"
+              onClick={() =>
+                setChapterDisplayOrder(
+                  chapterDisplayOrder === "revelation"
+                    ? "standard"
+                    : "revelation",
+                )
+              }
+            >
+              Order:{" "}
+              {chapterDisplayOrder === "revelation" ? "Standard" : "Revelation"}
             </Button>
-          </Link>
-          <Link
-            href="https://library.wikisubmission.org/file/quran-the-final-testament"
-            target="_blank"
-          >
-            <Button variant="default" className="w-full md:w-3/6">
-              PDF
-            </Button>
-          </Link>
+          </div>
         </section>
         <div className="grid md:grid-cols-2 gap-2">
-          {Data.Chapters.map((chapter) => (
+          {Data.Chapters.sort((a, b) => {
+            if (chapterDisplayOrder === "revelation") {
+              return a.chapter_revelation_order - b.chapter_revelation_order;
+            }
+            return a.chapter_number - b.chapter_number;
+          }).map((chapter) => (
             <Link
               key={chapter.chapter_number}
               href={`/quran/${chapter.chapter_number}`}
