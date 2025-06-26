@@ -80,7 +80,7 @@ const HoverableArabicText = ({
               }`}
             >
               <span className={showWordByWord ? "text-3xl leading-none" : ""}>
-                {word.arabic_text}
+                {word.arabic_text?.replace(/�/g, "")}
               </span>
               {showWordByWord && (
                 <>
