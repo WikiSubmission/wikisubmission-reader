@@ -7,6 +7,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Fonts } from "@/constants/fonts";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 
@@ -26,6 +27,11 @@ export default function Resources() {
     <div className="space-y-12">
       {/* Quran: The Final Testament */}
       <section className="space-y-6">
+        <h1
+          className={`text-3xl font-light text-primary ${Fonts.wiki.className}`}
+        >
+          Downloads & Resources
+        </h1>
         <div className="flex flex-col md:flex-row items-center gap-4">
           <Image
             src="https://www.masjidtucson.org/images/catalog/bQuranCoverThumb.jpg"
