@@ -250,7 +250,7 @@ export default function Resources() {
         <Card>
           <CardHeader>
             <CardTitle>
-              Beyond Probability – God's Message in Mathematics
+              Beyond Probability – God&apos;s Message in Mathematics
             </CardTitle>
             <CardDescription>Abdula Arik</CardDescription>
           </CardHeader>
@@ -295,7 +295,7 @@ export default function Resources() {
 
           <CardHeader>
             <CardTitle>
-              Nineteen: God's Signature in Nature and Scripture
+              Nineteen: God&apos;s Signature in Nature and Scripture
             </CardTitle>
             <CardDescription>Edip Yuksel</CardDescription>
           </CardHeader>
