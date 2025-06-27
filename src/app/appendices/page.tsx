@@ -13,7 +13,7 @@ export default function QuranPage() {
   return (
     <main className="space-y-4">
       <h1
-        className={`text-3xl font-light text-primary ${Fonts.wiki.className}`}
+        className={`flex flex-col text-3xl font-light text-primary ${Fonts.wiki.className}`}
       >
         <span className="text-sm text-muted-foreground tracking-widest">
           APPENDICES FROM
