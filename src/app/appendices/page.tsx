@@ -15,9 +15,9 @@ export default function QuranPage() {
       <h1
         className={`text-3xl font-light text-primary ${Fonts.wiki.className}`}
       >
-        <p className="text-sm text-muted-foreground tracking-widest">
+        <span className="text-sm text-muted-foreground tracking-widest">
           APPENDICES FROM
-        </p>
+        </span>
         Quran: The Final Testament
       </h1>
       <div className="flex flex-wrap gap-2 justify-between">
