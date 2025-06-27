@@ -6,6 +6,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Fonts } from "@/constants/fonts";
 import { ExternalLink } from "lucide-react";
@@ -225,6 +226,82 @@ export default function Resources() {
           <CardContent className="space-y-2">
             <LinkButton
               href="https://library.wikisubmission.org/file/the-computer-speaks"
+              label="Download PDF"
+            />
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Other Resources */}
+      <section className="space-y-4">
+        <div className="flex flex-col md:flex-row items-center gap-4">
+          <Image
+            src="/book.png"
+            alt="Book"
+            width={80}
+            height={80}
+            className="rounded-lg w-20 shadow-sm"
+          />
+          <div>
+            <h3 className="text-2xl font-semibold">Other Resources</h3>
+            <p className="text-sm text-muted-foreground">From the community</p>
+          </div>
+        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              Beyond Probability – God's Message in Mathematics
+            </CardTitle>
+            <CardDescription>Abdula Arik</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <LinkButton
+              href="https://library.wikisubmission.org/file/beyond-probability"
+              label="Download PDF (Series I)"
+            />
+            <LinkButton
+              href="https://library.wikisubmission.org/file/beyond-probability-series-2"
+              label="Download PDF (Series II)"
+            />
+          </CardContent>
+
+          <Separator />
+
+          <CardHeader>
+            <CardTitle>The Math Miracle - Intended or Coincidence</CardTitle>
+            <CardDescription>Mike J.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <LinkButton
+              href="https://library.wikisubmission.org/file/math-miracle-intended-or-coincidence"
+              label="Download PDF"
+            />
+          </CardContent>
+
+          <Separator />
+
+          <CardHeader>
+            <CardTitle>Al-Quran The Ultimate Miracle</CardTitle>
+            <CardDescription>Ahmed Deedat</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <LinkButton
+              href="https://library.wikisubmission.org/file/ultimate-miracle-of-the-quran"
+              label="Download PDF"
+            />
+          </CardContent>
+
+          <Separator />
+
+          <CardHeader>
+            <CardTitle>
+              Nineteen: God's Signature in Nature and Scripture
+            </CardTitle>
+            <CardDescription>Edip Yuksel</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <LinkButton
+              href="https://library.wikisubmission.org/file/nineteen-gods-signature-in-nature-and-scripture"
               label="Download PDF"
             />
           </CardContent>
