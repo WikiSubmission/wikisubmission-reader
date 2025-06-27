@@ -64,7 +64,7 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/appendix-:path*",
+        source: "/appendix-:path(.*)",
         destination:
           "https://library.wikisubmission.org/file/quran-the-final-testament-appendices",
         permanent: true,
