@@ -59,12 +59,14 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
   // [Fetch data]
   let result: WQuranAPIResponse;
 
+  
   try {
     const request = await fetch(baseUrl.toString(), { cache: "no-store" });
     if (!request.ok)
       throw new Error(`Error: ${request.status} ${request.statusText}`);
     // [Assign result]
     result = await request.json();
+    console.log(result.response);
   } catch (err) {
     // [Internal Server Error]
     console.error(err);

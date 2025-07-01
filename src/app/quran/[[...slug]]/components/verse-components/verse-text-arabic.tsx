@@ -111,26 +111,6 @@ const HoverableArabicText = ({
         const isQueryMatch = wordMatchesQuery(word);
         const isWordIndexHighlight = highlightWordIndex === word.word_index;
 
-        // Debug when we have a match
-        if (isQueryMatch) {
-          console.log(`Rendering match for word ${word.word_index}:`, {
-            english_text: word.english_text,
-            isQueryMatch,
-            isWordIndexHighlight,
-            finalClassName: `${
-              showWordByWord
-                ? "inline-flex flex-col items-center text-center mx-2 mb-4"
-                : "inline"
-            } ${
-              isWordIndexHighlight
-                ? "bg-yellow-300 dark:bg-yellow-800 rounded-lg p-1 transition-all"
-                : isQueryMatch
-                  ? "!bg-yellow-300 !dark:bg-yellow-800 rounded p-1 border-2 border-yellow-500"
-                  : ""
-            }`,
-          });
-        }
-
         return (
           <span key={word.word_index}>
             <WordTooltip word={word} showWordByWord={showWordByWord}>
