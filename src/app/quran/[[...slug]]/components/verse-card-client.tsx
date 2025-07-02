@@ -5,6 +5,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { WQuranVerse } from "@/types/w-quran";
 import { Separator } from "@/components/ui/separator";
 import { WResult } from "@/types/w-result";
+import { useQuranSettings } from "@/hooks/use-quran-settings";
 import VerseId from "./verse-components/verse-id";
 import VerseTextPrimary from "./verse-components/verse-text-primary";
 import VerseTextArabic from "./verse-components/verse-text-arabic";
@@ -23,6 +24,7 @@ export default function VerseCardClient({
   type: WResult["request"]["type"];
 }) {
   const [hovering, setHovering] = useState(false);
+  const settings = useQuranSettings();
 
   return (
     <Card
@@ -50,7 +52,7 @@ export default function VerseCardClient({
           {/* Primary Text */}
           <VerseTextPrimary verse={verse} />
           {/* Line Separator */}
-          <Separator />
+          {settings.settings.showArabic && <Separator />}
           {/* Arabic Text */}
           <VerseTextArabic verse={verse} />
           {/* Transliteration */}
