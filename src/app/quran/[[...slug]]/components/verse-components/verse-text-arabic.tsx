@@ -176,10 +176,34 @@ export const WordTooltip = ({
   const [isVisible, setIsVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const [tooltipPosition, setTooltipPosition] = useState<
+    "left" | "center" | "right"
+  >("center");
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (e: React.MouseEvent) => {
     if (timeoutId) clearTimeout(timeoutId);
-    if (!modalOpen && !showWordByWord) setIsVisible(true);
+    if (!modalOpen && !showWordByWord) {
+      // Calculate tooltip position based on mouse position
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const tooltipWidth = 192; // w-48 = 192px
+      const wordCenter = rect.left + rect.width / 2;
+
+      // Check if tooltip would overflow on the right
+      if (wordCenter + tooltipWidth / 2 > viewportWidth - 16) {
+        setTooltipPosition("right");
+      }
+      // Check if tooltip would overflow on the left
+      else if (wordCenter - tooltipWidth / 2 < 16) {
+        setTooltipPosition("left");
+      }
+      // Safe to center
+      else {
+        setTooltipPosition("center");
+      }
+
+      setIsVisible(true);
+    }
   };
 
   const handleMouseLeave = () => {
@@ -204,6 +228,38 @@ export const WordTooltip = ({
     }
   };
 
+  // Dynamic positioning classes
+  const getTooltipClasses = () => {
+    const baseClasses =
+      "absolute bottom-full mb-3 w-48 bg-white/30 dark:bg-gray-900/40 border border-gray-200/20 dark:border-gray-700/30 text-gray-900 dark:text-gray-100 text-sm rounded-xl p-4 shadow-xl backdrop-blur-lg z-10 select-text animate-in fade-in-0 zoom-in-95 duration-200";
+
+    switch (tooltipPosition) {
+      case "left":
+        return `${baseClasses} left-0`;
+      case "right":
+        return `${baseClasses} right-0`;
+      case "center":
+      default:
+        return `${baseClasses} left-1/2 transform -translate-x-1/2`;
+    }
+  };
+
+  // Dynamic arrow positioning
+  const getArrowClasses = () => {
+    const baseClasses =
+      "absolute top-full w-0 h-0 border-l-6 border-r-6 border-t-6 border-transparent border-t-white/30 dark:border-t-gray-900/40";
+
+    switch (tooltipPosition) {
+      case "left":
+        return `${baseClasses} left-6`;
+      case "right":
+        return `${baseClasses} right-6`;
+      case "center":
+      default:
+        return `${baseClasses} left-1/2 transform -translate-x-1/2`;
+    }
+  };
+
   return (
     <div
       className="relative inline-block overflow-visible"
@@ -222,40 +278,55 @@ export const WordTooltip = ({
       {/* Hover Tooltip - only show when not in word-by-word mode */}
       {isVisible && !modalOpen && !showWordByWord && (
         <div
-          className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 bg-white dark:bg-violet-100 text-white dark:text-violet-900 text-xs rounded p-1 shadow-lg z-10 select-text"
+          className={getTooltipClasses()}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="space-y-1 p-1">
-            <div
-              className="text-gray-600 dark:text-gray-600 text-center text-xs"
-              dir="ltr"
-            >
-              {word.transliteration}
-            </div>
-            <div
-              className="text-gray-600 dark:text-gray-600 text-center text-xs"
-              dir="ltr"
-            >
-              {word.transliterated_text}
-            </div>
-            <div
-              className="font-semibold text-lg text-center text-primary dark:text-secondary"
-              dir="ltr"
-            >
-              {word.english_text}
-            </div>
-            {word.root_word && (
+          <div className="space-y-3">
+            {/* Transliteration */}
+            {word.transliteration && (
               <div
-                className="text-gray-400 dark:text-gray-500 text-xs text-center"
-                dir="rtl"
+                className="text-gray-500 dark:text-gray-400 text-center text-xs font-medium tracking-wide drop-shadow-sm"
+                dir="ltr"
               >
-                {word.root_word}
+                {word.transliteration}
+              </div>
+            )}
+
+            {/* Transliterated Text */}
+            {word.transliterated_text && (
+              <div
+                className="text-gray-600 dark:text-gray-300 text-center text-xs font-normal italic drop-shadow-sm"
+                dir="ltr"
+              >
+                {word.transliterated_text}
+              </div>
+            )}
+
+            {/* English Text - Main focus */}
+            {word.english_text && (
+              <div
+                className="font-semibold text-sm text-center text-violet-700 dark:text-violet-300 leading-tight drop-shadow-md"
+                dir="ltr"
+              >
+                {word.english_text}
+              </div>
+            )}
+
+            {/* Root Word */}
+            {word.root_word && (
+              <div className="">
+                <div
+                  className="text-gray-700 dark:text-gray-300 text-sm text-center drop-shadow-sm"
+                  dir="rtl"
+                >
+                  {word.root_word}
+                </div>
               </div>
             )}
           </div>
-          <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-100"></div>
+          <div className={getArrowClasses()}></div>
         </div>
       )}
 
