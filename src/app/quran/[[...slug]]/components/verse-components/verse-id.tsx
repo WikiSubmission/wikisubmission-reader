@@ -25,7 +25,7 @@ export default function VerseId({ verse }: { verse: WQuranVerse }) {
     }
 
     if (shouldScroll) {
-      const element = document.getElementById(`verse-${verse.verse_number}`);
+      const element = document.getElementById(verse.verse_id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "center" });
         setIsHighlighted(true);
@@ -37,7 +37,7 @@ export default function VerseId({ verse }: { verse: WQuranVerse }) {
   const highlightClass = isHighlighted ? "text-red-500" : "";
 
   return (
-    <section id={`verse-${verse.verse_number}`}>
+    <section>
       <p className={`font-medium text-lg ${highlightClass}`}>
         {verse.chapter_number}:
         <span className={highlightClass}>{verse.verse_number}</span>
