@@ -29,7 +29,7 @@ export default function UtilitySection({
     <main
       className={`rounded-full sticky top-0 z-50 transition-all duration-300 ease-in-out ${
         isScrolled
-          ? "bg-white/20 dark:bg-gray-950/50 backdrop-blur-xl border-b border-gray-200/20 dark:border-gray-700/200 py-2 shadow-sm"
+          ? "bg-white/20 dark:bg-gray-950/50 backdrop-blur-xl border border-gray-200/20 dark:border-gray-800/20 py-2 shadow-sm"
           : "bg-transparent"
       }`}
     >
@@ -50,6 +50,10 @@ export default function UtilitySection({
             }`}
           >
             {stringifyRequestType(result.request.type)}
+            {(result.request.type === "chapter" ||
+              result.request.type === "verse" ||
+              result.request.type === "verse_range") &&
+              ` ${result.response.data?.[0]?.chapter_number}`}
           </Badge>
           {/* [Badge: Verse count] */}
           {result.request.type === "chapter" && (
