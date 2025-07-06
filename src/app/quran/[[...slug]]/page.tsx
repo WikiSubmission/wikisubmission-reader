@@ -85,9 +85,9 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
   if (result.response.data.length > 0) {
     return (
       <>
+        <UtilitySection result={result} />
         <main className="space-y-2">
           <section className="space-y-4">
-            <UtilitySection result={result} />
             <HeaderSection result={result} />
           </section>
           <section className="space-y-4">
