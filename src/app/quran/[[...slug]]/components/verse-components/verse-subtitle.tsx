@@ -13,7 +13,7 @@ export default function VerseSubtitle({ verse }: { verse: WQuranVerse }) {
   ) {
     return (
       <section>
-        <div className="rounded text-sm font-medium text-center italic text-violet-600 dark:text-violet-400">
+        <div className="rounded text-sm font-medium text-center italic text-violet-600 dark:text-violet-700">
           {highlightMarkdown(verse.verse_subtitle_english)}
         </div>
       </section>
