@@ -193,7 +193,7 @@ export default function SearchBar() {
         </div>
 
         {showSuggestions && suggestion && query.trim() && (
-          <div className="absolute left-0 right-0 mt-2 z-50">
+          <div className="absolute left-0 right-0 mt-2 z-[60]">
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden">
               <Button
                 type="button"
