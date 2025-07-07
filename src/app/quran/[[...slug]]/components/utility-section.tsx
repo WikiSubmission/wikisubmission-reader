@@ -50,9 +50,7 @@ export default function UtilitySection({
             }`}
           >
             {stringifyRequestType(result.request.type)}
-            {(result.request.type === "chapter" ||
-              result.request.type === "verse" ||
-              result.request.type === "verse_range") &&
+            {result.request.type === "chapter" &&
               ` ${result.response.data?.[0]?.chapter_number}`}
           </Badge>
           {/* [Badge: Verse count] */}
