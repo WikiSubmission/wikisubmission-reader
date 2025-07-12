@@ -13,7 +13,26 @@ import {
 } from "@/components/ui/tooltip";
 
 export function ThemeToggle() {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, theme, resolvedTheme } = useTheme();
+
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  const nextTheme =
+    theme === "light" ? "dark" : theme === "dark" ? "system" : "light";
+
+  const getLabel = () => {
+    switch (theme) {
+      case "light":
+        return "Switch to Dark";
+      case "dark":
+        return "Switch to System";
+      case "system":
+      default:
+        return "Switch to Light";
+    }
+  };
 
   return (
     <TooltipProvider disableHoverableContent>
@@ -23,7 +42,7 @@ export function ThemeToggle() {
             className="rounded-full w-8 h-8 bg-background mr-2"
             variant="outline"
             size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() => setTheme(nextTheme)}
           >
             <SunIcon className="w-[1.2rem] h-[1.2rem] rotate-90 scale-0 transition-transform ease-in-out duration-500 dark:rotate-0 dark:scale-100" />
             <MoonIcon className="absolute w-[1.2rem] h-[1.2rem] rotate-0 scale-100 transition-transform ease-in-out duration-500 dark:-rotate-90 dark:scale-0" />
