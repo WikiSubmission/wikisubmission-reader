@@ -9,7 +9,7 @@ export default function HeaderSection({
   if (result.request.type === "search") {
     return (
       <main>
-        {result.request.type === "search" && (
+        {result.request.type === "search" && !result.request.raw_query.includes("random") && (
           <section className="flex flex-wrap items-center gap-2 justify-between">
             {/* Result count ("X verses found with <query>") */}
             <p className="text-sm text-muted-foreground tracking-widest">
