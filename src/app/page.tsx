@@ -22,6 +22,7 @@ export default function HomePage() {
             width={200}
             height={200}
             priority
+            unoptimized
           />
         </div>
 
