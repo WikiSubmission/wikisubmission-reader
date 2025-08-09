@@ -13,7 +13,7 @@ import HeaderSection from "./components/header-section";
 import UtilitySection from "./components/utility-section";
 import VerseCard from "./components/verse-card";
 import AudioPlayer from "./components/audio-player";
-import { bookmarkPopupUtils, mockBookmarks } from "@/hooks/use-bookmark";
+import { bookmarkPopupUtils } from "@/hooks/use-bookmark";
 import { BookmarkPreview } from "./components/bookmark-preview";
 
 export { generateMetadata } from "./metadata";
@@ -95,7 +95,7 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
       <>
         <UtilitySection result={result} />
         <main className="space-y-2">
-          <BookmarkPreview bookmarks={mockBookmarks} />
+          <BookmarkPreview />
           <section className="space-y-4">
             <HeaderSection result={result} />
           </section>

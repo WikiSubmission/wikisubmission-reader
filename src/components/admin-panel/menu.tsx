@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { ArrowRightIcon, Ellipsis, History, HistoryIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-
 import { cn } from "@/lib/utils";
 import { getMenuList } from "@/constants/menu-list";
 import { Button } from "@/components/ui/button";
@@ -15,13 +14,8 @@ import {
   TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import { Card, CardHeader, CardTitle } from "../ui/card";
-import { Badge } from "../ui/badge";
-import { VerseLink } from "./VerseLink";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useState } from "react";
 import BookmarkStore from "@/hooks/use-bookmark";
-import { current } from "immer";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -33,15 +27,7 @@ export function Menu({ isOpen }: MenuProps) {
   const [verseHistoryPopoverOpen, setVerseHistoryPopoverOpen] =
     useState<boolean>(false);
 
-  const {
-    addBookmark,
-    removeBookmark,
-    bookmarks,
-    currentBookmark,
-    setCurrentBookmark,
-    setIsBookmarkPopupOpen,
-    isBookmarkPopupOpen,
-  } = BookmarkStore();
+  const { setIsBookmarkPopupOpen, isBookmarkPopupOpen } = BookmarkStore();
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
