@@ -15,19 +15,32 @@ import VerseFootnote from "./verse-components/verse-footnote";
 import CopyVerseButton from "./verse-buttons/copy-verse-button";
 import PlayVerseButton from "./verse-buttons/play-verse-button";
 import ContextButton from "./verse-buttons/context-button";
+import BookmarkVerseButton from "./verse-buttons/bookmark-verse-button";
 
 export default function VerseCardClient({
   verse,
   type,
+  styling,
 }: {
   verse: WQuranVerse;
   type: WResult["request"]["type"];
+  styling?: string;
 }) {
   const [hovering, setHovering] = useState(false);
   const settings = useQuranSettings();
 
+  const getCardStyling = () => {
+    switch (styling) {
+      case "bookmark":
+        return "bg-gradient-to-br from-amber-50/50 to-orange-50/50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200/50 dark:border-amber-700/50 shadow-lg";
+      default:
+        return "";
+    }
+  };
+
   return (
     <Card
+      className={`h-full ${getCardStyling()}`}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
@@ -36,13 +49,16 @@ export default function VerseCardClient({
           {/* Verse ID */}
           <VerseId verse={verse} />
           {/* Buttons: shows only on hover */}
-          {hovering && (
-            <div className="flex gap-2">
-              <ContextButton verse={verse} type={type} />
-              <PlayVerseButton verse={verse} />
-              <CopyVerseButton verse={verse} />
-            </div>
-          )}
+
+          <div
+            className={`flex gap-2 transform transition-all duration ease-in-out
+               ${hovering ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
+          >
+            <ContextButton verse={verse} type={type} />
+            <BookmarkVerseButton verse={verse} />
+            <PlayVerseButton verse={verse} />
+            <CopyVerseButton verse={verse} />
+          </div>
         </section>
       </CardHeader>
       <CardContent>
