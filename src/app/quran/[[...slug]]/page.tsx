@@ -13,6 +13,8 @@ import HeaderSection from "./components/header-section";
 import UtilitySection from "./components/utility-section";
 import VerseCard from "./components/verse-card";
 import AudioPlayer from "./components/audio-player";
+import { bookmarkPopupUtils, mockBookmarks } from "@/hooks/use-bookmark";
+import { BookmarkPreview } from "./components/bookmark-preview";
 
 export { generateMetadata } from "./metadata";
 
@@ -21,6 +23,9 @@ export default async function QuranPage({
   searchParams,
 }: GlobalPageProps) {
   const { slug } = await params;
+  console.log("params: ", params);
+  console.log("slug: ", slug);
+  console.log("searchParams: ", searchParams);
   return (
     <Suspense key={slug?.join("-")} fallback={<QuranSkeleton />}>
       <QuranContent params={params} searchParams={searchParams} />
@@ -30,6 +35,7 @@ export default async function QuranPage({
 
 // Main content component wrapped in suspense
 async function QuranContent({ params, searchParams }: GlobalPageProps) {
+  const { isBookmarkPopupOpen } = bookmarkPopupUtils();
   // [Check if we have a valid query]
   // e.g. /quran/1 --> "1" or /quran/?q=3 --> "3" (undefined if no query)
   const detectedQuery = await getUrlQuery({ params, searchParams });
@@ -39,6 +45,8 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
 
   // [Get all search params, to append on top of the query]
   const resolvedSearchParams = await getUrlSearchParams(searchParams);
+
+  console.log("detectedQuery: ", detectedQuery);
 
   // [Define base API url]
   const baseUrl = new URL(
@@ -87,6 +95,7 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
       <>
         <UtilitySection result={result} />
         <main className="space-y-2">
+          <BookmarkPreview bookmarks={mockBookmarks} />
           <section className="space-y-4">
             <HeaderSection result={result} />
           </section>
