@@ -14,11 +14,11 @@ const BOOKMARK_HISTORY_SIZE = 10;
 
 interface BookmarkState {
   bookmarks: BookmarkType[];
-  addBookmark: (
-    bookmark: Omit<BookmarkType, "bookmark_datetime_timezoneaware">,
-  ) => void;
+  addBookmark: (bookmark: WQuranVerse) => void;
   removeBookmark: (
-    bookmark: Omit<BookmarkType, "bookmark_datetime_timezoneaware">,
+    bookmark:
+      | Omit<BookmarkType, "bookmark_datetime_timezoneaware">
+      | WQuranVerse,
   ) => void;
   currentBookmark: BookmarkType | null;
   setCurrentBookmark: (bookmark: BookmarkType | null) => void;
@@ -34,80 +34,6 @@ interface BookmarkState {
   getNotesForVerse: (verseId: string) => string;
 }
 
-export const mockBookmarks: BookmarkInjectedType[] = [
-  {
-    verse_id: "2_255",
-    chapter_number: 2,
-    verse_number: 255,
-    verse_index: 255,
-    chapter_title_english: "The Cow",
-    chapter_title_arabic: "البقرة",
-    chapter_title_transliterated: "Al-Baqarah",
-    verse_text_english:
-      "Allah - there is no deity except Him, the Ever-Living, the Sustainer of existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth.",
-    verse_text_arabic:
-      "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ",
-    verse_text_transliterated:
-      "Allahu la ilaha illa huwa, al-hayyu al-qayyumu...",
-    verse_subtitle_english: "Ayat al-Kursi",
-    verse_footnote_english:
-      "This is known as the Throne Verse, one of the most powerful verses in the Quran.",
-    bookmark_datetime_timezoneaware: "2024-03-15T14:30:00Z",
-    notes: "",
-  },
-  {
-    verse_id: "1_1",
-    chapter_number: 1,
-    verse_number: 1,
-    verse_index: 1,
-    chapter_title_english: "The Opening",
-    chapter_title_arabic: "الفاتحة",
-    chapter_title_transliterated: "Al-Fatihah",
-    verse_text_english:
-      "In the name of Allah, the Entirely Merciful, the Especially Merciful.",
-    verse_text_arabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-    verse_text_transliterated: "Bismillahi r-rahmani r-raheem",
-    bookmark_datetime_timezoneaware: "2024-03-14T09:15:00Z",
-    notes: "",
-  },
-  {
-    verse_id: "3_102",
-    chapter_number: 3,
-    verse_number: 102,
-    verse_index: 102,
-    chapter_title_english: "Family of Imran",
-    chapter_title_arabic: "آل عمران",
-    chapter_title_transliterated: "Ali 'Imran",
-    verse_text_english:
-      "O you who have believed, fear Allah as He should be feared and do not die except as Muslims [in submission to Him].",
-    verse_text_arabic:
-      "يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ حَقَّ تُقَاتِهِ وَلَا تَمُوتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُونَ",
-    verse_text_transliterated:
-      "Ya ayyuha alladhina amanu ttaqu Allaha haqqa tuqatihi...",
-    bookmark_datetime_timezoneaware: "2024-03-13T18:45:00Z",
-    notes: "",
-  },
-];
-const verseHistoryExampleData = [
-  {
-    chapter_number: 1,
-    verse_number: 1,
-    bookmark_datetime_timezoneaware: new Date().toISOString(),
-    notes: "",
-  },
-  {
-    chapter_number: 2,
-    verse_number: 2,
-    bookmark_datetime_timezoneaware: new Date().toISOString(),
-    notes: "",
-  },
-  {
-    chapter_number: 3,
-    verse_number: 3,
-    bookmark_datetime_timezoneaware: new Date().toISOString(),
-    notes: "",
-  },
-];
 const initialState: Omit<
   BookmarkState,
   | "addBookmark"
