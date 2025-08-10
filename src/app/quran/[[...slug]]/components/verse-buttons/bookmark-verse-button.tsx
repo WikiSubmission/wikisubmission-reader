@@ -2,10 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Copy, Check, StarIcon } from "lucide-react";
 import { WQuranVerse } from "@/types/w-quran";
-import { useQuranSettings } from "@/hooks/use-quran-settings";
-import { set } from "zod";
 import BookmarkStore from "@/hooks/use-bookmark";
 
 interface BookmarkVerseButtonProps {
@@ -17,7 +14,6 @@ export default function BookmarkVerseButton({
 }: BookmarkVerseButtonProps) {
   const { addBookmark, removeBookmark, isVerseBookmarked } = BookmarkStore();
   const [bookmarked, setBookmarked] = useState(isVerseBookmarked(verse));
-  // const quranSettings = useQuranSettings();
 
   const bookmarkVerse = async () => {
     setBookmarked(!bookmarked);
