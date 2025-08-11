@@ -24,6 +24,7 @@ interface BookmarkState {
   setCurrentBookmark: (bookmark: BookmarkType | null) => void;
   isBookmarkPopupOpen: boolean;
   setIsBookmarkPopupOpen: (isOpen: boolean) => void;
+  toggleBookmarkPopup: () => void;
   isVerseBookmarked: (verse: WQuranVerse) => boolean;
   fetchVerseContent: (
     bookmarks: BookmarkType[],
@@ -45,6 +46,7 @@ const initialState: Omit<
   | "getInjectedBookmarks"
   | "updateBookmarkNotes"
   | "getNotesForVerse"
+  | "toggleBookmarkPopup"
 > = {
   bookmarks: [],
   currentBookmark: null,
@@ -55,7 +57,12 @@ const BookmarkStore = create<BookmarkState>()(
   persist(
     (set, get) => ({
       ...initialState,
-
+      toggleBookmarkPopup: () => {
+        set((state) => ({
+          ...state,
+          isBookmarkPopupOpen: !state.isBookmarkPopupOpen,
+        }));
+      },
       updateBookmarkNotes: (verseId: string, notes: string) => {
         set((state) => ({
           bookmarks: state.bookmarks.map((bookmark) => {

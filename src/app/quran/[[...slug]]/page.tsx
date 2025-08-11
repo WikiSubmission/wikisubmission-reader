@@ -13,9 +13,6 @@ import HeaderSection from "./components/header-section";
 import UtilitySection from "./components/utility-section";
 import VerseCard from "./components/verse-card";
 import AudioPlayer from "./components/audio-player";
-import { bookmarkPopupUtils } from "@/hooks/use-bookmark";
-import { BookmarkPreview } from "./components/bookmark-preview";
-
 export { generateMetadata } from "./metadata";
 
 export default async function QuranPage({
@@ -35,7 +32,6 @@ export default async function QuranPage({
 
 // Main content component wrapped in suspense
 async function QuranContent({ params, searchParams }: GlobalPageProps) {
-  const { isBookmarkPopupOpen } = bookmarkPopupUtils();
   // [Check if we have a valid query]
   // e.g. /quran/1 --> "1" or /quran/?q=3 --> "3" (undefined if no query)
   const detectedQuery = await getUrlQuery({ params, searchParams });
@@ -95,7 +91,6 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
       <>
         <UtilitySection result={result} />
         <main className="space-y-2">
-          <BookmarkPreview />
           <section className="space-y-4">
             <HeaderSection result={result} />
           </section>
