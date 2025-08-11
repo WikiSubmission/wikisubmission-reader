@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/tooltip";
 import { useState } from "react";
 import BookmarkStore from "@/hooks/use-bookmark";
-import { BookmarkPreview } from "@/app/quran/[[...slug]]/components/bookmark-preview";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -136,7 +135,6 @@ export function Menu({ isOpen }: MenuProps) {
                 </div>
               </div>
             </div>
-            <BookmarkPreview />
           </li>
         </ul>
       </nav>
