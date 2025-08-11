@@ -186,7 +186,6 @@ export function BookmarkPreview() {
     loadBookmarks();
   }, [getInjectedBookmarks, syncbookmarks]);
 
-  console.log("We have this bookmar: ", bookmarks);
   const cardRef = useRef<HTMLDivElement>(null);
   const [selectedVerse, setSelectedVerse] =
     useState<BookmarkInjectedType | null>(
