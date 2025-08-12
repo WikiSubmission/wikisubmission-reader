@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
@@ -22,6 +22,8 @@ import { useQuranSettings } from "@/hooks/use-quran-settings";
 import BookmarkStore from "@/hooks/use-bookmark";
 import { cn } from "@/lib/utils";
 import VerseCard from "./verse-card";
+import { useStore } from "@/hooks/use-store";
+import { useSidebar } from "@/hooks/use-sidebar";
 
 const useDebounce = (callback: Function, delay: number) => {
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -191,7 +193,6 @@ export function BookmarkPreview() {
     useState<BookmarkInjectedType | null>(
       bookmarks.length > 0 ? bookmarks[0] : null,
     );
-  const [notes, setNotes] = useState<Record<string, string>>({});
 
   // Sort bookmarks by datetime (most recent first)
   const sortedBookmarks = useMemo(() => {
@@ -201,6 +202,17 @@ export function BookmarkPreview() {
         new Date(a.bookmark_datetime_timezoneaware).getTime(),
     );
   }, [bookmarks]);
+  const sidebar = useSidebar();
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !sidebar) return;
+
+    if (isBookmarkPopupOpen && window.innerWidth < 1024) {
+      console.log("[BP] Force closing sidebar on mobile");
+      sidebar.setIsOpen(false);
+      sidebar.setIsHover(true);
+    }
+  }, [isBookmarkPopupOpen, sidebar.isOpen]);
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -219,10 +231,6 @@ export function BookmarkPreview() {
       minute: "2-digit",
       hour12: true,
     });
-  };
-
-  const handleNotesChange = (verseId: string, value: string) => {
-    setNotes((prev) => ({ ...prev, [verseId]: value }));
   };
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -262,6 +270,7 @@ export function BookmarkPreview() {
         ref={cardRef}
       >
         <CardHeader className="border-b border-border dark:border-white/10 p-3 sm:p-6">
+          <CardTitle hidden>Bookmarked Verses</CardTitle>
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Mobile back button */}
             {currentView === "detail" && (
