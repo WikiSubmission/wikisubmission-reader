@@ -13,7 +13,6 @@ import HeaderSection from "./components/header-section";
 import UtilitySection from "./components/utility-section";
 import VerseCard from "./components/verse-card";
 import AudioPlayer from "./components/audio-player";
-
 export { generateMetadata } from "./metadata";
 
 export default async function QuranPage({
@@ -21,6 +20,9 @@ export default async function QuranPage({
   searchParams,
 }: GlobalPageProps) {
   const { slug } = await params;
+  console.log("params: ", params);
+  console.log("slug: ", slug);
+  console.log("searchParams: ", searchParams);
   return (
     <Suspense key={slug?.join("-")} fallback={<QuranSkeleton />}>
       <QuranContent params={params} searchParams={searchParams} />
@@ -39,6 +41,8 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
 
   // [Get all search params, to append on top of the query]
   const resolvedSearchParams = await getUrlSearchParams(searchParams);
+
+  console.log("detectedQuery: ", detectedQuery);
 
   // [Define base API url]
   const baseUrl = new URL(

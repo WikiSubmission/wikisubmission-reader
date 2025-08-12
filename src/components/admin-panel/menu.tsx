@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Ellipsis } from "lucide-react";
+import { ArrowRightIcon, Ellipsis, History, HistoryIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-
 import { cn } from "@/lib/utils";
 import { getMenuList } from "@/constants/menu-list";
 import { Button } from "@/components/ui/button";
@@ -15,6 +14,8 @@ import {
   TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
+import { useState } from "react";
+import BookmarkStore from "@/hooks/use-bookmark";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -23,6 +24,10 @@ interface MenuProps {
 export function Menu({ isOpen }: MenuProps) {
   const pathname = usePathname();
   const menuList = getMenuList(pathname);
+  const [verseHistoryPopoverOpen, setVerseHistoryPopoverOpen] =
+    useState<boolean>(false);
+
+  const { toggleBookmarkPopup } = BookmarkStore();
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
@@ -113,34 +118,23 @@ export function Menu({ isOpen }: MenuProps) {
               )}
             </li>
           ))}
-          <li className="w-full grow flex items-end">
-            <TooltipProvider disableHoverableContent>
-              <Tooltip delayDuration={100}>
-                {/* Sidebar bottom area */}
-                <TooltipTrigger asChild>
-                  {/* <Button
-                    onClick={() => {}}
-                    variant="outline"
-                    className="w-full justify-center h-10 mt-5"
-                  >
-                    <span className={cn(isOpen === false ? "" : "mr-4")}>
-                      <LogOut size={18} />
-                    </span>
-                    <p
-                      className={cn(
-                        "whitespace-nowrap",
-                        isOpen === false ? "opacity-0 hidden" : "opacity-100"
-                      )}
+          <li className="w-full grow flex items-end pb-10">
+            <div className="w-full bg-background/80 h-fit">
+              <div className="flex flex-col w-full h-full">
+                <div className="flex items-center justify-between pr-4">
+                  <div className="flex flex-row items-center">
+                    <Button
+                      variant="ghost"
+                      className="m-0 py-0 flex items-center justify-center"
+                      onClick={toggleBookmarkPopup}
                     >
-                      Sign out
-                    </p>
-                  </Button> */}
-                </TooltipTrigger>
-                {/* {isOpen === false && (
-                  <TooltipContent side="right">Sign out</TooltipContent>
-                )} */}
-              </Tooltip>
-            </TooltipProvider>
+                      <HistoryIcon className="w-4 h-4 mr-2" />
+                      <span>Bookmarks</span>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </li>
         </ul>
       </nav>
