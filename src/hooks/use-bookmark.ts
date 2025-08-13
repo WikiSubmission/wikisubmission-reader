@@ -8,9 +8,40 @@ import { getUrlQuery } from "@/utils/get-url-query";
 import { Book, Bookmark } from "lucide-react";
 import { CONFIG_FILES } from "next/dist/shared/lib/constants";
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { persist, createJSONStorage, StateStorage } from "zustand/middleware";
 
-const BOOKMARK_HISTORY_SIZE = 10;
+const createMemoryStorage = (): StateStorage => {
+  let store: Record<string, string> = {};
+  return {
+    getItem: (name: string) => (name in store ? store[name] : null),
+    setItem: (name: string, value: string) => {
+      store[name] = value;
+    },
+    removeItem: (name: string) => {
+      delete store[name];
+    },
+  };
+};
+
+const getSafeStorage = (): StateStorage => {
+  if (typeof window === "undefined") return createMemoryStorage();
+  try {
+    const test = "__zustand_test__";
+    window.localStorage.setItem(test, test);
+    window.localStorage.removeItem(test);
+    // Wrap localStorage to satisfy StateStorage shape explicitly
+    return {
+      getItem: (name) => window.localStorage.getItem(name),
+      setItem: (name, value) => window.localStorage.setItem(name, value),
+      removeItem: (name) => window.localStorage.removeItem(name),
+    };
+  } catch {
+    // iOS Safari private mode or blocked storage
+    return createMemoryStorage();
+  }
+};
+
+const BOOKMARK_HISTORY_SIZE = 100;
 
 interface BookmarkState {
   bookmarks: BookmarkType[];
@@ -33,6 +64,7 @@ interface BookmarkState {
 
   updateBookmarkNotes: (verseId: string, notes: string) => void;
   getNotesForVerse: (verseId: string) => string;
+  _hasHydrated: boolean;
 }
 
 const initialState: Omit<
@@ -51,6 +83,7 @@ const initialState: Omit<
   bookmarks: [],
   currentBookmark: null,
   isBookmarkPopupOpen: false,
+  _hasHydrated: false,
 };
 
 const BookmarkStore = create<BookmarkState>()(
@@ -157,7 +190,7 @@ const BookmarkStore = create<BookmarkState>()(
           bookmark_datetime_timezoneaware: datetime,
           notes: "",
         };
-        if (bookmarkSize >= 100) {
+        if (bookmarkSize >= BOOKMARK_HISTORY_SIZE) {
           set((state) => ({
             bookmarks: [newBookmark, ...state.bookmarks.slice(0, -1)],
           }));
@@ -193,13 +226,23 @@ const BookmarkStore = create<BookmarkState>()(
     }),
     {
       name: "bookmark-storage",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(getSafeStorage),
+       onRehydrateStorage: () => {
+        return (state, error) => {
+          if (error) {
+            console.error("Zustand persist rehydrate error:", error);
+            return;
+          }
+          if (state) state._hasHydrated = true;
+        };
+      },
     },
   ),
 );
 
 export default BookmarkStore;
-
+export const useBookmarkHydration = () =>
+  BookmarkStore((state) => state._hasHydrated);
 export const bookmarkPopupUtils = () => {
   return { isBookmarkPopupOpen: BookmarkStore.getState().isBookmarkPopupOpen };
 };
