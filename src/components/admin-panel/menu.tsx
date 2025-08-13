@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRightIcon, Ellipsis, History, HistoryIcon } from "lucide-react";
+import { BookOpenIcon, Ellipsis } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { getMenuList } from "@/constants/menu-list";
@@ -128,7 +128,7 @@ export function Menu({ isOpen }: MenuProps) {
                       className="m-0 py-0 flex items-center justify-center"
                       onClick={toggleBookmarkPopup}
                     >
-                      <HistoryIcon className="w-4 h-4 mr-2" />
+                      <BookOpenIcon className="w-4 h-4 mr-2" />
                       <span>Bookmarks</span>
                     </Button>
                   </div>
