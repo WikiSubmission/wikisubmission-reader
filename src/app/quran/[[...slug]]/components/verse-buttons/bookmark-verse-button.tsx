@@ -12,11 +12,18 @@ interface BookmarkVerseButtonProps {
 export default function BookmarkVerseButton({
   verse,
 }: BookmarkVerseButtonProps) {
-  const { addBookmark, removeBookmark, isVerseBookmarked } = BookmarkStore();
-  const [bookmarked, setBookmarked] = useState(isVerseBookmarked(verse));
+  const bookmarked = BookmarkStore((state) =>
+    state.bookmarks.some(
+      (b) =>
+        b.chapter_number === verse.chapter_number &&
+        b.verse_number === verse.verse_number,
+    ),
+  );
 
-  const bookmarkVerse = async () => {
-    setBookmarked(!bookmarked);
+  const addBookmark = BookmarkStore((state) => state.addBookmark);
+  const removeBookmark = BookmarkStore((state) => state.removeBookmark);
+
+  const bookmarkVerse = () => {
     if (bookmarked) {
       removeBookmark(verse);
     } else {
