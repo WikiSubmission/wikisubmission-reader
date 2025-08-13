@@ -149,7 +149,7 @@ const BookmarkStore = create<BookmarkState>()(
       },
       addBookmark: (bookmark) => {
         const bookmarkSize = get().bookmarks.length;
-        get().removeBookmark(bookmark);
+        // get().removeBookmark(bookmark);
         const datetime = new Date().toISOString();
         const newBookmark = {
           chapter_number: bookmark.chapter_number,
@@ -157,7 +157,7 @@ const BookmarkStore = create<BookmarkState>()(
           bookmark_datetime_timezoneaware: datetime,
           notes: "",
         };
-        if (bookmarkSize >= 10) {
+        if (bookmarkSize >= 100) {
           set((state) => ({
             bookmarks: [newBookmark, ...state.bookmarks.slice(0, -1)],
           }));
@@ -176,8 +176,10 @@ const BookmarkStore = create<BookmarkState>()(
         set((state) => ({
           bookmarks: state.bookmarks.filter(
             (mark) =>
-              bookmark.chapter_number !== mark.chapter_number &&
-              bookmark.verse_number !== mark.verse_number,
+              !(
+                bookmark.chapter_number === mark.chapter_number &&
+                bookmark.verse_number === mark.verse_number
+              ),
           ),
         })),
       setCurrentBookmark: (bookmark: BookmarkType | null) =>
