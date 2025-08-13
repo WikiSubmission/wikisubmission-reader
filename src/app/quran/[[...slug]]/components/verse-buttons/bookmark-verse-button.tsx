@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { WQuranVerse } from "@/types/w-quran";
 import BookmarkStore from "@/hooks/use-bookmark";
@@ -9,19 +9,28 @@ interface BookmarkVerseButtonProps {
   verse: WQuranVerse;
 }
 
-export default function BookmarkVerseButton({
-  verse,
-}: BookmarkVerseButtonProps) {
-  const bookmarked = BookmarkStore((state) =>
-    state.bookmarks.some(
-      (b) =>
-        b.chapter_number === verse.chapter_number &&
-        b.verse_number === verse.verse_number,
-    ),
-  );
 
+export default function BookmarkVerseButton({ verse }: BookmarkVerseButtonProps) {
+  const [hydrated, setHydrated] = useState(false);
+
+  // Local bookmark check to avoid reading store too early
+  const bookmarks = BookmarkStore((state) => state.bookmarks);
   const addBookmark = BookmarkStore((state) => state.addBookmark);
   const removeBookmark = BookmarkStore((state) => state.removeBookmark);
+
+  useEffect(() => {
+    const unsub = BookmarkStore.persist.onFinishHydration(() => setHydrated(true));
+    if (BookmarkStore.persist.hasHydrated()) setHydrated(true);
+    return unsub;
+  }, []);
+
+  const bookmarked =
+    hydrated &&
+    bookmarks.some(
+      (b) =>
+        b.chapter_number === verse.chapter_number &&
+        b.verse_number === verse.verse_number
+    );
 
   const bookmarkVerse = () => {
     if (bookmarked) {
@@ -31,12 +40,14 @@ export default function BookmarkVerseButton({
     }
   };
 
+  // Optional: disable button until hydrated to avoid flicker
   return (
     <Button
       variant="secondary"
       size="sm"
       className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-foreground"
       onClick={bookmarkVerse}
+      disabled={!hydrated}
     >
       <ButterStarIcon selected={bookmarked} />
       {bookmarked ? " Bookmarked!" : ""}

@@ -45,20 +45,29 @@ function EnhancedNotes({
 }: {
   selectedVerse: BookmarkInjectedType;
 }) {
+   const [hydrated, setHydrated] = useState(false);
   const [localNotes, setLocalNotes] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
+
+  useEffect(() => {
+    const unsub = BookmarkStore.persist.onFinishHydration(() => setHydrated(true));
+    // Also check immediately in case it's already hydrated
+    if (BookmarkStore.persist.hasHydrated()) setHydrated(true);
+    return unsub;
+  }, []);
 
   const updateBookmarkNotes = BookmarkStore(
     (state) => state.updateBookmarkNotes,
   );
   const getNotesForVerse = BookmarkStore((state) => state.getNotesForVerse);
 
-  useEffect(() => {
+ useEffect(() => {
+    if (!hydrated) return;
     const currentNotes = getNotesForVerse(selectedVerse.verse_id);
     setLocalNotes(currentNotes);
     setLastSaved(currentNotes ? new Date() : null);
-  }, [selectedVerse.verse_id, getNotesForVerse]);
+  }, [hydrated, selectedVerse.verse_id, getNotesForVerse]);
 
   const debouncedUpdate = useDebounce((verseId: string, notes: string) => {
     updateBookmarkNotes(verseId, notes);
@@ -91,6 +100,10 @@ function EnhancedNotes({
       minute: "2-digit",
     });
   };
+
+  if (!hydrated) {
+    return <div className="text-sm text-muted-foreground">Loading notes…</div>;
+  }
 
   return (
     <div className="space-y-2">
@@ -165,8 +178,14 @@ function EnhancedNotes({
 }
 
 export function BookmarkPreview() {
+  const [hydrated, setHydrated] = useState(false);
   const [bookmarks, setBookmarks] = useState<BookmarkInjectedType[]>([]);
   const [currentView, setCurrentView] = useState<"list" | "detail">("list");
+  const [selectedVerse, setSelectedVerse] =
+    useState<BookmarkInjectedType | null>(
+      bookmarks.length > 0 ? bookmarks[0] : null,
+    );
+  const [notes, setNotes] = useState<Record<string, string>>({});
 
   const {
     setIsBookmarkPopupOpen,
@@ -176,6 +195,13 @@ export function BookmarkPreview() {
   } = BookmarkStore();
 
   useEffect(() => {
+    const unsub = BookmarkStore.persist.onFinishHydration(() => setHydrated(true));
+    if (BookmarkStore.persist.hasHydrated()) setHydrated(true);
+    return unsub;
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
     async function loadBookmarks() {
       const data = await getInjectedBookmarks();
       setBookmarks(data);
@@ -184,14 +210,9 @@ export function BookmarkPreview() {
       }
     }
     loadBookmarks();
-  }, [getInjectedBookmarks, syncbookmarks]);
+  }, [hydrated, getInjectedBookmarks, syncbookmarks]);
 
   const cardRef = useRef<HTMLDivElement>(null);
-  const [selectedVerse, setSelectedVerse] =
-    useState<BookmarkInjectedType | null>(
-      bookmarks.length > 0 ? bookmarks[0] : null,
-    );
-  const [notes, setNotes] = useState<Record<string, string>>({});
 
   // Sort bookmarks by datetime (most recent first)
   const sortedBookmarks = useMemo(() => {
@@ -249,6 +270,9 @@ export function BookmarkPreview() {
     }
   }, [isBookmarkPopupOpen]);
 
+  if (!hydrated) {
+    return <div className="text-sm text-muted-foreground">Loading bookmarks…</div>;
+  }
   return (
     <div
       className={cn(
