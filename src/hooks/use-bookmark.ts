@@ -197,10 +197,6 @@ const BookmarkStore = create<BookmarkState>()(
           }));
         }
 
-        console.log("New state after addition: ", [
-          newBookmark,
-          ...get().bookmarks,
-        ]);
       },
       removeBookmark: (bookmark) =>
         set((state) => ({
