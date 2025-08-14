@@ -6,6 +6,7 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { parseQuranQuery } from "@/utils/parse-quran-query";
 import { Button } from "@/components/ui/button";
 import { Search, Book, Hash, FileText, RefreshCcw } from "lucide-react";
+import { QuranPageStore } from "@/hooks/use-quran-page";
 
 function toReadableURL(query: string) {
   return query
@@ -15,7 +16,7 @@ function toReadableURL(query: string) {
 }
 
 export default function SearchBar() {
-  const [query, setQuery] = useState("");
+  const {query, setQuery} = QuranPageStore();
   const [suggestion, setSuggestion] = useState<{
     label: string;
     url: string;
