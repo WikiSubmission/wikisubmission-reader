@@ -27,7 +27,7 @@ export default function UtilitySection({
 
   return (
     <main
-      className={`rounded-full sticky top-0 z-50 transition-all duration-300 ease-in-out ${
+      className={`rounded-full top-0 z-50 transition-all duration-300 ease-in-out ${
         isScrolled
           ? "bg-white/20 dark:bg-gray-950/50 backdrop-blur-xl border border-gray-200/20 dark:border-gray-800/20 py-2 shadow-sm"
           : "bg-transparent"
