@@ -4,9 +4,6 @@ import {
   WBookmarkQuranAPIResponse,
 } from "@/types/bookmarks";
 import { WQuranAPIResponse, WQuranVerse } from "@/types/w-quran";
-import { getUrlQuery } from "@/utils/get-url-query";
-import { Book, Bookmark } from "lucide-react";
-import { CONFIG_FILES } from "next/dist/shared/lib/constants";
 import { create } from "zustand";
 import { persist, createJSONStorage, StateStorage } from "zustand/middleware";
 
