@@ -11,6 +11,7 @@ const nextConfig = {
         hostname: "www.masjidtucson.org",
       },
     ],
+    domains: ["picsum.photos"], // for testing
   },
   async redirects() {
     return [
@@ -59,14 +60,12 @@ const nextConfig = {
       // Fallback for invalid appendix numbers or /appendices
       {
         source: "/appendix/:path*",
-        destination:
-          "https://library.wikisubmission.org/file/quran-the-final-testament-appendices",
+        destination: "https://library.wikisubmission.org/file/quran-the-final-testament-appendices",
         permanent: true,
       },
       {
         source: "/appendix-:path(.*)",
-        destination:
-          "https://library.wikisubmission.org/file/quran-the-final-testament-appendices",
+        destination: "https://library.wikisubmission.org/file/quran-the-final-testament-appendices",
         permanent: true,
       },
     ];
