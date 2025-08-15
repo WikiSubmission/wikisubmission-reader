@@ -17,8 +17,7 @@ export function ScrollToTop({ className, showAfter = 300 }: ScrollToTopProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       setIsVisible(scrollTop > showAfter);
     };
 
@@ -34,19 +33,18 @@ export function ScrollToTop({ className, showAfter = 300 }: ScrollToTopProps) {
   };
 
   // Hide button when audio is active (playing or in queue mode)
-  const shouldHide =
-    audio.isPlaying || audio.isQueueMode || audio.verseQueue.length > 0;
+  const shouldHide = audio.isPlaying || audio.isQueueMode || audio.verseQueue.length > 0;
 
   return (
     <Button
       variant="outline"
       size="icon"
       className={cn(
-        "fixed bottom-6 right-6 z-50 shadow-lg transition-all duration-300 ease-in-out border-2 border-violet-700 dark:border-violet-400 rounded-full",
+        "fixed bottom-6 right-6 z-50 rounded-full border-2 border-violet-700 shadow-lg transition-all duration-300 ease-in-out dark:border-violet-400",
         isVisible && !shouldHide
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-2 pointer-events-none",
-        className,
+          ? "translate-y-0 opacity-100"
+          : "pointer-events-none translate-y-2 opacity-0",
+        className
       )}
       onClick={scrollToTop}
       aria-label="Scroll to top"

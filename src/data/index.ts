@@ -977,8 +977,7 @@ export const Data = {
         "The descriptions of Heaven and Hell throughout the Quran are allegorical...",
       appendix_url_english: "https://wikisubmission.org/appendix/5",
       appendix_title_turkish: "Cennet ve Cehennem",
-      appendix_preview_turkish:
-        "Kuran boyunca Cennet ve Cehennem tarifleri alegoriktir...",
+      appendix_preview_turkish: "Kuran boyunca Cennet ve Cehennem tarifleri alegoriktir...",
       appendix_url_turkish: "https://kuransonahit.org/ekler/Ek5",
     },
     {
@@ -1120,8 +1119,7 @@ export const Data = {
       appendix_preview_english:
         "The Quran proclaims that the Quran is complete, perfect, and fully detailed (6:19, 38, 114, 115; 50:45), and that religious regulations not specifically instituted in the Quran constitute a religion other than Islam, i.e., Submission (42:21, 17:46)...",
       appendix_url_english: "https://wikisubmission.org/appendix/18",
-      appendix_title_turkish:
-        "Kuran: KurtuluÅŸ Ä°Ã§in Ä°htiyacÄ±nÄ±z Olan Her Åžey",
+      appendix_title_turkish: "Kuran: KurtuluÅŸ Ä°Ã§in Ä°htiyacÄ±nÄ±z Olan Her Åžey",
       appendix_preview_turkish:
         "Kuranâ€™Ä±n sÃ¶zleri 19:64â€™te konuÅŸur ve derler ki â€œBiz Rabbinin buyruklarÄ±na uygun olarak indik. GeÃ§miÅŸ, ÅŸimdi ve gelecek Oâ€™na aittir. Senin Rabbin asla unutmaz.â€ Ã–rneÄŸin TanrÄ± bize nasÄ±l uyunacaÄŸÄ±nÄ± sÃ¶ylemeyi unutmadÄ± (18:109, 31:27)...",
       appendix_url_turkish: "https://kuransonahit.org/ekler/Ek18",
@@ -1225,13 +1223,11 @@ export const Data = {
     },
     {
       appendix_number: 28,
-      appendix_title_english:
-        "Muhammad Wrote God's Revelations With His Own Hand",
+      appendix_title_english: "Muhammad Wrote God's Revelations With His Own Hand",
       appendix_preview_english:
         "The Quran tells us that Muhammad wrote down the Quran - Muhammad's contemporaries are quoted as saying, [Quran 25:5] They also said, 'Tales from the past that he wrote down; they were dictated to him day and night.'...",
       appendix_url_english: "https://wikisubmission.org/appendix/28",
-      appendix_title_turkish:
-        "Muhammed TanrÄ±â€™nÄ±n Vahiylerini Kendi Eliyle YazdÄ±",
+      appendix_title_turkish: "Muhammed TanrÄ±â€™nÄ±n Vahiylerini Kendi Eliyle YazdÄ±",
       appendix_preview_turkish:
         "Ä°lk vahiy â€œOkuâ€ idi ve â€œTanrÄ± kalem yoluyla Ã¶ÄŸretirâ€ (96:1-4) ifadesini iÃ§eriyordu ve ikinci vahiy ise â€œKalemâ€di (68:1). Kalemin tek fonksiyonu yazmaktÄ±r...",
       appendix_url_turkish: "https://kuransonahit.org/ekler/Ek28",
@@ -1292,8 +1288,7 @@ export const Data = {
     },
     {
       appendix_number: 34,
-      appendix_title_english:
-        "Virginity/Chastity: A Trait of the True Believers",
+      appendix_title_english: "Virginity/Chastity: A Trait of the True Believers",
       appendix_preview_english:
         "Sons and daughters of the believers must be taught that their happiness throughout their lives depends on following God's law and preserving their chastity...",
       appendix_url_english: "https://wikisubmission.org/appendix/34",

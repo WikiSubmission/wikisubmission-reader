@@ -1,10 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Fonts } from "@/constants/fonts";
 import { Data } from "@/data";
 import Link from "next/link";
@@ -12,15 +7,11 @@ import Link from "next/link";
 export default function QuranPage() {
   return (
     <main className="space-y-4">
-      <h1
-        className={`flex flex-col text-3xl font-light text-primary ${Fonts.wiki.className}`}
-      >
-        <span className="text-sm text-muted-foreground tracking-widest">
-          APPENDICES FROM
-        </span>
+      <h1 className={`flex flex-col text-3xl font-light text-primary ${Fonts.wiki.className}`}>
+        <span className="text-sm tracking-widest text-muted-foreground">APPENDICES FROM</span>
         Quran: The Final Testament
       </h1>
-      <div className="flex flex-wrap gap-2 justify-between">
+      <div className="flex flex-wrap justify-between gap-2">
         <section className="flex gap-2">
           <Link
             href="https://library.wikisubmission.org/file/quran-the-final-testament-appendices"
@@ -40,17 +31,17 @@ export default function QuranPage() {
           </Link>
         </section>
       </div>
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {Data.Appendices.map((d) => (
           <Link
             href={`https://wikisubmission.org/appendix/${d.appendix_number}`}
             target="_blank"
             key={`appendix-${d.appendix_number}`}
-            className="group hover:scale-[1.01] transition-transform"
+            className="group transition-transform hover:scale-[1.01]"
           >
             <Card className="h-full transition-colors">
               <CardHeader>
-                <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                <CardTitle className="text-lg transition-colors group-hover:text-primary">
                   {d.appendix_number}. {d.appendix_title_english} →
                 </CardTitle>
                 <CardDescription className="mt-2 line-clamp-3">

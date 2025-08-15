@@ -12,23 +12,23 @@ export function QuranSkeleton() {
 
   function HeaderSkeleton() {
     return (
-      <div className="space-y-4 animate-pulse">
+      <div className="animate-pulse space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-16 bg-muted rounded"></div>
-            <div className="h-6 w-20 bg-muted rounded"></div>
+            <div className="h-8 w-16 rounded bg-muted"></div>
+            <div className="h-6 w-20 rounded bg-muted"></div>
           </div>
-          <div className="h-8 w-8 bg-muted rounded"></div>
+          <div className="h-8 w-8 rounded bg-muted"></div>
         </div>
         <hr />
-        <div className="flex flex-wrap items-center gap-2 justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <section className="space-y-2">
-            <div className="h-4 w-16 bg-muted rounded"></div>
-            <div className="h-6 w-48 bg-muted rounded"></div>
+            <div className="h-4 w-16 rounded bg-muted"></div>
+            <div className="h-6 w-48 rounded bg-muted"></div>
           </section>
-          <section className="space-y-2 hidden md:block">
-            <div className="h-4 w-32 bg-muted rounded"></div>
-            <div className="h-6 w-40 bg-muted rounded"></div>
+          <section className="hidden space-y-2 md:block">
+            <div className="h-4 w-32 rounded bg-muted"></div>
+            <div className="h-6 w-40 rounded bg-muted"></div>
           </section>
         </div>
       </div>
@@ -37,17 +37,17 @@ export function QuranSkeleton() {
 
   function VerseSkeleton() {
     return (
-      <div className="space-y-4 p-4 border rounded-lg animate-pulse">
+      <div className="animate-pulse space-y-4 rounded-lg border p-4">
         <div className="flex items-center justify-between">
-          <div className="h-6 w-16 bg-muted rounded"></div>
-          <div className="h-4 w-12 bg-muted rounded"></div>
+          <div className="h-6 w-16 rounded bg-muted"></div>
+          <div className="h-4 w-12 rounded bg-muted"></div>
         </div>
         <div className="space-y-3">
-          <div className="h-4 w-full bg-muted rounded"></div>
-          <div className="h-4 w-5/6 bg-muted rounded"></div>
-          <div className="h-4 w-4/5 bg-muted rounded"></div>
+          <div className="h-4 w-full rounded bg-muted"></div>
+          <div className="h-4 w-5/6 rounded bg-muted"></div>
+          <div className="h-4 w-4/5 rounded bg-muted"></div>
         </div>
-        <div className="h-8 w-3/4 bg-muted rounded"></div>
+        <div className="h-8 w-3/4 rounded bg-muted"></div>
       </div>
     );
   }

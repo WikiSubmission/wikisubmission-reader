@@ -28,7 +28,7 @@ export function RootWordView({ root }: { root: string }) {
         const response = await fetch(
           process.env.TEST_MODE === "true"
             ? `http://localhost:8080/verses-with-root/${encodeURIComponent(root)}`
-            : `https://quran.wikisubmission.org/verses-with-root/${encodeURIComponent(root)}`,
+            : `https://quran.wikisubmission.org/verses-with-root/${encodeURIComponent(root)}`
         );
         if (!response.ok) throw new Error("Failed to load root word data");
         const result = await response.json();
@@ -44,16 +44,11 @@ export function RootWordView({ root }: { root: string }) {
   }, [root]);
 
   return (
-    <Card className="w-full max-w-md mt-2 mr-2">
+    <Card className="mr-2 mt-2 w-full max-w-md">
       <CardHeader className="pb-2 pr-10">
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2 text-base">
-            Root
-          </CardTitle>
-          <p
-            className="text-xl text-muted-foreground mt-1 text-right"
-            dir="rtl"
-          >
+          <CardTitle className="flex items-center gap-2 text-base">Root</CardTitle>
+          <p className="mt-1 text-right text-xl text-muted-foreground" dir="rtl">
             <span className="font-medium text-primary">{root}</span>
           </p>
         </div>
@@ -63,23 +58,21 @@ export function RootWordView({ root }: { root: string }) {
         {loading ? (
           // Loading animation.
           <div className="animate-pulse space-y-2">
-            <div className="h-3 bg-muted rounded w-3/4"></div>
+            <div className="h-3 w-3/4 rounded bg-muted"></div>
             <div className="space-y-2">
               {[...Array(3)].map((_, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <div className="h-6 w-6 bg-muted rounded-full"></div>
-                  <div className="space-y-1 flex-1">
-                    <div className="h-3 bg-muted rounded w-1/3"></div>
-                    <div className="h-2 bg-muted rounded w-1/4"></div>
+                  <div className="h-6 w-6 rounded-full bg-muted"></div>
+                  <div className="flex-1 space-y-1">
+                    <div className="h-3 w-1/3 rounded bg-muted"></div>
+                    <div className="h-2 w-1/4 rounded bg-muted"></div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         ) : error ? (
-          <p className="text-xs text-destructive">
-            No data found for this root word
-          </p>
+          <p className="text-xs text-destructive">No data found for this root word</p>
         ) : data && data.length > 0 ? (
           <div className="space-y-2">
             <div className="max-h-60 overflow-y-auto">
@@ -92,27 +85,23 @@ export function RootWordView({ root }: { root: string }) {
                   <Link
                     key={idx}
                     href={`/quran/${entry.verse_id}?word=${entry.word_index}`}
-                    className="flex items-center gap-2 p-2 rounded hover:bg-muted/50 transition-colors group cursor-pointer block"
+                    className="group block flex cursor-pointer items-center gap-2 rounded p-2 transition-colors hover:bg-muted/50"
                   >
                     <div className="flex-shrink-0">
-                      <div className="w-7 h-7 bg-primary/10 rounded-full flex items-center justify-center">
-                        <span className="text-xs font-medium text-primary">
-                          {idx + 1}
-                        </span>
+                      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10">
+                        <span className="text-xs font-medium text-primary">{idx + 1}</span>
                       </div>
                     </div>
-                    <div className="flex-1 min-w-0 flex items-center justify-between">
+                    <div className="flex min-w-0 flex-1 items-center justify-between">
                       <div>
-                        <div className="text-xs font-medium text-primary hover:text-primary/80 transition-colors">
+                        <div className="text-xs font-medium text-primary transition-colors hover:text-primary/80">
                           {entry.verse_id}
                           <span className="text-muted-foreground">
                             {" "}
                             (word #{entry.word_index + 1})
                           </span>
                         </div>
-                        <p className="text-xs text-muted-foreground">
-                          {entry.transliterated_text}
-                        </p>
+                        <p className="text-xs text-muted-foreground">{entry.transliterated_text}</p>
                       </div>
                       <div className="text-right">
                         <p className="text-sm text-primary" dir="rtl">
@@ -123,10 +112,8 @@ export function RootWordView({ root }: { root: string }) {
                         </p>
                       </div>
                     </div>
-                    <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="w-3 h-3 text-muted-foreground text-xs">
-                        →
-                      </div>
+                    <div className="flex-shrink-0 opacity-0 transition-opacity group-hover:opacity-100">
+                      <div className="h-3 w-3 text-xs text-muted-foreground">→</div>
                     </div>
                   </Link>
                 ))}
@@ -134,11 +121,11 @@ export function RootWordView({ root }: { root: string }) {
             </div>
           </div>
         ) : (
-          <div className="text-center py-4">
-            <div className="w-8 h-8 mx-auto mb-2 bg-muted rounded-full flex items-center justify-center">
+          <div className="py-4 text-center">
+            <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-muted">
               <Hash className="h-4 w-4 text-muted-foreground" />
             </div>
-            <h3 className="text-sm font-medium mb-1">No verses found</h3>
+            <h3 className="mb-1 text-sm font-medium">No verses found</h3>
             <p className="text-xs text-muted-foreground">
               No verses contain <span dir="rtl">{root}</span>
             </p>

@@ -12,8 +12,7 @@ interface PlayAllButtonProps {
 export default function PlayAllButton({ verses }: PlayAllButtonProps) {
   const audio = useQuranAudio();
 
-  const isCurrentQueue =
-    audio.isQueueMode && audio.verseQueue.length === verses.length;
+  const isCurrentQueue = audio.isQueueMode && audio.verseQueue.length === verses.length;
   const isPlaying = isCurrentQueue && audio.isPlaying;
 
   const handlePlayAll = () => {
@@ -27,7 +26,7 @@ export default function PlayAllButton({ verses }: PlayAllButtonProps) {
   };
 
   const getIcon = () => {
-    if (isPlaying) return <Pause className="w-3 h-3" />;
+    if (isPlaying) return <Pause className="h-3 w-3" />;
     return <Play className="h-3 w-3 text-violet-500 dark:text-violet-700" />;
   };
 
@@ -35,7 +34,7 @@ export default function PlayAllButton({ verses }: PlayAllButtonProps) {
     <Button
       variant="secondary"
       size="sm"
-      className="flex items-center gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-primary hover:text-foreground"
+      className="flex h-6 items-center gap-1 rounded-md px-2 text-xs text-primary transition hover:bg-gray-100 hover:text-foreground dark:hover:bg-gray-800"
       onClick={handlePlayAll}
     >
       {getIcon()}

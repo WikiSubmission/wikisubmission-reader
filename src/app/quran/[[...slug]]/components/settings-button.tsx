@@ -2,11 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { useQuranSettings } from "@/hooks/use-quran-settings";
 import { SettingsIcon } from "lucide-react";
@@ -20,7 +16,7 @@ export default function QuranSettingsButton() {
           <Button
             variant="secondary"
             size="sm"
-            className="flex items-center gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-primary hover:text-foreground"
+            className="flex h-6 items-center gap-1 rounded-md px-2 text-xs text-primary transition hover:bg-gray-100 hover:text-foreground dark:hover:bg-gray-800"
           >
             <SettingsIcon className="h-3 w-3 text-violet-500 dark:text-violet-700" />
             <span className="text-xs">Settings</span>
@@ -41,9 +37,7 @@ export default function QuranSettingsButton() {
               <Switch
                 checked={useSettings.settings.showSubtitles}
                 onCheckedChange={() => {
-                  useSettings.setShowSubtitles(
-                    !useSettings.settings.showSubtitles,
-                  );
+                  useSettings.setShowSubtitles(!useSettings.settings.showSubtitles);
                 }}
               ></Switch>
               <Badge variant="secondary">Subtitles</Badge>
@@ -52,9 +46,7 @@ export default function QuranSettingsButton() {
               <Switch
                 checked={useSettings.settings.showFootnotes}
                 onCheckedChange={() => {
-                  useSettings.setShowFootnotes(
-                    !useSettings.settings.showFootnotes,
-                  );
+                  useSettings.setShowFootnotes(!useSettings.settings.showFootnotes);
                 }}
               ></Switch>
               <Badge variant="secondary">Footnotes</Badge>
@@ -63,9 +55,7 @@ export default function QuranSettingsButton() {
               <Switch
                 checked={useSettings.settings.showTransliteration}
                 onCheckedChange={() => {
-                  useSettings.setShowTransliteration(
-                    !useSettings.settings.showTransliteration,
-                  );
+                  useSettings.setShowTransliteration(!useSettings.settings.showTransliteration);
                 }}
               ></Switch>
               <Badge variant="secondary">Transliteration</Badge>
@@ -74,9 +64,7 @@ export default function QuranSettingsButton() {
               <Switch
                 checked={useSettings.settings.showWordByWord}
                 onCheckedChange={() => {
-                  useSettings.setShowWordByWord(
-                    !useSettings.settings.showWordByWord,
-                  );
+                  useSettings.setShowWordByWord(!useSettings.settings.showWordByWord);
                 }}
               ></Switch>
               <Badge variant="secondary">Word by Word</Badge>

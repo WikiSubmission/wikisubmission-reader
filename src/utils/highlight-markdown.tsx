@@ -8,15 +8,12 @@ export const highlightMarkdown = (text?: string | null) => {
     <span key={lineIndex}>
       {line.split(/(\*\*.*?\*\*)/g).map((part, index) =>
         part.startsWith("**") && part.endsWith("**") ? (
-          <span
-            key={index}
-            className="bg-yellow-300 dark:bg-yellow-800 rounded px-0"
-          >
+          <span key={index} className="rounded bg-yellow-300 px-0 dark:bg-yellow-800">
             {part.slice(2, -2)}
           </span>
         ) : (
           part
-        ),
+        )
       )}
       {lineIndex < lines.length - 1 && <br />}
     </span>

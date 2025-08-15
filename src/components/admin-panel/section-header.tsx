@@ -40,7 +40,7 @@ export function SectionHeader({ title, hideSidebar }: SectionHeaderProps) {
 
   return (
     <header className="sticky z-10 w-full pt-4">
-      <div className="mx-4 sm:mx-8 flex items-center gap-2">
+      <div className="mx-4 flex items-center gap-2 sm:mx-8">
         {hideSidebar !== true && <SheetMenu />}
         <Breadcrumb>
           <BreadcrumbList>

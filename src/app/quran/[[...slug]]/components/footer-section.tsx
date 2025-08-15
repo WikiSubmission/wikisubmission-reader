@@ -3,11 +3,7 @@ import { WQuranAPIResponse } from "@/types/w-quran";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
-export default function FooterSection({
-  result,
-}: {
-  result: WQuranAPIResponse;
-}) {
+export default function FooterSection({ result }: { result: WQuranAPIResponse }) {
   const isSingleVerse = result.response.data.length === 1;
   const isChapter = result.request.type === "chapter";
   return (

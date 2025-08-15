@@ -14,9 +14,7 @@ export default function VerseTextArabic({ verse }: { verse: WQuranVerse }) {
   const wordSearchParam = searchParams.get("word");
 
   // Get query from URL path (/quran/{q} or /quran/?q={q})
-  const pathQuery = Array.isArray(params.slug)
-    ? params.slug.join("/")
-    : params.slug;
+  const pathQuery = Array.isArray(params.slug) ? params.slug.join("/") : params.slug;
   const searchQuery = searchParams.get("q");
 
   // Only use pathQuery if it doesn't look like a verse reference (e.g., "1", "1:1", "1-10")
@@ -25,19 +23,16 @@ export default function VerseTextArabic({ verse }: { verse: WQuranVerse }) {
   };
 
   const queryHighlight =
-    searchQuery ||
-    (pathQuery && !isVerseReference(pathQuery) ? pathQuery : null);
+    searchQuery || (pathQuery && !isVerseReference(pathQuery) ? pathQuery : null);
 
-  const wordIndexToHighlight = wordSearchParam
-    ? parseInt(wordSearchParam, 10)
-    : null;
+  const wordIndexToHighlight = wordSearchParam ? parseInt(wordSearchParam, 10) : null;
 
   if (quranSettings.settings.showArabic) {
     return (
       <section>
         <div
-          className={`text-2xl leading-relaxed text-gray-900 dark:text-gray-100 text-right ${
-            quranSettings.settings.showWordByWord ? "leading-loose py-2" : ""
+          className={`text-right text-2xl leading-relaxed text-gray-900 dark:text-gray-100 ${
+            quranSettings.settings.showWordByWord ? "py-2 leading-loose" : ""
           }`}
           dir="rtl"
         >
@@ -79,9 +74,7 @@ const HoverableArabicText = ({
   }
 
   // Sort words by word_index to ensure correct order
-  const sortedWords = [...verse.word_by_word].sort(
-    (a, b) => a.word_index - b.word_index,
-  );
+  const sortedWords = [...verse.word_by_word].sort((a, b) => a.word_index - b.word_index);
 
   const normalize = (str: string): string =>
     str
@@ -96,13 +89,9 @@ const HoverableArabicText = ({
     // Decode URL and replace + with spaces
     const decodedQuery = decodeURIComponent(queryHighlight).replace(/\+/g, " ");
     const queryWords = normalize(decodedQuery).split(/\s+/).filter(Boolean);
-    const englishWords = normalize(word.english_text)
-      .split(/\s+/)
-      .filter(Boolean);
+    const englishWords = normalize(word.english_text).split(/\s+/).filter(Boolean);
 
-    return queryWords.some((qWord) =>
-      englishWords.some((eWord) => eWord.includes(qWord)),
-    );
+    return queryWords.some((qWord) => englishWords.some((eWord) => eWord.includes(qWord)));
   };
 
   return (
@@ -117,11 +106,11 @@ const HoverableArabicText = ({
               <span
                 className={`${
                   showWordByWord
-                    ? "inline-flex flex-col items-center text-center mx-2 mb-4"
+                    ? "mx-2 mb-4 inline-flex flex-col items-center text-center"
                     : "inline"
                 } ${
                   isWordIndexHighlight
-                    ? "bg-yellow-300 dark:bg-yellow-800 rounded-lg p-1 transition-all"
+                    ? "rounded-lg bg-yellow-300 p-1 transition-all dark:bg-yellow-800"
                     : ""
                 }`}
                 data-query-match={isQueryMatch ? "true" : "false"}
@@ -130,7 +119,7 @@ const HoverableArabicText = ({
                 <span
                   className={`${showWordByWord ? "text-3xl leading-none" : ""} ${
                     isQueryMatch && !isWordIndexHighlight
-                      ? "bg-violet-300 dark:bg-violet-800 rounded px-1"
+                      ? "rounded bg-violet-300 px-1 dark:bg-violet-800"
                       : ""
                   }`}
                 >
@@ -139,13 +128,13 @@ const HoverableArabicText = ({
                 {showWordByWord && (
                   <>
                     <span
-                      className="mt-2 text-xs text-gray-500 dark:text-gray-500 mt-1 max-w-[80px] text-center leading-tight font-normal italic break-words hyphens-auto"
+                      className="mt-1 mt-2 max-w-[80px] hyphens-auto break-words text-center text-xs font-normal italic leading-tight text-gray-500 dark:text-gray-500"
                       dir="ltr"
                     >
                       {word.transliterated_text}
                     </span>
                     <span
-                      className="mt-1 text-xs text-gray-600 dark:text-gray-400 mt-0.5 max-w-[80px] text-center leading-tight font-medium break-words hyphens-auto"
+                      className="mt-0.5 mt-1 max-w-[80px] hyphens-auto break-words text-center text-xs font-medium leading-tight text-gray-600 dark:text-gray-400"
                       dir="ltr"
                     >
                       {word.english_text}
@@ -154,9 +143,7 @@ const HoverableArabicText = ({
                 )}
               </span>
             </WordTooltip>
-            {!showWordByWord &&
-              word.word_index < sortedWords.length - 1 &&
-              "\u00A0"}
+            {!showWordByWord && word.word_index < sortedWords.length - 1 && "\u00A0"}
           </span>
         );
       })}
@@ -176,9 +163,7 @@ export const WordTooltip = ({
   const [isVisible, setIsVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
-  const [tooltipPosition, setTooltipPosition] = useState<
-    "left" | "center" | "right"
-  >("center");
+  const [tooltipPosition, setTooltipPosition] = useState<"left" | "center" | "right">("center");
 
   const handleMouseEnter = (e: React.MouseEvent) => {
     if (timeoutId) clearTimeout(timeoutId);
@@ -269,7 +254,7 @@ export const WordTooltip = ({
       <span
         className={`${
           word.root_word ? "cursor-pointer" : ""
-        } hover:text-violet-600 dark:hover:text-violet-400 p-1 rounded transition-colors`}
+        } rounded p-1 transition-colors hover:text-violet-600 dark:hover:text-violet-400`}
         onClick={handleClick}
       >
         {children}
@@ -287,7 +272,7 @@ export const WordTooltip = ({
             {/* Transliteration */}
             {word.transliteration && (
               <div
-                className="text-gray-500 dark:text-gray-400 text-center text-xs font-medium tracking-wide drop-shadow-sm"
+                className="text-center text-xs font-medium tracking-wide text-gray-500 drop-shadow-sm dark:text-gray-400"
                 dir="ltr"
               >
                 {word.transliteration}
@@ -297,7 +282,7 @@ export const WordTooltip = ({
             {/* Transliterated Text */}
             {word.transliterated_text && (
               <div
-                className="text-gray-600 dark:text-gray-300 text-center text-xs font-normal italic drop-shadow-sm"
+                className="text-center text-xs font-normal italic text-gray-600 drop-shadow-sm dark:text-gray-300"
                 dir="ltr"
               >
                 {word.transliterated_text}
@@ -307,7 +292,7 @@ export const WordTooltip = ({
             {/* English Text - Main focus */}
             {word.english_text && (
               <div
-                className="font-semibold text-sm text-center text-violet-700 dark:text-violet-300 leading-tight drop-shadow-md"
+                className="text-center text-sm font-semibold leading-tight text-violet-700 drop-shadow-md dark:text-violet-300"
                 dir="ltr"
               >
                 {word.english_text}
@@ -318,7 +303,7 @@ export const WordTooltip = ({
             {word.root_word && (
               <div className="">
                 <div
-                  className="text-gray-700 dark:text-gray-300 text-sm text-center drop-shadow-sm"
+                  className="text-center text-sm text-gray-700 drop-shadow-sm dark:text-gray-300"
                   dir="rtl"
                 >
                   {word.root_word}

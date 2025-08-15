@@ -7,11 +7,7 @@ export const metadata: Metadata = {
   description: "Access free books and useful resources for Submission",
 };
 
-export default function QuranLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function QuranLayout({ children }: { children: React.ReactNode }) {
   return (
     <AdminPanelLayout>
       <ContentLayout title="Downloads">

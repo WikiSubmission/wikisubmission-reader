@@ -18,10 +18,7 @@ export default function CopyVerseButton({ verse }: CopyVerseButtonProps) {
     try {
       var verseText = "";
 
-      if (
-        quranSettings.settings.showSubtitles &&
-        verse.verse_subtitle_english
-      ) {
+      if (quranSettings.settings.showSubtitles && verse.verse_subtitle_english) {
         verseText += `\n\n${verse.verse_subtitle_english}`;
       }
 
@@ -35,10 +32,7 @@ export default function CopyVerseButton({ verse }: CopyVerseButtonProps) {
         verseText += `\n\n${verse.verse_text_transliterated}`;
       }
 
-      if (
-        quranSettings.settings.showFootnotes &&
-        verse.verse_footnote_english
-      ) {
+      if (quranSettings.settings.showFootnotes && verse.verse_footnote_english) {
         verseText += `\n\n${verse.verse_footnote_english}`;
       }
 
@@ -56,10 +50,10 @@ export default function CopyVerseButton({ verse }: CopyVerseButtonProps) {
     <Button
       variant="secondary"
       size="sm"
-      className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-foreground"
+      className="h-6 justify-start gap-1 rounded-md px-2 text-xs text-muted-foreground transition hover:bg-gray-100 hover:text-foreground dark:hover:bg-gray-800"
       onClick={copyToClipboard}
     >
-      {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+      {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
       {copied ? "Copied!" : ""}
     </Button>
   );

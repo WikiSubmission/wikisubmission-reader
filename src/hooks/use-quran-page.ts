@@ -1,8 +1,4 @@
-import {
-  BookmarkInjectedType,
-  BookmarkType,
-  WBookmarkQuranAPIResponse,
-} from "@/types/bookmarks";
+import { BookmarkInjectedType, BookmarkType, WBookmarkQuranAPIResponse } from "@/types/bookmarks";
 import { WQuranAPIResponse, WQuranVerse } from "@/types/w-quran";
 import { create } from "zustand";
 import { persist, createJSONStorage, StateStorage } from "zustand/middleware";
@@ -39,26 +35,27 @@ const getSafeStorage = (): StateStorage => {
 };
 
 interface QuranPageStoreInterface {
-    query: string ;
-    setQuery: (newText: string ) => void;
+  query: string;
+  setQuery: (newText: string) => void;
 
-    _hasHydrated: boolean;
+  _hasHydrated: boolean;
 }
 
-const initialState: Omit<QuranPageStoreInterface, 'setQuery'> = {
-    query: '',
-    _hasHydrated: false
+const initialState: Omit<QuranPageStoreInterface, "setQuery"> = {
+  query: "",
+  _hasHydrated: false,
 };
 
 export const QuranPageStore = create<QuranPageStoreInterface>()(
-    persist(
+  persist(
     (set) => ({
-        ...initialState,
-        setQuery: (newText) => set({query: newText})
-    }), {
-        name: 'quran-page-store', 
-        storage: createJSONStorage(getSafeStorage), 
-         onRehydrateStorage: () => {
+      ...initialState,
+      setQuery: (newText) => set({ query: newText }),
+    }),
+    {
+      name: "quran-page-store",
+      storage: createJSONStorage(getSafeStorage),
+      onRehydrateStorage: () => {
         return (state, error) => {
           if (error) {
             console.error("Zustand persist rehydrate error:", error);
@@ -67,5 +64,6 @@ export const QuranPageStore = create<QuranPageStoreInterface>()(
           if (state) state._hasHydrated = true;
         };
       },
-    })
-)   
+    }
+  )
+);

@@ -64,16 +64,11 @@ type QuranAudioActions = {
 
 type QuranAudioStore = QuranAudioState & QuranAudioActions;
 
-const getAudioUrl = async (
-  verse: WQuranVerse,
-  reciter: QuranReciter,
-): Promise<string | null> => {
+const getAudioUrl = async (verse: WQuranVerse, reciter: QuranReciter): Promise<string | null> => {
   try {
     const verseId = verse.verse_id;
 
-    const response = await fetch(
-      `https://quran.wikisubmission.org/recitations/${verseId}`,
-    );
+    const response = await fetch(`https://quran.wikisubmission.org/recitations/${verseId}`);
 
     if (!response.ok) {
       console.error(`Failed to fetch recitation URLs: ${response.status}`);
@@ -291,10 +286,7 @@ export const useQuranAudio = create<QuranAudioStore>((set, get) => ({
 
   nextVerse: async () => {
     const state = get();
-    if (
-      !state.isQueueMode ||
-      state.currentQueueIndex >= state.verseQueue.length - 1
-    ) {
+    if (!state.isQueueMode || state.currentQueueIndex >= state.verseQueue.length - 1) {
       return;
     }
 
@@ -331,8 +323,7 @@ export const useQuranAudio = create<QuranAudioStore>((set, get) => ({
   setDuration: (duration: number) => set({ duration }),
   setIsPlaying: (playing: boolean) => set({ isPlaying: playing }),
   setIsLoading: (loading: boolean) => set({ isLoading: loading }),
-  setAudioElement: (element: HTMLAudioElement | null) =>
-    set({ audioElement: element }),
+  setAudioElement: (element: HTMLAudioElement | null) => set({ audioElement: element }),
 
   // Callbacks
   setOnVerseChange: (callback: ((verse: WQuranVerse) => void) | null) => {

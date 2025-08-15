@@ -22,9 +22,9 @@ export default function ContextButton({
         <Button
           variant="secondary"
           size="sm"
-          className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-foreground"
+          className="h-6 justify-start gap-1 rounded-md px-2 text-xs text-muted-foreground transition hover:bg-gray-100 hover:text-foreground dark:hover:bg-gray-800"
         >
-          <CircleArrowOutUpRight className="w-3 h-3 text-violet-700 dark:text-violet-400" />
+          <CircleArrowOutUpRight className="h-3 w-3 text-violet-700 dark:text-violet-400" />
         </Button>
       </Link>
     );

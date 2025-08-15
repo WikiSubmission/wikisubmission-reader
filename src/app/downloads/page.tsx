@@ -1,11 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Fonts } from "@/constants/fonts";
@@ -16,7 +10,7 @@ const LinkButton = ({ href, label }: { href: string; label: string }) => (
   <a
     href={href}
     target="_blank"
-    className="block w-full px-4 py-2 rounded-lg border border-transparent hover:border-primary hover:bg-accent transition-colors flex items-center justify-between text-sm"
+    className="block flex w-full items-center justify-between rounded-lg border border-transparent px-4 py-2 text-sm transition-colors hover:border-primary hover:bg-accent"
   >
     {label}
     <ExternalLink className="h-4 w-4 text-muted-foreground" />
@@ -28,26 +22,20 @@ export default function Resources() {
     <div className="space-y-12">
       {/* Quran: The Final Testament */}
       <section className="space-y-6">
-        <h1
-          className={`text-3xl font-light text-primary ${Fonts.wiki.className}`}
-        >
+        <h1 className={`text-3xl font-light text-primary ${Fonts.wiki.className}`}>
           Downloads & Resources
         </h1>
-        <div className="flex flex-col md:flex-row items-center gap-4">
+        <div className="flex flex-col items-center gap-4 md:flex-row">
           <Image
             src="https://www.masjidtucson.org/images/catalog/bQuranCoverThumb.jpg"
             alt="Quran Cover"
             width={80}
             height={80}
-            className="rounded-lg w-20 shadow-sm"
+            className="w-20 rounded-lg shadow-sm"
           />
           <div>
-            <h3 className="text-2xl font-semibold">
-              Quran: The Final Testament
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              Dr. Rashad Khalifa, Ph.D.
-            </p>
+            <h3 className="text-2xl font-semibold">Quran: The Final Testament</h3>
+            <p className="text-sm text-muted-foreground">Dr. Rashad Khalifa, Ph.D.</p>
           </div>
         </div>
         <Tabs defaultValue="full-pdf">
@@ -74,10 +62,7 @@ export default function Resources() {
                   ["Persian", "quran-the-final-testament-persian"],
                   ["Tamil", "quran-the-final-testament-tamil"],
                   ["Hindi", "quran-the-final-testament-hindi"],
-                  [
-                    "Arabic (with English)",
-                    "quran-the-final-testament-with-arabic",
-                  ],
+                  ["Arabic (with English)", "quran-the-final-testament-with-arabic"],
                 ].map(([label, file], i) => (
                   <LinkButton
                     key={i}
@@ -140,21 +125,17 @@ export default function Resources() {
 
       {/* Visual Presentation */}
       <section className="space-y-4">
-        <div className="flex flex-col md:flex-row items-center gap-4">
+        <div className="flex flex-col items-center gap-4 md:flex-row">
           <Image
             src="https://www.masjidtucson.org/images/catalog/quran_VP_thumb.png"
             width={80}
             height={80}
             alt="Quran VP Cover"
-            className="rounded-lg w-20 shadow-sm"
+            className="w-20 rounded-lg shadow-sm"
           />
           <div>
-            <h3 className="text-2xl font-semibold">
-              Visual Presentation of the Miracle
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              Dr. Rashad Khalifa, Ph.D.
-            </p>
+            <h3 className="text-2xl font-semibold">Visual Presentation of the Miracle</h3>
+            <p className="text-sm text-muted-foreground">Dr. Rashad Khalifa, Ph.D.</p>
           </div>
         </div>
         <br />
@@ -168,19 +149,17 @@ export default function Resources() {
 
       {/* QHI */}
       <section className="space-y-4">
-        <div className="flex flex-col md:flex-row items-center gap-4">
+        <div className="flex flex-col items-center gap-4 md:flex-row">
           <Image
             src="https://www.masjidtucson.org/images/catalog/QHICoverThumb.jpg"
             alt="QHI Cover"
             width={80}
             height={80}
-            className="rounded-lg w-20 shadow-sm"
+            className="w-20 rounded-lg shadow-sm"
           />
           <div>
             <h3 className="text-2xl font-semibold">Quran, Hadith, and Islam</h3>
-            <p className="text-sm text-muted-foreground">
-              Dr. Rashad Khalifa, Ph.D.
-            </p>
+            <p className="text-sm text-muted-foreground">Dr. Rashad Khalifa, Ph.D.</p>
           </div>
         </div>
         <Card>
@@ -202,21 +181,19 @@ export default function Resources() {
 
       {/* The Computer Speaks */}
       <section className="space-y-4">
-        <div className="flex flex-col md:flex-row items-center gap-4">
+        <div className="flex flex-col items-center gap-4 md:flex-row">
           <Image
             src="https://www.masjidtucson.org/images/catalog/CompSpksCoverThumb.jpg"
             alt="Computer Speaks Cover"
             width={80}
             height={80}
-            className="rounded-lg w-20 shadow-sm"
+            className="w-20 rounded-lg shadow-sm"
           />
           <div>
             <h3 className="text-2xl font-semibold">
               The Computer Speaks: God&apos;s Message to The World
             </h3>
-            <p className="text-sm text-muted-foreground">
-              Dr. Rashad Khalifa, Ph.D.
-            </p>
+            <p className="text-sm text-muted-foreground">Dr. Rashad Khalifa, Ph.D.</p>
           </div>
         </div>
         <Card>
@@ -234,13 +211,13 @@ export default function Resources() {
 
       {/* Other Resources */}
       <section className="space-y-4">
-        <div className="flex flex-col md:flex-row items-center gap-4">
+        <div className="flex flex-col items-center gap-4 md:flex-row">
           <Image
             src="/book.png"
             alt="Book"
             width={80}
             height={80}
-            className="rounded-lg w-20 shadow-sm"
+            className="w-20 rounded-lg shadow-sm"
           />
           <div>
             <h3 className="text-2xl font-semibold">Other Resources</h3>
@@ -249,9 +226,7 @@ export default function Resources() {
         </div>
         <Card>
           <CardHeader>
-            <CardTitle>
-              Beyond Probability – God&apos;s Message in Mathematics
-            </CardTitle>
+            <CardTitle>Beyond Probability – God&apos;s Message in Mathematics</CardTitle>
             <CardDescription>Abdula Arik</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
@@ -294,9 +269,7 @@ export default function Resources() {
           <Separator />
 
           <CardHeader>
-            <CardTitle>
-              Nineteen: God&apos;s Signature in Nature and Scripture
-            </CardTitle>
+            <CardTitle>Nineteen: God&apos;s Signature in Nature and Scripture</CardTitle>
             <CardDescription>Edip Yuksel</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">

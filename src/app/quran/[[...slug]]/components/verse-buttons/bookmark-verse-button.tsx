@@ -9,7 +9,6 @@ interface BookmarkVerseButtonProps {
   verse: WQuranVerse;
 }
 
-
 export default function BookmarkVerseButton({ verse }: BookmarkVerseButtonProps) {
   const [hydrated, setHydrated] = useState(false);
 
@@ -27,9 +26,7 @@ export default function BookmarkVerseButton({ verse }: BookmarkVerseButtonProps)
   const bookmarked =
     hydrated &&
     bookmarks.some(
-      (b) =>
-        b.chapter_number === verse.chapter_number &&
-        b.verse_number === verse.verse_number
+      (b) => b.chapter_number === verse.chapter_number && b.verse_number === verse.verse_number
     );
 
   const bookmarkVerse = () => {
@@ -45,7 +42,7 @@ export default function BookmarkVerseButton({ verse }: BookmarkVerseButtonProps)
     <Button
       variant="secondary"
       size="sm"
-      className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-foreground"
+      className="h-6 justify-start gap-1 rounded-md px-2 text-xs text-muted-foreground transition hover:bg-gray-100 hover:text-foreground dark:hover:bg-gray-800"
       onClick={bookmarkVerse}
       disabled={!hydrated}
     >
@@ -60,7 +57,7 @@ export function ButterStarIcon({ selected }: { selected: boolean }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={`w-3 h-3 text-yellow-400${selected ? " fill-yellow-400" : "transparent"}`}
+      className={`h-3 w-3 text-yellow-400${selected ? "fill-yellow-400" : "transparent"}`}
     >
       <path d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.78 1.4 8.172L12 18.896l-7.334 3.852 1.4-8.172-5.934-5.78 8.2-1.193z" />
     </svg>

@@ -8,14 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Play,
-  Pause,
-  SkipBack,
-  SkipForward,
-  X,
-  ChevronDown,
-} from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, X, ChevronDown } from "lucide-react";
 import { useQuranAudio, QuranReciter } from "@/hooks/use-quran-audio";
 import { useQuranUrlSync } from "@/hooks/use-quran-url-sync";
 import Link from "next/link";
@@ -75,7 +68,7 @@ export default function AudioPlayer() {
   };
 
   return (
-    <Card className="fixed bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-96 lg:w-[28rem] z-50 shadow-lg border-2">
+    <Card className="fixed bottom-4 left-4 right-4 z-50 border-2 shadow-lg md:left-1/2 md:right-auto md:w-96 md:-translate-x-1/2 lg:w-[28rem]">
       <CardContent className="p-3">
         <div className="space-y-2">
           {/* Header: Verse info + Controls */}
@@ -83,19 +76,18 @@ export default function AudioPlayer() {
             <Link
               href={`/quran/${audio.currentVerse.chapter_number}?verse=${audio.currentVerse.verse_number}`}
             >
-              <div className="flex-1 min-w-0">
-                <div className="font-semibold text-sm truncate hover:text-violet-500 dark:hover:text-violet-700">
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-sm font-semibold hover:text-violet-500 dark:hover:text-violet-700">
                   {audio.currentVerse.chapter_title_english}
                 </div>
-                <div className="text-xs text-muted-foreground truncate">
-                  {audio.currentVerse.chapter_title_transliterated} •{" "}
-                  {audio.currentVerse.verse_id}
+                <div className="truncate text-xs text-muted-foreground">
+                  {audio.currentVerse.chapter_title_transliterated} • {audio.currentVerse.verse_id}
                 </div>
               </div>
             </Link>
 
             {/* Right side controls */}
-            <div className="flex items-center gap-1 shrink-0">
+            <div className="flex shrink-0 items-center gap-1">
               {/* Navigation controls (when in queue) */}
               {audio.isQueueMode && (
                 <Button
@@ -117,11 +109,7 @@ export default function AudioPlayer() {
                 disabled={audio.isLoading}
                 className="h-9 w-9 p-0"
               >
-                {audio.isPlaying ? (
-                  <Pause className="h-5 w-5" />
-                ) : (
-                  <Play className="h-5 w-5" />
-                )}
+                {audio.isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
               </Button>
 
               {audio.isQueueMode && (
@@ -129,9 +117,7 @@ export default function AudioPlayer() {
                   variant="ghost"
                   size="sm"
                   onClick={audio.nextVerse}
-                  disabled={
-                    audio.currentQueueIndex >= audio.verseQueue.length - 1
-                  }
+                  disabled={audio.currentQueueIndex >= audio.verseQueue.length - 1}
                   className="h-8 w-8 p-0"
                 >
                   <SkipForward className="h-4 w-4" />
@@ -141,41 +127,26 @@ export default function AudioPlayer() {
               {/* Reciter selector */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="h-7 text-xs px-2 ml-1"
-                  >
+                  <Button variant="outline" size="sm" className="ml-1 h-7 px-2 text-xs">
                     {getReciterDisplayName(audio.settings.reciter)}
                     <ChevronDown className="ml-1 h-3 w-3" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" sideOffset={4}>
-                  <DropdownMenuItem
-                    onClick={() => handleReciterChange("mishary")}
-                  >
+                  <DropdownMenuItem onClick={() => handleReciterChange("mishary")}>
                     Mishary
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => handleReciterChange("basit")}
-                  >
+                  <DropdownMenuItem onClick={() => handleReciterChange("basit")}>
                     Basit
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => handleReciterChange("minshawi")}
-                  >
+                  <DropdownMenuItem onClick={() => handleReciterChange("minshawi")}>
                     Al-Minshawi
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
               {/* Close button */}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={audio.stopAudio}
-                className="h-7 w-7 p-0"
-              >
+              <Button variant="ghost" size="sm" onClick={audio.stopAudio} className="h-7 w-7 p-0">
                 <X className="h-4 w-4" />
               </Button>
             </div>
@@ -183,11 +154,11 @@ export default function AudioPlayer() {
 
           {/* Progress bar */}
           <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground min-w-[32px] text-right">
+            <span className="min-w-[32px] text-right text-xs text-muted-foreground">
               {formatTime(audio.currentTime)}
             </span>
             <div
-              className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 cursor-pointer"
+              className="h-1.5 flex-1 cursor-pointer rounded-full bg-gray-200 dark:bg-gray-700"
               onClick={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 const clickX = e.clientX - rect.left;
@@ -197,13 +168,13 @@ export default function AudioPlayer() {
               }}
             >
               <div
-                className="bg-blue-500 h-1.5 rounded-full transition-all duration-200"
+                className="h-1.5 rounded-full bg-blue-500 transition-all duration-200"
                 style={{
                   width: `${audio.duration ? (audio.currentTime / audio.duration) * 100 : 0}%`,
                 }}
               />
             </div>
-            <span className="text-xs text-muted-foreground min-w-[32px]">
+            <span className="min-w-[32px] text-xs text-muted-foreground">
               {formatTime(audio.duration)}
             </span>
           </div>

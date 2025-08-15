@@ -15,10 +15,7 @@ import VerseCard from "./components/verse-card";
 import AudioPlayer from "./components/audio-player";
 export { generateMetadata } from "./metadata";
 
-export default async function QuranPage({
-  params,
-  searchParams,
-}: GlobalPageProps) {
+export default async function QuranPage({ params, searchParams }: GlobalPageProps) {
   const { slug } = await params;
   return (
     <Suspense key={slug?.join("-")} fallback={<QuranSkeleton />}>
@@ -43,7 +40,7 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
   const baseUrl = new URL(
     process.env.TEST_MODE === "true"
       ? `http://localhost:8080/${detectedQuery}`
-      : `https://quran.wikisubmission.org/${detectedQuery}`,
+      : `https://quran.wikisubmission.org/${detectedQuery}`
   );
 
   // [Append all search params]
@@ -60,20 +57,19 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
 
   try {
     const request = await fetch(baseUrl.toString(), { cache: "no-store" });
-    if (!request.ok)
-      throw new Error(`Error: ${request.status} ${request.statusText}`);
+    if (!request.ok) throw new Error(`Error: ${request.status} ${request.statusText}`);
     // [Assign result]
     result = await request.json();
   } catch (err) {
     // [Internal Server Error]
     console.error(err);
     return (
-      <main className="flex items-center justify-center min-h-[10vh] px-4">
-        <div className="flex items-center space-x-2 bg-muted rounded-md border text-muted-foreground px-4 py-2">
+      <main className="flex min-h-[10vh] items-center justify-center px-4">
+        <div className="flex items-center space-x-2 rounded-md border bg-muted px-4 py-2 text-muted-foreground">
           <AlertCircleIcon className="h-5 w-5 shrink-0" />
           <span className="text-sm leading-none">
-            Invalid request: <span className="font-mono">{detectedQuery}</span>.
-            Please try another query.
+            Invalid request: <span className="font-mono">{detectedQuery}</span>. Please try another
+            query.
           </span>
         </div>
       </main>
@@ -91,11 +87,7 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
           </section>
           <section className="space-y-4">
             {result.response.data.map((verse) => (
-              <VerseCard
-                key={verse.verse_id}
-                verse={verse}
-                type={result.request.type}
-              />
+              <VerseCard key={verse.verse_id} verse={verse} type={result.request.type} />
             ))}
           </section>
           <section>
@@ -118,8 +110,7 @@ async function QuranContent({ params, searchParams }: GlobalPageProps) {
               </div>
               <h3 className="text-lg font-semibold">No results found</h3>
               <p className="text-muted-foreground">
-                {decodeURIComponent(result.message) ||
-                  "Try adjusting your search terms."}
+                {decodeURIComponent(result.message) || "Try adjusting your search terms."}
               </p>
               <div className="flex justify-center space-x-2">
                 <Badge variant="outline">Try another query?</Badge>

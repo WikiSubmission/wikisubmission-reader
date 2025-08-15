@@ -19,19 +19,17 @@ export const metadata: Metadata = {
       ? `${process.env.APP_URL}`
       : process.env.VERCEL_URL
         ? `https://${process.env.VERCEL_URL}`
-        : `http://localhost:${process.env.PORT || 3000}`,
+        : `http://localhost:${process.env.PORT || 3000}`
   ),
   title: "WikiSubmission",
-  description:
-    "Access The Final Testament. A free and open-source platform for Submission.",
+  description: "Access The Final Testament. A free and open-source platform for Submission.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     url: "/",
     title: "WikiSubmission",
-    description:
-      "Access The Final Testament. A free and open-source platform for Submission.",
+    description: "Access The Final Testament. A free and open-source platform for Submission.",
     type: "website",
     images: [
       {

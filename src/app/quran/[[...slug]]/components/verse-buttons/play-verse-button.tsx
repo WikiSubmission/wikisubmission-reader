@@ -29,16 +29,16 @@ export default function PlayVerseButton({ verse }: PlayVerseButtonProps) {
   };
 
   const getIcon = () => {
-    if (isLoading) return <Loader2 className="w-3 h-3 animate-spin" />;
-    if (isPlaying) return <Pause className="w-3 h-3" />;
-    return <Play className="w-3 h-3" />;
+    if (isLoading) return <Loader2 className="h-3 w-3 animate-spin" />;
+    if (isPlaying) return <Pause className="h-3 w-3" />;
+    return <Play className="h-3 w-3" />;
   };
 
   return (
     <Button
       variant="secondary"
       size="sm"
-      className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-foreground"
+      className="h-6 justify-start gap-1 rounded-md px-2 text-xs text-muted-foreground transition hover:bg-gray-100 hover:text-foreground dark:hover:bg-gray-800"
       onClick={handlePlayPause}
       disabled={isLoading}
     >

@@ -1,24 +1,19 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Data } from "@/data";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function DefaultView() {
-  const [chapterDisplayOrder, setChapterDisplayOrder] = useState<
-    "standard" | "revelation"
-  >("standard");
+  const [chapterDisplayOrder, setChapterDisplayOrder] = useState<"standard" | "revelation">(
+    "standard"
+  );
   return (
-    <main className="container px-4 pt-5 space-y-10">
-      <section className="text-center space-y-2 flex flex-col items-center justify-center">
+    <main className="container space-y-10 px-4 pt-5">
+      <section className="flex flex-col items-center justify-center space-y-2 text-center">
         <Image
           src="/book.png"
           alt="Quran: The Final Testament"
@@ -27,13 +22,13 @@ export default function DefaultView() {
           height={50}
         />
         <h1 className="text-3xl font-semibold">Quran: The Final Testament</h1>
-        <p className="text-muted-foreground text-sm">
+        <p className="text-sm text-muted-foreground">
           English Translation by Dr. Rashad Khalifa, Ph.D.
         </p>
       </section>
 
       <section className="space-y-4 text-center">
-        <section className="flex flex-wrap text-xs justify-between items-center">
+        <section className="flex flex-wrap items-center justify-between text-xs">
           {/* Left */}
           <div className="flex gap-2">
             <Link
@@ -60,18 +55,15 @@ export default function DefaultView() {
               size="sm"
               onClick={() =>
                 setChapterDisplayOrder(
-                  chapterDisplayOrder === "revelation"
-                    ? "standard"
-                    : "revelation",
+                  chapterDisplayOrder === "revelation" ? "standard" : "revelation"
                 )
               }
             >
-              Order:{" "}
-              {chapterDisplayOrder === "revelation" ? "Revelation" : "Standard"}
+              Order: {chapterDisplayOrder === "revelation" ? "Revelation" : "Standard"}
             </Button>
           </div>
         </section>
-        <div className="grid md:grid-cols-2 gap-2">
+        <div className="grid gap-2 md:grid-cols-2">
           {Data.Chapters.sort((a, b) => {
             if (chapterDisplayOrder === "revelation") {
               return a.chapter_revelation_order - b.chapter_revelation_order;
@@ -83,17 +75,14 @@ export default function DefaultView() {
               href={`/quran/${chapter.chapter_number}`}
               className="block"
             >
-              <Card className="transition hover:shadow-md hover:ring-1 hover:ring-muted-foreground/20 cursor-pointer hover:text-violet-500 dark:hover:text-violet-400">
+              <Card className="cursor-pointer transition hover:text-violet-500 hover:shadow-md hover:ring-1 hover:ring-muted-foreground/20 dark:hover:text-violet-400">
                 <CardHeader>
                   <CardTitle>
                     Chapter {chapter.chapter_number},{" "}
-                    <span className="font-bold">
-                      {chapter.chapter_title_english}
-                    </span>
+                    <span className="font-bold">{chapter.chapter_title_english}</span>
                   </CardTitle>
                   <CardDescription>
-                    {chapter.chapter_title_transliterated} •{" "}
-                    {chapter.chapter_verses} verses
+                    {chapter.chapter_title_transliterated} • {chapter.chapter_verses} verses
                   </CardDescription>
                 </CardHeader>
               </Card>

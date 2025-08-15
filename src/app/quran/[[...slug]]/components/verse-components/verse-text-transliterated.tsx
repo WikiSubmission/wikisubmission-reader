@@ -3,11 +3,7 @@
 import { useQuranSettings } from "@/hooks/use-quran-settings";
 import { WQuranVerse } from "@/types/w-quran";
 
-export default function VerseTextTransliterated({
-  verse,
-}: {
-  verse: WQuranVerse;
-}) {
+export default function VerseTextTransliterated({ verse }: { verse: WQuranVerse }) {
   const quranSettings = useQuranSettings();
   if (quranSettings.settings.showTransliteration) {
     return (

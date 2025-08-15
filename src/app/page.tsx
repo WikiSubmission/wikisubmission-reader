@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-background/80">
-      <main className="flex-1 flex flex-col items-center justify-start pt-16 sm:justify-center sm:pt-0 gap-8 p-4">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-background to-background/80">
+      <main className="flex flex-1 flex-col items-center justify-start gap-8 p-4 pt-16 sm:justify-center sm:pt-0">
         <section className="space-y-1">
-          <p className="font-bold text-center text-xs tracking-widest font-ultralight text-muted-foreground">
+          <p className="font-ultralight text-center text-xs font-bold tracking-widest text-muted-foreground">
             WIKISUBMISSION.ORG
           </p>
-          <p className="text-center text-xs tracking-widest font-ultralight text-muted-foreground">
+          <p className="font-ultralight text-center text-xs tracking-widest text-muted-foreground">
             ACCESS THE FINAL TESTAMENT
           </p>
         </section>
@@ -18,7 +18,7 @@ export default function HomePage() {
           <Image
             src="/god-alone.gif"
             alt="WikiSubmission"
-            className="rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+            className="rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl"
             width={200}
             height={200}
             priority
@@ -30,7 +30,7 @@ export default function HomePage() {
           <Link href="/quran">
             <Button
               variant="special"
-              className="px-8 py-6 text-lg hover:scale-103 transition-transform duration-300"
+              className="hover:scale-103 px-8 py-6 text-lg transition-transform duration-300"
             >
               Enter
             </Button>
@@ -38,7 +38,7 @@ export default function HomePage() {
         </div>
       </main>
 
-      <footer className="text-center text-sm text-muted-foreground p-4">
+      <footer className="p-4 text-center text-sm text-muted-foreground">
         <p>
           &copy; 2025 WikiSubmission. An{" "}
           <a

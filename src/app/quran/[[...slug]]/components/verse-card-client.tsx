@@ -51,8 +51,7 @@ export default function VerseCardClient({
           {/* Buttons: shows only on hover */}
 
           <div
-            className={`flex gap-2 transform transition-all duration ease-in-out
-               ${hovering ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
+            className={`duration flex transform gap-2 transition-all ease-in-out ${hovering ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"}`}
           >
             <ContextButton verse={verse} type={type} />
             <BookmarkVerseButton verse={verse} />

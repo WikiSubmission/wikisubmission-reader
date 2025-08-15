@@ -1,5 +1,5 @@
 export async function getUrlSearchParams(
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>,
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 ): Promise<URLSearchParams> {
   // [Await the params]
   const resolvedSearchParams = await searchParams;

@@ -1,9 +1,6 @@
 import { WResult } from "../types/w-result";
 
-export function parseQuranQuery(
-  query: string,
-  queryParams: any,
-): WResult["request"] {
+export function parseQuranQuery(query: string, queryParams: any): WResult["request"] {
   query = query?.toLowerCase().trim();
 
   const baseOptions = {
@@ -76,9 +73,7 @@ export function parseQuranQuery(
     };
   }
 
-  const multipleVersesMatch = query.match(
-    /^(?:\d+:\d+(?:-\d+)?\s*,\s*)*\d+:\d+(?:-\d+)?$/,
-  );
+  const multipleVersesMatch = query.match(/^(?:\d+:\d+(?:-\d+)?\s*,\s*)*\d+:\d+(?:-\d+)?$/);
   if (multipleVersesMatch) {
     const verses = query.split(",").map((v) => v.trim());
     const parsedVerses = verses.map((v) => {
@@ -88,15 +83,11 @@ export function parseQuranQuery(
       const chapter = parseInt(parts[0], 10);
       const versePart = parts[1];
 
-      if (isNaN(chapter))
-        throw new Error(`Invalid chapter number: ${parts[0]}`);
+      if (isNaN(chapter)) throw new Error(`Invalid chapter number: ${parts[0]}`);
 
       if (versePart.includes("-")) {
-        const [verse, verseEnd] = versePart
-          .split("-")
-          .map((n) => parseInt(n, 10));
-        if (isNaN(verse) || isNaN(verseEnd))
-          throw new Error(`Invalid verse range: ${versePart}`);
+        const [verse, verseEnd] = versePart.split("-").map((n) => parseInt(n, 10));
+        if (isNaN(verse) || isNaN(verseEnd)) throw new Error(`Invalid verse range: ${versePart}`);
         return { chapter, verse, verse_end: verseEnd };
       } else {
         const verse = parseInt(versePart, 10);
@@ -114,8 +105,7 @@ export function parseQuranQuery(
   }
 
   const validSearchType: "exact" | "fuzzy" =
-    queryParams.search_strategy === "exact" ||
-    queryParams.search_strategy === "fuzzy"
+    queryParams.search_strategy === "exact" || queryParams.search_strategy === "fuzzy"
       ? (queryParams.search_strategy as "exact" | "fuzzy")
       : "fuzzy";
 

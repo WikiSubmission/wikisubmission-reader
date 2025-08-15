@@ -56,13 +56,13 @@ export const useQuranSettings = create(
         set(
           produce((state: QuranSettingsStore) => {
             state.settings = { ...state.settings, ...settings };
-          }),
+          })
         );
       },
     }),
     {
       name: "quran-settings", // Key for localStorage
       storage: createJSONStorage(() => localStorage), // Using localStorage for persistence
-    },
-  ),
+    }
+  )
 );

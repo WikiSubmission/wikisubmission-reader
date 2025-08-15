@@ -1,8 +1,4 @@
-import {
-  BookmarkInjectedType,
-  BookmarkType,
-  WBookmarkQuranAPIResponse,
-} from "@/types/bookmarks";
+import { BookmarkInjectedType, BookmarkType, WBookmarkQuranAPIResponse } from "@/types/bookmarks";
 import { WQuranAPIResponse, WQuranVerse } from "@/types/w-quran";
 import { create } from "zustand";
 import { persist, createJSONStorage, StateStorage } from "zustand/middleware";
@@ -44,9 +40,7 @@ interface BookmarkState {
   bookmarks: BookmarkType[];
   addBookmark: (bookmark: WQuranVerse) => void;
   removeBookmark: (
-    bookmark:
-      | Omit<BookmarkType, "bookmark_datetime_timezoneaware">
-      | WQuranVerse,
+    bookmark: Omit<BookmarkType, "bookmark_datetime_timezoneaware"> | WQuranVerse
   ) => void;
   currentBookmark: BookmarkType | null;
   setCurrentBookmark: (bookmark: BookmarkType | null) => void;
@@ -55,7 +49,7 @@ interface BookmarkState {
   toggleBookmarkPopup: () => void;
   isVerseBookmarked: (verse: WQuranVerse) => boolean;
   fetchVerseContent: (
-    bookmarks: BookmarkType[],
+    bookmarks: BookmarkType[]
   ) => Promise<WBookmarkQuranAPIResponse["response"]["data"] | null>;
   getInjectedBookmarks: () => Promise<BookmarkInjectedType[]>;
 
@@ -98,9 +92,7 @@ const BookmarkStore = create<BookmarkState>()(
           bookmarks: state.bookmarks.map((bookmark) => {
             // Match by verse_id string format (chapter_number:verse_number)
             const bookmarkVerseId = `${bookmark.chapter_number}_${bookmark.verse_number}`;
-            return bookmarkVerseId === verseId
-              ? { ...bookmark, notes }
-              : bookmark;
+            return bookmarkVerseId === verseId ? { ...bookmark, notes } : bookmark;
           }),
         }));
       },
@@ -135,16 +127,14 @@ const BookmarkStore = create<BookmarkState>()(
 
       fetchVerseContent: async (bookmarks: BookmarkType[]) => {
         const verseIDs = bookmarks.map(
-          (bookmark) => `${bookmark.chapter_number}:${bookmark.verse_number}`,
+          (bookmark) => `${bookmark.chapter_number}:${bookmark.verse_number}`
         );
-        const detectedQuery = verseIDs
-          .map((segment) => decodeURIComponent(segment))
-          .join(","); //|| resolvedSearchParams.q?.toString();
+        const detectedQuery = verseIDs.map((segment) => decodeURIComponent(segment)).join(","); //|| resolvedSearchParams.q?.toString();
         if (!detectedQuery) return null;
         const baseUrl = new URL(
           process.env.TEST_MODE === "true"
             ? `http://localhost:8080/${detectedQuery}`
-            : `https://quran.wikisubmission.org/${detectedQuery}`,
+            : `https://quran.wikisubmission.org/${detectedQuery}`
         );
         baseUrl.searchParams.append("include_word_by_word", "true");
         baseUrl.searchParams.append("search_apply_highlight", "true");
@@ -154,8 +144,7 @@ const BookmarkStore = create<BookmarkState>()(
           const request = await fetch(baseUrl.toString(), {
             cache: "no-store",
           });
-          if (!request.ok)
-            throw new Error(`Error: ${request.status} ${request.statusText}`);
+          if (!request.ok) throw new Error(`Error: ${request.status} ${request.statusText}`);
           // [Assign result]
           result = await request.json();
         } catch (err) {
@@ -165,9 +154,7 @@ const BookmarkStore = create<BookmarkState>()(
         }
         return result.response.data.map((v) => {
           const correspondingBookmarkType = bookmarks.find(
-            (b) =>
-              b.chapter_number === v.chapter_number &&
-              b.verse_number === v.verse_number,
+            (b) => b.chapter_number === v.chapter_number && b.verse_number === v.verse_number
           )!;
           return {
             ...v,
@@ -196,7 +183,6 @@ const BookmarkStore = create<BookmarkState>()(
             bookmarks: [newBookmark, ...state.bookmarks],
           }));
         }
-
       },
       removeBookmark: (bookmark) =>
         set((state) => ({
@@ -205,7 +191,7 @@ const BookmarkStore = create<BookmarkState>()(
               !(
                 bookmark.chapter_number === mark.chapter_number &&
                 bookmark.verse_number === mark.verse_number
-              ),
+              )
           ),
         })),
       setCurrentBookmark: (bookmark: BookmarkType | null) =>
@@ -220,7 +206,7 @@ const BookmarkStore = create<BookmarkState>()(
     {
       name: "bookmark-storage",
       storage: createJSONStorage(getSafeStorage),
-       onRehydrateStorage: () => {
+      onRehydrateStorage: () => {
         return (state, error) => {
           if (error) {
             console.error("Zustand persist rehydrate error:", error);
@@ -229,13 +215,12 @@ const BookmarkStore = create<BookmarkState>()(
           if (state) state._hasHydrated = true;
         };
       },
-    },
-  ),
+    }
+  )
 );
 
 export default BookmarkStore;
-export const useBookmarkHydration = () =>
-  BookmarkStore((state) => state._hasHydrated);
+export const useBookmarkHydration = () => BookmarkStore((state) => state._hasHydrated);
 export const bookmarkPopupUtils = () => {
   return { isBookmarkPopupOpen: BookmarkStore.getState().isBookmarkPopupOpen };
 };

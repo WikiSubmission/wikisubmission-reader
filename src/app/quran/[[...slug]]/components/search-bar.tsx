@@ -16,7 +16,7 @@ function toReadableURL(query: string) {
 }
 
 export default function SearchBar() {
-  const {query, setQuery} = QuranPageStore();
+  const { query, setQuery } = QuranPageStore();
   const [suggestion, setSuggestion] = useState<{
     label: string;
     url: string;
@@ -62,10 +62,7 @@ export default function SearchBar() {
   // Handle clicks outside the search component
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        searchRef.current &&
-        !searchRef.current.contains(event.target as Node)
-      ) {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setShowSuggestions(false);
         setHighlighted(false);
       }
@@ -140,14 +137,14 @@ export default function SearchBar() {
   };
 
   return (
-    <main className="relative w-full max-w-2xl mx-auto" ref={searchRef}>
-      <div className="flex items-center justify-end mb-2">
+    <main className="relative mx-auto w-full max-w-2xl" ref={searchRef}>
+      <div className="mb-2 flex items-center justify-end">
         <div className="flex items-center gap-1">
           <Button
             type="button"
             variant="secondary"
             size="sm"
-            className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-violet-600 dark:hover:text-violet-400"
+            className="h-6 justify-start gap-1 rounded-md px-2 text-xs text-muted-foreground transition hover:bg-gray-100 hover:text-violet-600 dark:hover:bg-gray-800 dark:hover:text-violet-400"
             onClick={() => {
               const timestamp = Date.now().toString();
               router.push(`/quran/random-chapter?t=${timestamp}`);
@@ -160,7 +157,7 @@ export default function SearchBar() {
             type="button"
             variant="secondary"
             size="sm"
-            className="justify-start gap-1 text-xs h-6 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition text-muted-foreground hover:text-violet-600 dark:hover:text-violet-400"
+            className="h-6 justify-start gap-1 rounded-md px-2 text-xs text-muted-foreground transition hover:bg-gray-100 hover:text-violet-600 dark:hover:bg-gray-800 dark:hover:text-violet-400"
             onClick={() => {
               const timestamp = Date.now().toString();
               router.push(`/quran/random-verse?t=${timestamp}`);
@@ -173,7 +170,7 @@ export default function SearchBar() {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="relative items-center">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground" />
           <Input
             placeholder="Chapter, verse, or text"
             value={query}
@@ -188,18 +185,18 @@ export default function SearchBar() {
               }
             }}
             onKeyDown={handleKeyDown}
-            className="pl-10 pr-4 py-3 text-base rounded-lg border-2 focus:border-primary transition-all duration-200"
+            className="rounded-lg border-2 py-3 pl-10 pr-4 text-base transition-all duration-200 focus:border-primary"
             autoComplete="off"
           />
         </div>
 
         {showSuggestions && suggestion && query.trim() && (
-          <div className="absolute left-0 right-0 mt-2 z-[60]">
-            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden">
+          <div className="absolute left-0 right-0 z-[60] mt-2">
+            <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
               <Button
                 type="button"
                 variant="ghost"
-                className={`w-full justify-start px-4 py-3 h-auto text-left rounded-none hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
+                className={`h-auto w-full justify-start rounded-none px-4 py-3 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 ${
                   highlighted ? "bg-gray-50 dark:bg-gray-700" : ""
                 }`}
                 onClick={() => {
@@ -207,20 +204,18 @@ export default function SearchBar() {
                   reset();
                 }}
               >
-                <div className="flex items-center gap-3 w-full">
+                <div className="flex w-full items-center gap-3">
                   <div className="flex-shrink-0">
                     <suggestion.icon className="h-4 w-4 text-primary" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-medium text-gray-900 dark:text-gray-100 truncate">
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate font-medium text-gray-900 dark:text-gray-100">
                       {suggestion.label}
                     </div>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      Tap or Press Enter
-                    </div>
+                    <div className="mt-1 text-xs text-muted-foreground">Tap or Press Enter</div>
                   </div>
                   <div className="flex-shrink-0">
-                    <div className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded font-mono text-muted-foreground">
+                    <div className="rounded bg-gray-100 px-2 py-1 font-mono text-xs text-muted-foreground dark:bg-gray-700">
                       {suggestion.type}
                     </div>
                   </div>
@@ -230,33 +225,28 @@ export default function SearchBar() {
           </div>
         )}
 
-        {!query.trim() &&
-          !showSuggestions &&
-          searchParams.size === 0 &&
-          pathname === "/quran" && (
-            <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2">
-              {[
-                { text: "Chapter 13", query: "13", icon: Book },
-                { text: "Verse 2:255", query: "2:255", icon: Hash },
-                { text: "Search 'angels'", query: "angels", icon: Search },
-                { text: "Range 74:16–37", query: "74:16-37", icon: Hash },
-              ].map((example, index) => (
-                <Button
-                  key={index}
-                  type="button"
-                  variant="secondary"
-                  size="sm"
-                  className="justify-start gap-2 text-sm h-9 rounded-full hover:text-violet-600 dark:hover:text-violet-400 transition"
-                  onClick={() =>
-                    router.push(`/quran/${toReadableURL(example.query)}`)
-                  }
-                >
-                  <example.icon className="h-4 w-4" />
-                  {example.text}
-                </Button>
-              ))}
-            </div>
-          )}
+        {!query.trim() && !showSuggestions && searchParams.size === 0 && pathname === "/quran" && (
+          <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {[
+              { text: "Chapter 13", query: "13", icon: Book },
+              { text: "Verse 2:255", query: "2:255", icon: Hash },
+              { text: "Search 'angels'", query: "angels", icon: Search },
+              { text: "Range 74:16–37", query: "74:16-37", icon: Hash },
+            ].map((example, index) => (
+              <Button
+                key={index}
+                type="button"
+                variant="secondary"
+                size="sm"
+                className="h-9 justify-start gap-2 rounded-full text-sm transition hover:text-violet-600 dark:hover:text-violet-400"
+                onClick={() => router.push(`/quran/${toReadableURL(example.query)}`)}
+              >
+                <example.icon className="h-4 w-4" />
+                {example.text}
+              </Button>
+            ))}
+          </div>
+        )}
       </form>
     </main>
   );

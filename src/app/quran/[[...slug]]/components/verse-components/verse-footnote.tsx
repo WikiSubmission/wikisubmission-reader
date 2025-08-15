@@ -13,7 +13,7 @@ export default function VerseFootnote({ verse }: { verse: WQuranVerse }) {
   ) {
     return (
       <section>
-        <div className="text-xs italic text-grey-600 p-3 bg-violet-50 dark:bg-violet-900/20 rounded border-l-4 border-gray-500">
+        <div className="text-grey-600 rounded border-l-4 border-gray-500 bg-violet-50 p-3 text-xs italic dark:bg-violet-900/20">
           {highlightMarkdown(verse.verse_footnote_english)}
         </div>
       </section>

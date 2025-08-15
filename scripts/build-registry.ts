@@ -40,9 +40,7 @@ const getComponentFiles = async (files: File[]) => {
       const fileContent = await fs.readFile(filePath, "utf-8");
       console.log("Build Registry:", file);
       return {
-        type: FolderToComponentTypeMap[
-          file.split("/")[0] as keyof typeof FolderToComponentTypeMap
-        ],
+        type: FolderToComponentTypeMap[file.split("/")[0] as keyof typeof FolderToComponentTypeMap],
         content: fileContent,
         path: file,
         target: file,
@@ -69,7 +67,7 @@ const main = async () => {
         files: filesArray,
       },
       null,
-      2,
+      2
     );
     const jsonPath = `${PUBLIC_FOLDER_BASE_PATH}/${component.name}.json`;
     await writeFileRecursive(jsonPath, json);

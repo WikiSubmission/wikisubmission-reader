@@ -22,7 +22,7 @@ export function useQuranUrlSync() {
       const newUrl = `${pathname}?${currentParams.toString()}`;
       window.history.replaceState(null, "", newUrl);
     },
-    [pathname],
+    [pathname]
   );
 
   useEffect(() => {

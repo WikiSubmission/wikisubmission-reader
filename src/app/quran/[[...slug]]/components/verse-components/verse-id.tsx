@@ -38,9 +38,8 @@ export default function VerseId({ verse }: { verse: WQuranVerse }) {
 
   return (
     <section>
-      <p className={`font-medium text-lg ${highlightClass}`}>
-        {verse.chapter_number}:
-        <span className={highlightClass}>{verse.verse_number}</span>
+      <p className={`text-lg font-medium ${highlightClass}`}>
+        {verse.chapter_number}:<span className={highlightClass}>{verse.verse_number}</span>
       </p>
     </section>
   );
