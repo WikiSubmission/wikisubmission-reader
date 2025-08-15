@@ -1,27 +1,16 @@
 "use client";
-import React, {
-  useState,
-  useMemo,
-  useRef,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
-import {
-  Calendar,
-  Clock,
-  BookOpen,
-  ChevronRight,
-  ArrowLeft,
-} from "lucide-react";
+import { Calendar, Clock, BookOpen, ChevronRight, ArrowLeft, X } from "lucide-react";
 import { BookmarkInjectedType } from "@/types/bookmarks";
 import { useQuranSettings } from "@/hooks/use-quran-settings";
 import BookmarkStore from "@/hooks/use-bookmark";
 import { cn } from "@/lib/utils";
 import VerseCard from "./verse-card";
+import { Button } from "@/components/ui/button";
 
 const useDebounce = (callback: Function, delay: number) => {
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -36,16 +25,12 @@ const useDebounce = (callback: Function, delay: number) => {
         callback(...args);
       }, delay);
     },
-    [callback, delay],
+    [callback, delay]
   );
 };
 
-function EnhancedNotes({
-  selectedVerse,
-}: {
-  selectedVerse: BookmarkInjectedType;
-}) {
-   const [hydrated, setHydrated] = useState(false);
+function EnhancedNotes({ selectedVerse }: { selectedVerse: BookmarkInjectedType }) {
+  const [hydrated, setHydrated] = useState(false);
   const [localNotes, setLocalNotes] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -57,12 +42,10 @@ function EnhancedNotes({
     return unsub;
   }, []);
 
-  const updateBookmarkNotes = BookmarkStore(
-    (state) => state.updateBookmarkNotes,
-  );
+  const updateBookmarkNotes = BookmarkStore((state) => state.updateBookmarkNotes);
   const getNotesForVerse = BookmarkStore((state) => state.getNotesForVerse);
 
- useEffect(() => {
+  useEffect(() => {
     if (!hydrated) return;
     const currentNotes = getNotesForVerse(selectedVerse.verse_id);
     setLocalNotes(currentNotes);
@@ -82,7 +65,7 @@ function EnhancedNotes({
       setIsLoading(true);
       debouncedUpdate(selectedVerse.verse_id, value);
     },
-    [selectedVerse.verse_id, debouncedUpdate],
+    [selectedVerse.verse_id, debouncedUpdate]
   );
 
   const formatLastSaved = () => {
@@ -108,26 +91,19 @@ function EnhancedNotes({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <label
-          htmlFor="notes"
-          className="text-xs sm:text-sm font-medium text-foreground"
-        >
+        <label htmlFor="notes" className="text-xs font-medium text-foreground sm:text-sm">
           Personal Notes
         </label>
         <div className="flex items-center gap-2">
           {isLoading && (
-            <div className="w-3 h-3 border-2 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+            <div className="h-3 w-3 animate-spin rounded-full border-2 border-amber-500 border-t-transparent"></div>
           )}
           <span
             className={`text-xs transition-all duration-200 ${
               isLoading ? "text-amber-500" : "text-green-500 opacity-70"
             }`}
           >
-            {isLoading
-              ? "Saving..."
-              : lastSaved
-                ? `Saved ${formatLastSaved()}`
-                : "No notes yet"}
+            {isLoading ? "Saving..." : lastSaved ? `Saved ${formatLastSaved()}` : "No notes yet"}
           </span>
         </div>
       </div>
@@ -136,14 +112,14 @@ function EnhancedNotes({
         <textarea
           id="notes"
           placeholder={`Add your thoughts about ${selectedVerse.chapter_title_english} ${selectedVerse.chapter_number}:${selectedVerse.verse_number}...`}
-          className="w-full h-16 sm:h-24 p-2 sm:p-3 text-xs sm:text-sm rounded-md border border-border bg-background/50 placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-200 focus:bg-background/80 text-foreground"
+          className="h-16 w-full resize-none rounded-md border border-border bg-background/50 p-2 text-xs text-foreground transition-all duration-200 placeholder:text-muted-foreground focus:bg-background/80 focus:outline-none focus:ring-2 focus:ring-primary/50 sm:h-24 sm:p-3 sm:text-sm"
           value={localNotes}
           onChange={handleNotesChange}
           maxLength={2000}
         />
 
         {/* Character count overlay */}
-        <div className="absolute bottom-2 right-2 text-xs text-muted-foreground bg-background/80 dark:bg-black/20 px-2 py-1 rounded border border-border/50">
+        <div className="absolute bottom-2 right-2 rounded border border-border/50 bg-background/80 px-2 py-1 text-xs text-muted-foreground dark:bg-black/20">
           {localNotes.length}/2000
         </div>
       </div>
@@ -153,7 +129,7 @@ function EnhancedNotes({
         <div className="flex gap-2">
           <button
             onClick={() => setLocalNotes("")}
-            className="text-muted-foreground hover:text-red-500 dark:hover:text-red-400 transition-colors"
+            className="text-muted-foreground transition-colors hover:text-red-500 dark:hover:text-red-400"
             disabled={!localNotes}
           >
             Clear
@@ -162,7 +138,7 @@ function EnhancedNotes({
             onClick={() => {
               navigator.clipboard.writeText(localNotes);
             }}
-            className="text-muted-foreground hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+            className="text-muted-foreground transition-colors hover:text-blue-500 dark:hover:text-blue-400"
             disabled={!localNotes}
           >
             Copy
@@ -181,10 +157,9 @@ export function BookmarkPreview() {
   const [hydrated, setHydrated] = useState(false);
   const [bookmarks, setBookmarks] = useState<BookmarkInjectedType[]>([]);
   const [currentView, setCurrentView] = useState<"list" | "detail">("list");
-  const [selectedVerse, setSelectedVerse] =
-    useState<BookmarkInjectedType | null>(
-      bookmarks.length > 0 ? bookmarks[0] : null,
-    );
+  const [selectedVerse, setSelectedVerse] = useState<BookmarkInjectedType | null>(
+    bookmarks.length > 0 ? bookmarks[0] : null
+  );
   const [notes, setNotes] = useState<Record<string, string>>({});
 
   const {
@@ -219,7 +194,7 @@ export function BookmarkPreview() {
     return [...bookmarks].sort(
       (a, b) =>
         new Date(b.bookmark_datetime_timezoneaware).getTime() -
-        new Date(a.bookmark_datetime_timezoneaware).getTime(),
+        new Date(a.bookmark_datetime_timezoneaware).getTime()
     );
   }, [bookmarks]);
 
@@ -228,8 +203,7 @@ export function BookmarkPreview() {
     return date.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
-      year:
-        date.getFullYear() !== new Date().getFullYear() ? "numeric" : undefined,
+      year: date.getFullYear() !== new Date().getFullYear() ? "numeric" : undefined,
     });
   };
 
@@ -261,6 +235,10 @@ export function BookmarkPreview() {
     setCurrentView("list");
   };
 
+  const handleClose = () => {
+    setIsBookmarkPopupOpen(false);
+  };
+
   // Locking background scroll
   useEffect(() => {
     if (isBookmarkPopupOpen) {
@@ -273,32 +251,40 @@ export function BookmarkPreview() {
   if (!hydrated) {
     return <div className="text-sm text-muted-foreground">Loading bookmarks…</div>;
   }
+  console.log("current view: ", currentView);
   return (
     <div
       className={cn(
-        "fixed inset-0 flex items-center justify-center p-2 sm:p-4 bg-black/30 dark:bg-black/30 backdrop-blur-sm z-50",
-        isBookmarkPopupOpen ? "" : "hidden",
+        "fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-2 backdrop-blur-sm dark:bg-black/30 sm:p-4",
+        isBookmarkPopupOpen ? "" : "hidden"
       )}
       onClick={handleBackdropClick}
     >
       <Card
-        className="w-full max-w-6xl h-[90vh] sm:h-[80vh] bg-background/95 dark:bg-white/5 backdrop-blur-3xl border border-border dark:border-white/20 shadow-2xl z-60"
+        className="z-60 h-[90vh] w-full max-w-6xl border border-border bg-background/95 shadow-2xl backdrop-blur-3xl dark:border-white/20 dark:bg-white/5 sm:h-[80vh]"
         ref={cardRef}
       >
-        <CardHeader className="border-b border-border dark:border-white/10 p-3 sm:p-6">
+        <CardHeader className="border-b border-border p-3 dark:border-white/10 sm:p-6">
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Mobile back button */}
-            {currentView === "detail" && (
+            {currentView === "detail" ? (
               <button
                 onClick={handleBackToList}
-                className="md:hidden p-1 hover:bg-muted rounded-md transition-colors"
+                className="rounded-md p-1 transition-colors hover:bg-muted md:hidden"
               >
-                <ArrowLeft className="w-5 h-5 text-foreground" />
+                <ArrowLeft className="h-5 w-5 text-foreground" />
+              </button>
+            ) : (
+              <button
+                onClick={handleClose}
+                className="rounded-md p-1 transition-colors hover:bg-muted"
+              >
+                <ArrowLeft className="h-5 w-5 text-foreground" />
               </button>
             )}
 
-            <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">
+            <BookOpen className="h-5 w-5 text-primary sm:h-6 sm:w-6" />
+            <h2 className={`text-sm font-semibold text-foreground sm:text-xl`}>
               Bookmarked Verses
             </h2>
             <Badge variant="secondary" className="ml-auto text-xs sm:text-sm">
@@ -308,16 +294,16 @@ export function BookmarkPreview() {
         </CardHeader>
 
         {/* Mobile Layout */}
-        <div className="md:hidden h-[calc(100%-80px)] overflow-hidden">
+        <div className="h-[calc(100%-80px)] overflow-hidden md:hidden">
           {currentView === "list" ? (
             // Mobile List View
             <ScrollArea className="h-full">
-              <div className="p-3 space-y-3">
+              <div className="space-y-3 p-3">
                 {sortedBookmarks.length > 0 ? (
                   sortedBookmarks.map((verse) => (
                     <Card
                       key={verse.verse_id}
-                      className="cursor-pointer transition-all duration-200 hover:shadow-md bg-card dark:bg-white/5 hover:bg-muted dark:hover:bg-white/10"
+                      className="cursor-pointer bg-card transition-all duration-200 hover:bg-muted hover:shadow-md dark:bg-white/5 dark:hover:bg-white/10"
                       onClick={() => handleVerseSelect(verse)}
                     >
                       <CardContent className="p-4">
@@ -329,28 +315,26 @@ export function BookmarkPreview() {
                                 {verse.chapter_number}:{verse.verse_number}
                               </Badge>
                               <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                <Calendar className="w-3 h-3" />
-                                {formatDate(
-                                  verse.bookmark_datetime_timezoneaware,
-                                )}
+                                <Calendar className="h-3 w-3" />
+                                {formatDate(verse.bookmark_datetime_timezoneaware)}
                               </div>
                             </div>
-                            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                            <ChevronRight className="h-4 w-4 text-muted-foreground" />
                           </div>
 
                           {/* Chapter Title */}
-                          <h4 className="text-base font-medium line-clamp-1 text-foreground">
+                          <h4 className="line-clamp-1 text-base font-medium text-foreground">
                             {verse.chapter_title_english}
                           </h4>
 
                           {/* Verse Preview */}
-                          <p className="text-sm text-muted-foreground line-clamp-2">
+                          <p className="line-clamp-2 text-sm text-muted-foreground">
                             {verse.verse_text_english}
                           </p>
 
                           {/* Timestamp */}
                           <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Clock className="w-3 h-3" />
+                            <Clock className="h-3 w-3" />
                             {formatTime(verse.bookmark_datetime_timezoneaware)}
                           </div>
                         </div>
@@ -358,9 +342,9 @@ export function BookmarkPreview() {
                     </Card>
                   ))
                 ) : (
-                  <div className="flex items-center justify-center h-full text-muted-foreground">
-                    <div className="text-center space-y-2 pt-20">
-                      <BookOpen className="w-12 h-12 mx-auto opacity-50" />
+                  <div className="flex h-full items-center justify-center text-muted-foreground">
+                    <div className="space-y-2 pt-20 text-center">
+                      <BookOpen className="mx-auto h-12 w-12 opacity-50" />
                       <p>No bookmarks yet</p>
                     </div>
                   </div>
@@ -369,20 +353,16 @@ export function BookmarkPreview() {
             </ScrollArea>
           ) : (
             // Mobile Detail View
-            <div className="h-full flex flex-col">
+            <div className="flex h-full flex-col">
               {selectedVerse && (
                 <ScrollArea className="flex-1">
                   {/* Verse Display */}
                   <div className="p-4">
-                    <VerseCard
-                      key={selectedVerse.verse_id}
-                      verse={selectedVerse}
-                      type={"verse"}
-                    />
+                    <VerseCard key={selectedVerse.verse_id} verse={selectedVerse} type={"verse"} />
                   </div>
 
                   {/* Notes Section */}
-                  <div className="border-t border-border dark:border-white/10 p-4">
+                  <div className="border-t border-border p-4 dark:border-white/10">
                     <EnhancedNotes selectedVerse={selectedVerse} />
                   </div>
                 </ScrollArea>
@@ -392,19 +372,19 @@ export function BookmarkPreview() {
         </div>
 
         {/* Desktop Layout (unchanged) */}
-        <div className="hidden md:grid grid-cols-12 h-[calc(100%-100px)] overflow-hidden">
+        <div className="hidden h-[calc(100%-100px)] grid-cols-12 overflow-hidden md:grid">
           {/* Left Column - Verse List */}
           <div className="col-span-4 border-r border-border dark:border-white/10">
             <ScrollArea className="h-full">
-              <div className="p-4 space-y-2">
+              <div className="space-y-2 p-4">
                 {sortedBookmarks.length > 0 ? (
                   sortedBookmarks.map((verse) => (
                     <Card
                       key={verse.verse_id}
                       className={`cursor-pointer transition-all duration-200 hover:shadow-md ${
                         selectedVerse?.verse_id === verse.verse_id
-                          ? "bg-primary/10 border-primary/30"
-                          : "bg-card dark:bg-white/5 hover:bg-muted dark:hover:bg-white/10"
+                          ? "border-primary/30 bg-primary/10"
+                          : "bg-card hover:bg-muted dark:bg-white/5 dark:hover:bg-white/10"
                       }`}
                       onClick={() => setSelectedVerse(verse)}
                     >
@@ -416,26 +396,24 @@ export function BookmarkPreview() {
                               {verse.chapter_number}:{verse.verse_number}
                             </Badge>
                             <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                              <Calendar className="w-3 h-3" />
-                              {formatDate(
-                                verse.bookmark_datetime_timezoneaware,
-                              )}
+                              <Calendar className="h-3 w-3" />
+                              {formatDate(verse.bookmark_datetime_timezoneaware)}
                             </div>
                           </div>
 
                           {/* Chapter Title */}
-                          <h4 className="text-sm font-medium line-clamp-1 text-foreground">
+                          <h4 className="line-clamp-1 text-sm font-medium text-foreground">
                             {verse.chapter_title_english}
                           </h4>
 
                           {/* Verse Preview */}
-                          <p className="text-xs text-muted-foreground line-clamp-2">
+                          <p className="line-clamp-2 text-xs text-muted-foreground">
                             {verse.verse_text_english}
                           </p>
 
                           {/* Timestamp */}
                           <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Clock className="w-3 h-3" />
+                            <Clock className="h-3 w-3" />
                             {formatTime(verse.bookmark_datetime_timezoneaware)}
                           </div>
                         </div>
@@ -443,9 +421,9 @@ export function BookmarkPreview() {
                     </Card>
                   ))
                 ) : (
-                  <div className="flex items-center justify-center h-full text-muted-foreground">
-                    <div className="text-center space-y-2">
-                      <BookOpen className="w-12 h-12 mx-auto opacity-50" />
+                  <div className="flex h-full items-center justify-center text-muted-foreground">
+                    <div className="space-y-2 text-center">
+                      <BookOpen className="mx-auto h-12 w-12 opacity-50" />
                       <p>No bookmarks yet</p>
                     </div>
                   </div>
@@ -461,23 +439,19 @@ export function BookmarkPreview() {
                 {/* Top Section - Verse Display */}
                 <div className="flex-1 overflow-hidden">
                   <div className="h-full p-4">
-                    <VerseCard
-                      key={selectedVerse.verse_id}
-                      verse={selectedVerse}
-                      type={"verse"}
-                    />
+                    <VerseCard key={selectedVerse.verse_id} verse={selectedVerse} type={"verse"} />
                   </div>
                 </div>
 
                 {/* Bottom Section - Notes */}
-                <div className="border-t border-border dark:border-white/10 p-4">
+                <div className="border-t border-border p-4 dark:border-white/10">
                   <EnhancedNotes selectedVerse={selectedVerse} />
                 </div>
               </ScrollArea>
             ) : (
-              <div className="flex items-center justify-center h-full text-muted-foreground">
-                <div className="text-center space-y-2">
-                  <BookOpen className="w-12 h-12 mx-auto opacity-50" />
+              <div className="flex h-full items-center justify-center text-muted-foreground">
+                <div className="space-y-2 text-center">
+                  <BookOpen className="mx-auto h-12 w-12 opacity-50" />
                   <p>Select a bookmarked verse to view details</p>
                 </div>
               </div>
