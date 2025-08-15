@@ -1,4 +1,4 @@
-import { BookOpen, FileDown, LucideIcon, Newspaper } from "lucide-react";
+import { BookOpen, FileDown, LucideIcon, Newspaper, ScrollTextIcon } from "lucide-react";
 
 type Submenu = {
   href: string;
@@ -39,6 +39,12 @@ export function getMenuList(pathname: string): Group[] {
         href: `/downloads`,
         label: "Downloads",
         icon: FileDown,
+        submenus: [],
+      },
+      {
+        href: `/names`,
+        label: "Names of God",
+        icon: ScrollTextIcon,
         submenus: [],
       },
     ],
