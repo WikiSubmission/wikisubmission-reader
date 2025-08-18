@@ -42,8 +42,8 @@ export function getMenuList(pathname: string): Group[] {
         submenus: [],
       },
       {
-        href: `/names`,
-        label: "Names of God",
+        href: `/attributes`,
+        label: "Attributes",
         icon: ScrollTextIcon,
         submenus: [],
       },
