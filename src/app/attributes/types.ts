@@ -1,13 +1,16 @@
 export type Languages = "ARABIC" | "ENGLISH" | "FRENCH" | "SPANISH" | "GERMAN";
 export const DEFAULT_LANGUAGES: Languages[] = ["ARABIC", "ENGLISH", "FRENCH", "SPANISH", "GERMAN"];
 
+export type Views = "grid" | "carousel";
+export const DEFAULT_VIEWS: Views[] = ["grid", "carousel"];
+
 type ArticleType = {
   language: Languages;
   title: string;
   content: string;
 };
 
-export interface NamesOfGodCardData {
+export interface GodAttributesCardDataType {
   order_in_revelation: number;
   text: {
     text: string;
@@ -19,9 +22,9 @@ export interface NamesOfGodCardData {
     verse_index: number;
     word_index: number;
   }[];
-  gematria_breakdown: {
+  gematria_breakdown?: {
     letter: string;
     value: number;
   }[];
-  article: ArticleType;
+  article?: ArticleType;
 }
