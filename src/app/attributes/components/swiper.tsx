@@ -48,9 +48,6 @@ export function SwiperClient({ className }: Props) {
     }
   };
 
-  // const isInternalUpdate = useRef(false);
-  // const hasMounted = useRef(false);
-
   // Initialize swiper connections and navigation (only once)
   useEffect(() => {
     const initializeSwiper = () => {
