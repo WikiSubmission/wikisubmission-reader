@@ -14,7 +14,7 @@ export default async function Page({ params }: GlobalPageProps) {
   try {
     // Directly load from server FS (no fetch needed for local JSON)
     attributes = await loadGodAttributesFromJSON();
-    await saveGodAttributesToJSON(attributes);
+    // await saveGodAttributesToJSON(attributes);
   } catch (err) {
     console.error("Failed to fetch attributes:", err);
   }

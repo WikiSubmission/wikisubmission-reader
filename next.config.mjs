@@ -11,7 +11,6 @@ const nextConfig = {
         hostname: "www.masjidtucson.org",
       },
     ],
-    domains: ["picsum.photos"], // for testing
   },
   async redirects() {
     return [
