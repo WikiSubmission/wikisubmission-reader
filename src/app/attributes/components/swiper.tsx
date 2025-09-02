@@ -236,7 +236,7 @@ export function SwiperClient({ className }: Props) {
         </button>
         <button
           ref={navigationNextRef}
-          className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-lg transition-all hover:scale-110 hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent p-2 shadow-lg transition-all hover:scale-110 hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           aria-label="Next slide"
         >
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
