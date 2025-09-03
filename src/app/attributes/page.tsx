@@ -17,7 +17,22 @@ export default async function Page({ params }: GlobalPageProps) {
   }
 
   return (
-    <Suspense key={slug as unknown as string} fallback={<div>Loading or something</div>}>
+    <Suspense
+      key={slug as unknown as string}
+      fallback={
+        <div className="flex h-screen w-full items-start justify-center bg-transparent">
+          <div className="flex flex-col items-center justify-center space-y-4 pt-[30%] sm:pt-[20%] md:pt-[15%]">
+            {/* Spinner */}
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-blue-500 dark:border-gray-700 dark:border-t-blue-400" />
+
+            {/* Loading text */}
+            <p className="animate-pulse text-lg font-medium text-gray-700 dark:text-gray-300">
+              Loading attributes...
+            </p>
+          </div>
+        </div>
+      }
+    >
       <GridCarouselSwitcher attributes={attributes} />
     </Suspense>
   );
