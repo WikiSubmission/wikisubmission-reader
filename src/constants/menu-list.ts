@@ -43,7 +43,7 @@ export function getMenuList(pathname: string): Group[] {
       },
       {
         href: `/attributes`,
-        label: "Attributes",
+        label: "God's Attributes",
         icon: ScrollTextIcon,
         submenus: [],
       },
