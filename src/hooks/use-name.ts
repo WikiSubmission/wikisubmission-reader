@@ -62,7 +62,7 @@ interface NamesOfGodType {
   recents?: Record<string, AutocompleteItem[]>;
 
   data: GodAttributesCardDataType[];
-  setData: (data: GodAttributesCardDataType[]) => void;
+  setData: (data: GodAttributesCardDataType[] | null) => void;
   originalData: GodAttributesCardDataType[]; // Keep original data for filtering
   applyFilter: (text: string) => void;
   refreshData: () => Promise<void>;
@@ -110,7 +110,13 @@ export const NameStore = create<NamesOfGodType>()(
   persist(
     (set, get) => ({
       ...initialState,
-      setData: (data: GodAttributesCardDataType[]) => set({ data }),
+      setData: (data) => {
+        if (data) {
+          set({ data });
+        } else {
+          set({ data: NAMES_OF_GOD });
+        }
+      },
       loadData: async () => {
         if (typeof window === "undefined") return; // Only run on client
         console.log("Loading data...");

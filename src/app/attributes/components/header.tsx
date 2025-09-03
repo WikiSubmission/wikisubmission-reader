@@ -1,17 +1,18 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { NameStore } from "@/hooks/use-name";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { AutocompleteInput, AutocompleteItem } from "./auto-complete-input";
-import { toast } from "@/hooks/use-toast";
 
 export function Header() {
   const { currentLanguage, handleCyclingLanguages, currentView, handleCyclingViews } = NameStore();
   const [selected, setSelected] = useState<AutocompleteItem | null>(null);
-  const { applyFilter, setActiveCard, data } = NameStore();
+  const { setActiveCard, data } = NameStore();
 
   // Map names of God to autocomplete items in the current language
   const items: AutocompleteItem[] = useMemo(() => {
+    if (!data?.length) return [];
+
     return data.map((name) => {
       const entry = name.text.find((t) => t.language === currentLanguage);
       return {
@@ -24,13 +25,30 @@ export function Header() {
     });
   }, [currentLanguage, data]);
 
-  const onSearch = async (q: string) => {
-    const s = q.toLowerCase();
-    // applyFilter(s);
-    return items.filter(
-      (i) => i.label.toLowerCase().includes(s) || i.hint?.toLowerCase().includes(s)
-    );
-  };
+  // Memoize the search function to prevent recreation on every render
+  const onSearch = useCallback(
+    async (q: string) => {
+      const s = q.toLowerCase();
+
+      return items.filter(
+        (item) => item.label.toLowerCase().includes(s) || item.hint?.toLowerCase().includes(s)
+      );
+    },
+    [items]
+  );
+
+  // Memoize the select handler
+  const handleSelect = useCallback(
+    (item: AutocompleteItem) => {
+      setActiveCard(item.index - 1);
+      setSelected(item);
+    },
+    [setActiveCard]
+  );
+
+  // Memoize button labels to avoid inline string operations
+  const languageLabel = currentLanguage;
+  const viewLabel = currentView;
 
   return (
     <div className="grid h-fit w-full grid-cols-12 items-center justify-between gap-3 border-b p-2">
@@ -38,21 +56,16 @@ export function Header() {
         <AutocompleteInput
           placeholder="Search attributes of God..."
           onSearch={onSearch}
-          onSelect={(item) => {
-            setActiveCard(item.index - 1);
-            setSelected(item);
-            alert(`clicked ${item.label}`);
-          }}
+          onSelect={handleSelect}
           recentKey="attributesofgod.recents"
           // className="rounded-lg border-2 py-3 pl-10 pr-4 text-base transition-all duration-200 focus:border-primary"
         />
       </div>
-
       <Button variant="special" onClick={handleCyclingLanguages} className="col-span-1 col-end-11">
-        {currentLanguage}
+        {languageLabel}
       </Button>
       <Button variant="special" onClick={handleCyclingViews} className="col-span-1">
-        {currentView}
+        {viewLabel}
       </Button>
     </div>
   );

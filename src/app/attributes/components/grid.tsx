@@ -8,7 +8,6 @@ export function NamesOfGodGrid() {
   const { data, activeCard, setActiveCard } = NameStore();
 
   const handleCardClick = (index: number) => {
-    console.log("Card clicked:", index, "activeCard:", activeCard);
     setActiveCard(activeCard === index ? null : index);
   };
 

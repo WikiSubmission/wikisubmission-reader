@@ -2,11 +2,12 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Badge } from "@/components/ui/badge";
 import { AnimatePresence, isObject, motion } from "framer-motion";
 import { Volume2, X } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import { DEFAULT_LANGUAGES, GodAttributesCardDataType, Languages } from "../types";
 import { MouseEvent } from "react";
 import { NameStore } from "@/hooks/use-name";
+import React from "react";
 
 const getFontSizeClass = (text: string | undefined, isExpanded: boolean) => {
   if (!text) return "";
@@ -34,45 +35,97 @@ interface Props {
   className?: string;
 }
 
-export function NamesOfGodCard({ name, isExpanded, onCardClick, index, className }: Props) {
+export const NamesOfGodCard = React.memo(function NamesOfGodCard({
+  name,
+  isExpanded,
+  onCardClick,
+  index,
+  className,
+}: Props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showOccurrences, setShowOccurrences] = useState(false);
   const [showGematria, setShowGematria] = useState(false);
-  const [defaultLang] = useState("ENGLISH");
-  const { currentLanguage, setCurrentLanguage, handleCyclingLanguages, currentView } = NameStore();
+  const defaultLang = "ENGLISH";
 
-  const word = name.text.find((text) => text.language === currentLanguage);
-  const defaultWord = name.text.find((text) => text.language === defaultLang);
+  const currentLanguage = NameStore((s) => s.currentLanguage);
+  const currentView = NameStore((s) => s.currentView);
+  const handleCyclingLanguages = NameStore((s) => s.handleCyclingLanguages);
 
-  const playSound = (e: MouseEvent<HTMLButtonElement>) => {
+  const { word, defaultWord, fontSizeClass } = useMemo(() => {
+    const word = name.text.find((text) => text.language === currentLanguage);
+    const defaultWord = name.text.find((text) => text.language === "ENGLISH");
+    const fontSizeClass = getFontSizeClass(word?.text, isExpanded ?? false);
+
+    return { word, defaultWord, fontSizeClass };
+  }, [name.text, currentLanguage, isExpanded]);
+
+  const firstOccurrence = useMemo(() => name.occurences[0], [name.occurences]);
+
+  const playSound = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setIsPlaying(true);
     setTimeout(() => setIsPlaying(false), 2000);
-  };
+  }, []);
 
-  const toggleOccurrences = (e: MouseEvent<HTMLDivElement>) => {
+  const toggleOccurrences = useCallback((e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    setShowOccurrences(!showOccurrences);
-  };
+    setShowOccurrences((prev) => !prev);
+  }, []);
 
-  const toggleGematria = (e: MouseEvent<HTMLDivElement>) => {
+  const toggleGematria = useCallback((e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    setShowGematria(!showGematria);
-  };
+    setShowGematria((prev) => !prev);
+  }, []);
 
-  const handleCyclingLanguage = (e: MouseEvent<HTMLDivElement>) => {
+  const handleCyclingLanguage = useCallback(
+    (e: MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      handleCyclingLanguages();
+    },
+    [handleCyclingLanguages]
+  );
+
+  const handleCardClick = useCallback(
+    (e: MouseEvent<HTMLDivElement>) => {
+      if (currentView === "carousel") {
+        handleCyclingLanguage(e);
+      } else if (currentView === "grid") {
+        if (onCardClick && typeof index === "number") onCardClick(index);
+      }
+    },
+    [currentView, handleCyclingLanguage, onCardClick, index]
+  );
+  const scaleAnimation = useMemo(
+    () => ({
+      scale: isExpanded ? 1 : 1,
+    }),
+    [isExpanded]
+  );
+
+  const springTransition = useMemo(
+    () => ({
+      type: "spring" as const,
+      stiffness: 300,
+      damping: 25,
+    }),
+    []
+  );
+
+  const overlayTransition = useMemo(
+    () => ({
+      duration: 0.25,
+    }),
+    []
+  );
+  const closeOccurrences = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    handleCyclingLanguages();
-  };
+    setShowOccurrences(false);
+  }, []);
 
-  const handleCardClick = (e: MouseEvent<HTMLDivElement>) => {
-    if (currentView === "carousel") {
-      handleCyclingLanguage(e);
-    } else if (currentView === "grid") {
-      if (onCardClick && index) onCardClick(index);
-    }
-  };
-
+  const closeGematria = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setShowGematria(false);
+  }, []);
   return (
     <motion.div
       layout
@@ -83,10 +136,8 @@ export function NamesOfGodCard({ name, isExpanded, onCardClick, index, className
         "select-none",
         className
       )}
-      animate={{
-        scale: isExpanded ? 1 : 1,
-      }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      animate={scaleAnimation}
+      transition={springTransition}
     >
       <Card className="relative h-full w-full overflow-hidden rounded-2xl border border-white/30 bg-gradient-to-br from-white/20 via-white/10 to-white/5 text-center shadow-2xl backdrop-blur-xl transition-all duration-300 hover:ring-2 hover:ring-violet-700/40 hover:ring-offset-2 dark:border-white/20 dark:from-white/15 dark:shadow-black/40 dark:hover:ring-violet-300 sm:rounded-3xl">
         {/* Glow effect */}
@@ -105,10 +156,7 @@ export function NamesOfGodCard({ name, isExpanded, onCardClick, index, className
             >
               <button
                 className="absolute right-2 top-2 rounded-full bg-violet-500/80 p-1 text-white hover:bg-violet-600 sm:right-3 sm:top-3"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowOccurrences(false);
-                }}
+                onClick={closeOccurrences}
               >
                 <X className="h-3 w-3 sm:h-4 sm:w-4" />
               </button>
@@ -142,10 +190,7 @@ export function NamesOfGodCard({ name, isExpanded, onCardClick, index, className
             >
               <button
                 className="absolute right-2 top-2 rounded-full bg-violet-500/80 p-1 text-white hover:bg-violet-600 sm:right-3 sm:top-3"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowGematria(false);
-                }}
+                onClick={closeGematria}
               >
                 <X className="h-3 w-3 sm:h-4 sm:w-4" />
               </button>
@@ -179,7 +224,7 @@ export function NamesOfGodCard({ name, isExpanded, onCardClick, index, className
                 className="cursor-pointer border-slate-300 bg-slate-100 text-[10px] text-slate-700 hover:bg-slate-200 dark:border-white/20 dark:bg-white/10 dark:text-slate-300 dark:hover:bg-white/20 sm:text-xs"
                 onClick={toggleOccurrences}
               >
-                {name.occurences[0]?.chapter_index}:{name.occurences[0]?.verse_index}
+                {firstOccurrence?.chapter_index}:{firstOccurrence?.verse_index}
               </Badge>
               <Badge
                 variant="outline"
@@ -201,7 +246,7 @@ export function NamesOfGodCard({ name, isExpanded, onCardClick, index, className
             <motion.div
               className={cn(
                 "font-[Scheherazade] font-bold text-slate-800 drop-shadow-lg dark:text-white",
-                getFontSizeClass(word?.text, isExpanded ?? false)
+                fontSizeClass
                 // isExpanded
                 //   ? "text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
                 //   : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
@@ -282,4 +327,4 @@ export function NamesOfGodCard({ name, isExpanded, onCardClick, index, className
       </Card>
     </motion.div>
   );
-}
+});

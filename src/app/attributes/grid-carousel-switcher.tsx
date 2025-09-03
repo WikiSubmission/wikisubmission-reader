@@ -7,13 +7,13 @@ import { useEffect } from "react";
 export const runtime = "nodejs";
 
 interface GridCarouselSwitcherProps {
-  attributes: GodAttributesCardDataType[];
+  attributes: GodAttributesCardDataType[] | null;
   lastUpdated?: string | null;
 }
 
 export function GridCarouselSwitcher({ attributes, lastUpdated }: GridCarouselSwitcherProps) {
   const { currentView, setData } = NameStore();
-  console.log("attributes: ", attributes);
+
   useEffect(() => {
     setData(attributes);
   }, [attributes, setData]);

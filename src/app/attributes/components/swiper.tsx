@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useMemo, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Controller } from "swiper/modules";
 import "swiper/css";
@@ -23,10 +23,45 @@ export function SwiperClient({ className }: Props) {
   const navigationNextRef = useRef<HTMLButtonElement>(null);
   const isInternalUpdate = useRef(false);
   const hasMounted = useRef(false);
+
   const { data, activeCard, setActiveCard } = NameStore();
 
-  // Initialize navigation after swiper is ready
-  const initializeNavigation = (swiper: any) => {
+  // Memoize expensive data transformations
+  const { prevData, nextData } = useMemo(() => {
+    const prevData = data.map((_, idx) => {
+      const prevIdx = (idx - 1 + data.length) % data.length;
+      return { item: data[prevIdx], index: prevIdx };
+    });
+
+    const nextData = data.map((_, idx) => {
+      const nextIdx = (idx + 2) % data.length;
+      return { item: data[nextIdx], index: nextIdx };
+    });
+
+    return { prevData, nextData };
+  }, [data]);
+
+  // Memoize swiper configuration objects
+  const swiperConfig = useMemo(
+    () => ({
+      pagination: {
+        clickable: true,
+        dynamicBullets: true,
+      },
+      mousewheel: {
+        thresholdDelta: 50,
+        sensitivity: 1,
+      },
+      navigation: {
+        prevEl: navigationPrevRef.current,
+        nextEl: navigationNextRef.current,
+      },
+    }),
+    []
+  );
+
+  // Memoize the navigation initialization function
+  const initializeNavigation = useCallback((swiper: any) => {
     if (!swiper || !swiper.params || !navigationPrevRef.current || !navigationNextRef.current)
       return;
 
@@ -46,7 +81,58 @@ export function SwiperClient({ className }: Props) {
     } catch (error) {
       console.error("Error initializing navigation:", error);
     }
-  };
+  }, []);
+
+  // Memoize card click handlers
+  const handlePrevCardClick = useCallback(
+    (index: number) => {
+      setActiveCard(index);
+    },
+    [setActiveCard]
+  );
+
+  const handleCenterCardClick = useCallback(
+    (index: number) => {
+      setActiveCard(index);
+    },
+    [setActiveCard]
+  );
+
+  const handleNextCardClick = useCallback(
+    (index: number) => {
+      setActiveCard(index);
+    },
+    [setActiveCard]
+  );
+
+  // Memoize swiper event handlers
+  const handleBeforeInit = useCallback((swiper: any) => {
+    // Initial navigation setup
+    if (swiper.params?.navigation && typeof swiper.params.navigation !== "boolean") {
+      const navigation = swiper.params.navigation as NavigationOptions;
+      navigation.prevEl = navigationPrevRef.current;
+      navigation.nextEl = navigationNextRef.current;
+    }
+  }, []);
+
+  const handleSwiperInit = useCallback(
+    (swiper: any) => {
+      // Ensure navigation works after component mounts
+      setTimeout(() => {
+        initializeNavigation(swiper);
+      }, 100);
+    },
+    [initializeNavigation]
+  );
+
+  const handleSlideChange = useCallback(
+    (swiper: any) => {
+      // Prevent infinite loops by using internal update flag
+      isInternalUpdate.current = true;
+      setActiveCard(swiper.realIndex);
+    },
+    [setActiveCard]
+  );
 
   // Initialize swiper connections and navigation (only once)
   useEffect(() => {
@@ -72,7 +158,7 @@ export function SwiperClient({ className }: Props) {
 
     const timeoutId = setTimeout(initializeSwiper, 100);
     return () => clearTimeout(timeoutId);
-  }, []); // Only run once on mount
+  }, [initializeNavigation]); // Add initializeNavigation to deps
 
   // Handle activeCard changes
   useEffect(() => {
@@ -106,9 +192,9 @@ export function SwiperClient({ className }: Props) {
     }
   }, [activeCard]);
 
-  // Handle keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
+  // Memoize keyboard handler
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
       if (!centerRef.current || !centerRef.current.swiper) return;
 
       switch (event.key) {
@@ -125,11 +211,15 @@ export function SwiperClient({ className }: Props) {
           centerRef.current.swiper.slideNext();
           break;
       }
-    };
+    },
+    [activeCard]
+  );
 
+  // Handle keyboard navigation
+  useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [activeCard]);
+  }, [handleKeyDown]);
 
   return (
     <div className={cn("relative flex items-center justify-center", className)}>
@@ -143,22 +233,17 @@ export function SwiperClient({ className }: Props) {
           loop
           allowTouchMove={false}
         >
-          {data.map((_, idx) => {
-            const prevIdx = (idx - 1 + data.length) % data.length;
-            return (
-              <SwiperSlide key={`prev-${idx}`}>
-                <NamesOfGodCard
-                  name={data[prevIdx]}
-                  isExpanded={false}
-                  onCardClick={() => {
-                    setActiveCard(prevIdx);
-                  }}
-                  index={prevIdx}
-                  className="mx-14 my-3"
-                />
-              </SwiperSlide>
-            );
-          })}
+          {prevData.map((item, idx) => (
+            <SwiperSlide key={`prev-${idx}`}>
+              <NamesOfGodCard
+                name={item.item}
+                isExpanded={false}
+                onCardClick={handlePrevCardClick}
+                index={item.index}
+                className="mx-14 my-3"
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
 
@@ -171,47 +256,20 @@ export function SwiperClient({ className }: Props) {
           slidesPerView={1}
           centeredSlides
           loop
-          pagination={{
-            clickable: true,
-            dynamicBullets: true,
-          }}
-          mousewheel={{
-            thresholdDelta: 50,
-            sensitivity: 1,
-          }}
-          navigation={{
-            prevEl: navigationPrevRef.current,
-            nextEl: navigationNextRef.current,
-          }}
+          pagination={swiperConfig.pagination}
+          mousewheel={swiperConfig.mousewheel}
+          navigation={swiperConfig.navigation}
           speed={500} // Smooth transition speed
-          onBeforeInit={(swiper) => {
-            // Initial navigation setup
-            if (swiper.params?.navigation && typeof swiper.params.navigation !== "boolean") {
-              const navigation = swiper.params.navigation as NavigationOptions;
-              navigation.prevEl = navigationPrevRef.current;
-              navigation.nextEl = navigationNextRef.current;
-            }
-          }}
-          onSwiper={(swiper) => {
-            // Ensure navigation works after component mounts
-            setTimeout(() => {
-              initializeNavigation(swiper);
-            }, 100);
-          }}
-          onSlideChange={(swiper) => {
-            // Prevent infinite loops by using internal update flag
-            isInternalUpdate.current = true;
-            setActiveCard(swiper.realIndex);
-          }}
+          onBeforeInit={handleBeforeInit}
+          onSwiper={handleSwiperInit}
+          onSlideChange={handleSlideChange}
         >
           {data.map((item, idx) => (
             <SwiperSlide key={`center-${idx}`}>
               <NamesOfGodCard
                 name={item}
                 isExpanded={false}
-                onCardClick={() => {
-                  setActiveCard(idx);
-                }}
+                onCardClick={handleCenterCardClick}
                 index={idx}
                 className="mx-20 my-8"
               />
@@ -236,7 +294,7 @@ export function SwiperClient({ className }: Props) {
         </button>
         <button
           ref={navigationNextRef}
-          className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent p-2 shadow-lg transition-all hover:scale-110 hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent p-2 shadow-lg transition-all hover:scale-110 hover:bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
           aria-label="Next slide"
         >
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -255,22 +313,17 @@ export function SwiperClient({ className }: Props) {
           loop
           allowTouchMove={false}
         >
-          {data.map((_, idx) => {
-            const nextIdx = (idx + 1) % data.length;
-            return (
-              <SwiperSlide key={`next-${idx}`}>
-                <NamesOfGodCard
-                  name={data[nextIdx]}
-                  isExpanded={false}
-                  onCardClick={() => {
-                    setActiveCard(nextIdx);
-                  }}
-                  index={nextIdx}
-                  className="mx-14 my-3"
-                />
-              </SwiperSlide>
-            );
-          })}
+          {nextData.map((item, idx) => (
+            <SwiperSlide key={`next-${idx}`}>
+              <NamesOfGodCard
+                name={item.item}
+                isExpanded={false}
+                onCardClick={handleNextCardClick}
+                index={item.index}
+                className="mx-14 my-3"
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </div>
