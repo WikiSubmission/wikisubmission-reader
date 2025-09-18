@@ -1,5 +1,12 @@
-export type Languages = "ARABIC" | "ENGLISH" | "FRENCH" | "SPANISH" | "GERMAN";
-export const DEFAULT_LANGUAGES: Languages[] = ["ARABIC", "ENGLISH", "FRENCH", "SPANISH", "GERMAN"];
+export type Languages = "ARABIC" | "ENGLISH" | "FRENCH" | "SPANISH" | "GERMAN" | "TURKISH";
+export const DEFAULT_LANGUAGES: Languages[] = [
+  "ARABIC",
+  "ENGLISH",
+  "FRENCH",
+  "SPANISH",
+  "GERMAN",
+  "TURKISH",
+];
 
 export type Views = "grid" | "carousel";
 export const DEFAULT_VIEWS: Views[] = ["grid", "carousel"];
