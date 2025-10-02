@@ -5,4 +5,5 @@ export const Identity = {
     github: "https://github.com/wikisubmission",
     youtube: "https://youtube.com/@wikisubmission",
   },
+  developerDiscord: "https://discord.gg/ArTXN6cwtk",
 };
