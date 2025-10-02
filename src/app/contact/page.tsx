@@ -20,8 +20,8 @@ export default function ContactPage() {
 
         <section>
           <p className="text-muted-foreground">
-            We'd love to hear from you. Whether you have questions about WikiSubmission, 
-            suggestions for improvements, or need technical support, we're here to help.
+            We&apos;d love to hear from you. Whether you have questions about WikiSubmission, 
+            suggestions for improvements, or need technical support, we&apos;re here to help.
           </p>
         </section>
 
