@@ -11,6 +11,7 @@ import BookmarkStore from "@/hooks/use-bookmark";
 import { cn } from "@/lib/utils";
 import VerseCard from "./verse-card";
 import { Button } from "@/components/ui/button";
+import { QuranPageStore } from "@/hooks/use-quran-page";
 
 const useDebounce = (callback: Function, delay: number) => {
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -158,7 +159,7 @@ export function BookmarkPreview() {
   const [bookmarks, setBookmarks] = useState<BookmarkInjectedType[]>([]);
   const [currentView, setCurrentView] = useState<"list" | "detail">("list");
   const [selectedVerse, setSelectedVerse] = useState<BookmarkInjectedType | null>(null);
-
+  const { language } = QuranPageStore();
   const {
     setIsBookmarkPopupOpen,
     isBookmarkPopupOpen,
@@ -374,6 +375,7 @@ export function BookmarkPreview() {
                             key={selectedVerse.verse_id}
                             verse={selectedVerse}
                             type="verse"
+                            language={language}
                           />
                         </div>
                       </ScrollArea>
@@ -462,6 +464,7 @@ export function BookmarkPreview() {
                           key={selectedVerse.verse_id}
                           verse={selectedVerse}
                           type="verse"
+                          language={language}
                         />
                       </div>
                     </ScrollArea>

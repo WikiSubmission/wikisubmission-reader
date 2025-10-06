@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import VerseCardClient from "@/app/quran/[[...slug]]/components/verse-card-client";
 
 interface VerseListProps {
   verses: { id: string; text: string }[];
