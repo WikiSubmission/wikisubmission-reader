@@ -33,16 +33,19 @@ const getSafeStorage = (): StateStorage => {
     return createMemoryStorage();
   }
 };
-
+export type Languages = 'english' | 'french' | 'turkish' | 'french' | 'german' | 'bengali' | 'tamil' | 'persian' | 'swedish' | 'russian';
 interface QuranPageStoreInterface {
   query: string;
   setQuery: (newText: string) => void;
+  language: Languages
+  setLanguage: (language: Languages) => void;
 
   _hasHydrated: boolean;
 }
 
-const initialState: Omit<QuranPageStoreInterface, "setQuery"> = {
+const initialState: Omit<QuranPageStoreInterface, "setQuery"|"setLanguage"> = {
   query: "",
+  language: 'english',
   _hasHydrated: false,
 };
 
@@ -51,6 +54,7 @@ export const QuranPageStore = create<QuranPageStoreInterface>()(
     (set) => ({
       ...initialState,
       setQuery: (newText) => set({ query: newText }),
+      setLanguage: (language) => set({ language})
     }),
     {
       name: "quran-page-store",

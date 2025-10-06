@@ -1,14 +1,26 @@
 "use client";
 
+import { Languages } from "@/hooks/use-quran-page";
 import { WQuranVerse } from "@/types/w-quran";
 import { highlightMarkdown } from "@/utils/highlight-markdown";
 import { useQuranAudio } from "@/hooks/use-quran-audio";
 
-export default function VerseTextPrimary({ verse }: { verse: WQuranVerse }) {
+export default function VerseTextPrimary({
+  verse,
+  language,
+}: {
+  verse: WQuranVerse;
+  language: Languages;
+}) {
   const audio = useQuranAudio();
 
   const isCurrentVerse = audio.currentVerse?.verse_id === verse.verse_id;
   const isPlaying = isCurrentVerse && audio.isPlaying;
+
+  // Construct the dynamic field name based on the language
+  const normalizedLang = language?.trim().toLowerCase() ?? "english";
+  const textKey = `verse_text_${normalizedLang}` as keyof WQuranVerse;
+  const verseText = verse[textKey] || verse.verse_text_english; // fallback to English if missing
 
   return (
     <section>
@@ -19,7 +31,7 @@ export default function VerseTextPrimary({ verse }: { verse: WQuranVerse }) {
             : ""
         }`}
       >
-        {highlightMarkdown(verse.verse_text_english)}
+        {highlightMarkdown(verseText as string)}
       </p>
     </section>
   );

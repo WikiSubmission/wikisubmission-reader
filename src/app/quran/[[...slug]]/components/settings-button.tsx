@@ -3,12 +3,16 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { QuranPageStore } from "@/hooks/use-quran-page";
 import { useQuranSettings } from "@/hooks/use-quran-settings";
+import { SelectContent } from "@radix-ui/react-select";
 import { SettingsIcon } from "lucide-react";
 
 export default function QuranSettingsButton() {
   const useSettings = useQuranSettings();
+  const { language, setLanguage } = QuranPageStore();
   return (
     <div>
       <Popover>
@@ -68,6 +72,26 @@ export default function QuranSettingsButton() {
                 }}
               ></Switch>
               <Badge variant="secondary">Word by Word</Badge>
+            </section>
+            <section>
+              <Select value={language} onValueChange={setLanguage}>
+                <SelectTrigger>
+                  <SelectValue defaultValue={"english"} />
+                </SelectTrigger>
+                <SelectContent className="w-sm bg-background">
+                  <SelectItem value={"english"}>English</SelectItem>
+                  <SelectItem value={"turkish"}>Turkish</SelectItem>
+                  <SelectItem value={"french"}>French</SelectItem>
+                  <SelectItem value={"german"}>German</SelectItem>
+                  <SelectItem value={"bahasa"}>Bahasa</SelectItem>
+                  <SelectItem value={"persian"}>Persian</SelectItem>
+                  <SelectItem value={"tamil"}>Tamil</SelectItem>
+                  <SelectItem value={"swedish"}>Swedish</SelectItem>
+                  <SelectItem value={"russian"}>Russian</SelectItem>
+                  <SelectItem value={"bengali"}>Bengali</SelectItem>
+                </SelectContent>
+              </Select>
+              {/* <Badge variant="secondary">Language</Badge> */}
             </section>
           </div>
         </PopoverContent>

@@ -16,15 +16,18 @@ import CopyVerseButton from "./verse-buttons/copy-verse-button";
 import PlayVerseButton from "./verse-buttons/play-verse-button";
 import ContextButton from "./verse-buttons/context-button";
 import BookmarkVerseButton from "./verse-buttons/bookmark-verse-button";
+import { Languages } from "@/hooks/use-quran-page";
 
 export default function VerseCardClient({
   verse,
   type,
   styling,
+  language,
 }: {
   verse: WQuranVerse;
   type: WResult["request"]["type"];
   styling?: string;
+  language: Languages;
 }) {
   const [hovering, setHovering] = useState(false);
   const settings = useQuranSettings();
@@ -63,9 +66,9 @@ export default function VerseCardClient({
       <CardContent>
         <section className="space-y-4">
           {/* Subtitle */}
-          <VerseSubtitle verse={verse} />
+          <VerseSubtitle verse={verse} language={language} />
           {/* Primary Text */}
-          <VerseTextPrimary verse={verse} />
+          <VerseTextPrimary verse={verse} language={language} />
           {/* Line Separator */}
           {settings.settings.showArabic && <Separator />}
           {/* Arabic Text */}
@@ -73,7 +76,7 @@ export default function VerseCardClient({
           {/* Transliteration */}
           <VerseTextTransliterated verse={verse} />
           {/* Footnote */}
-          <VerseFootnote verse={verse} />
+          <VerseFootnote verse={verse} language={language} />
         </section>
       </CardContent>
     </Card>

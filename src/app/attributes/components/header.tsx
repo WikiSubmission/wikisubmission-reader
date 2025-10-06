@@ -6,7 +6,6 @@ import { AutocompleteInput, AutocompleteItem } from "./auto-complete-input";
 
 export function Header() {
   const { currentLanguage, handleCyclingLanguages, handleCyclingViews, currentView } = NameStore();
-  const [selected, setSelected] = useReactState<AutocompleteItem | null>(null);
   const { setActiveCard, data } = NameStore();
   const [isMobile, setIsMobile] = useReactState(false);
 
@@ -15,10 +14,11 @@ export function Header() {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [setIsMobile]);
 
   const items: AutocompleteItem[] = useMemo(() => {
     if (!data?.length) return [];
+    console.log("all data: ", data);
     return data.map((name) => {
       const entry = name.text.find((t) => t.language === currentLanguage);
       return {
@@ -43,8 +43,8 @@ export function Header() {
 
   const handleSelect = useCallback(
     (item: AutocompleteItem) => {
-      setActiveCard(item.index - 1);
-      setSelected(item);
+      setActiveCard(item.index);
+      console.log("active index: ", item.index);
     },
     [setActiveCard]
   );
