@@ -19,7 +19,7 @@ export const metadata: Metadata = {
       ? `${process.env.APP_URL}`
       : process.env.VERCEL_URL
         ? `https://${process.env.VERCEL_URL}`
-        : `http://localhost:${process.env.PORT || 3000}`,
+        : `https://wikisubmission.org`,
   ),
   title: "WikiSubmission",
   description:
