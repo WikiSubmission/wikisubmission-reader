@@ -11,8 +11,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { Suspense } from "react";
 import { LoadingIcon } from "@/components/ui/loading-icon";
 
-export const runtime = "edge";
-
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.APP_URL
@@ -35,9 +33,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://library.wikisubmission.org/file/logo.png",
-        width: 250,
-        height: 250,
+        url: "/book.png",
+        width: 125,
+        height: 125,
         alt: "WikiSubmission Logo",
       },
     ],
