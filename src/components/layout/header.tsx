@@ -18,7 +18,7 @@ export function Navbar() {
             className={`flex gap-1 items-center font-light tracking-widest ${Fonts.wiki.className}`}
           >
             <Image
-              src="https://library.wikisubmission.org/logo.png"
+              src="/book.png"
               alt="WikiSubmission Logo"
               className="rounded-full"
               width={25}
