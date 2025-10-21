@@ -30,7 +30,7 @@ export function SheetMenu() {
           >
             <Link href="/quran" className="flex items-center gap-2">
               <Image
-                src="https://library.wikisubmission.org/logo.png"
+                src="/book.png"
                 alt="WikiSubmission Logo"
                 className="rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300"
                 width={25}
