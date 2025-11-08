@@ -32,16 +32,16 @@ export default function Home() {
         </h1>
       </section>
 
-      <section className="space-y-2">
+      <section className="space-y-2 w-full max-w-xs">
         <section className="flex flex-col">
           <Item asChild variant="outline">
             <Link href="/quran">
               <ItemContent>
                 <ItemTitle>
-                  Quran
+                  The Final Testament
                 </ItemTitle>
                 <ItemDescription>
-                  The Final Testament
+                  Read on the Web
                 </ItemDescription>
               </ItemContent>
               <ItemActions>
@@ -64,7 +64,7 @@ export default function Home() {
                 </ItemDescription>
               </ItemContent>
               <ItemActions>
-                <FaApple className="size-8" />
+                <FaApple className="size-6" />
                 <ChevronRight className="size-4" />
               </ItemActions>
             </Link>
