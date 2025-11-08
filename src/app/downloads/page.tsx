@@ -1,3 +1,10 @@
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemTitle,
+} from "@/components/ui/item";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,9 +15,9 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Fonts } from "@/constants/fonts";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const LinkButton = ({ href, label }: { href: string; label: string }) => (
   <a
@@ -25,15 +32,134 @@ const LinkButton = ({ href, label }: { href: string; label: string }) => (
 
 export default function Resources() {
   return (
-    <div className="space-y-12">
+    <main className="space-y-6">
+      <div className="flex flex-col items-center gap-4 mb-6">
+        <Image
+          src="/brand-assets/logo-black.png"
+          alt="WikiSubmission Logo"
+          width={64}
+          height={64}
+          className="rounded-full"
+        />
+        <div className="text-center">
+          <h1 className="text-2xl font-semibold">Downloads & Resources</h1>
+          <p className="text-sm text-muted-foreground">Free books and resources for Submission</p>
+        </div>
+      </div>
+
+      {/* Main Resources */}
+      <section className="flex flex-col gap-4">
+        <Item asChild variant="outline">
+          <Link href="#quran-final-testament">
+            <ItemContent>
+              <ItemTitle>Quran: The Final Testament</ItemTitle>
+              <ItemDescription>
+                Dr. Rashad Khalifa, Ph.D. - Multiple languages available
+              </ItemDescription>
+            </ItemContent>
+            <ItemActions>
+              <Image
+                src="https://www.masjidtucson.org/images/catalog/bQuranCoverThumb.jpg"
+                alt="Quran Cover"
+                width={48}
+                height={48}
+                className="rounded-lg size-12"
+              />
+              <ChevronRight className="size-4" />
+            </ItemActions>
+          </Link>
+        </Item>
+
+        <Item asChild variant="outline">
+          <Link href="#visual-presentation">
+            <ItemContent>
+              <ItemTitle>Visual Presentation of the Miracle</ItemTitle>
+              <ItemDescription>
+                Dr. Rashad Khalifa, Ph.D.
+              </ItemDescription>
+            </ItemContent>
+            <ItemActions>
+              <Image
+                src="https://www.masjidtucson.org/images/catalog/quran_VP_thumb.png"
+                alt="Visual Presentation Cover"
+                width={48}
+                height={48}
+                className="rounded-lg size-12"
+              />
+              <ChevronRight className="size-4" />
+            </ItemActions>
+          </Link>
+        </Item>
+
+        <Item asChild variant="outline">
+          <Link href="#quran-hadith-islam">
+            <ItemContent>
+              <ItemTitle>Quran, Hadith, and Islam</ItemTitle>
+              <ItemDescription>
+                Dr. Rashad Khalifa, Ph.D.
+              </ItemDescription>
+            </ItemContent>
+            <ItemActions>
+              <Image
+                src="https://www.masjidtucson.org/images/catalog/QHICoverThumb.jpg"
+                alt="QHI Cover"
+                width={48}
+                height={48}
+                className="rounded-lg size-12"
+              />
+              <ChevronRight className="size-4" />
+            </ItemActions>
+          </Link>
+        </Item>
+
+        <Item asChild variant="outline">
+          <Link href="#computer-speaks">
+            <ItemContent>
+              <ItemTitle>The Computer Speaks: God&apos;s Message to The World</ItemTitle>
+              <ItemDescription>
+                Dr. Rashad Khalifa, Ph.D.
+              </ItemDescription>
+            </ItemContent>
+            <ItemActions>
+              <Image
+                src="https://www.masjidtucson.org/images/catalog/CompSpksCoverThumb.jpg"
+                alt="Computer Speaks Cover"
+                width={48}
+                height={48}
+                className="rounded-lg size-12"
+              />
+              <ChevronRight className="size-4" />
+            </ItemActions>
+          </Link>
+        </Item>
+
+        <Item asChild variant="outline">
+          <Link href="#other-resources">
+            <ItemContent>
+              <ItemTitle>Other Resources</ItemTitle>
+              <ItemDescription>
+                Community contributions and mathematical research
+              </ItemDescription>
+            </ItemContent>
+            <ItemActions>
+              <Image
+                src="/book.png"
+                alt="Book"
+                width={48}
+                height={48}
+                className="rounded-lg size-12"
+              />
+              <ChevronRight className="size-4" />
+            </ItemActions>
+          </Link>
+        </Item>
+      </section>
+
+      <Separator />
+
       {/* Quran: The Final Testament */}
-      <section className="space-y-6">
-        <h1
-          className={`text-3xl font-light text-primary ${Fonts.wiki.className}`}
-        >
-          Downloads & Resources
-        </h1>
-        <div className="flex flex-col md:flex-row items-center gap-4">
+      <section id="quran-final-testament" className="space-y-4">
+        <div className="flex items-center gap-4">
           <Image
             src="https://www.masjidtucson.org/images/catalog/bQuranCoverThumb.jpg"
             alt="Quran Cover"
@@ -139,7 +265,7 @@ export default function Resources() {
       </section>
 
       {/* Visual Presentation */}
-      <section className="space-y-4">
+      <section id="visual-presentation" className="space-y-4">
         <div className="flex flex-col md:flex-row items-center gap-4">
           <Image
             src="https://www.masjidtucson.org/images/catalog/quran_VP_thumb.png"
@@ -167,7 +293,7 @@ export default function Resources() {
       </section>
 
       {/* QHI */}
-      <section className="space-y-4">
+      <section id="quran-hadith-islam" className="space-y-4">
         <div className="flex flex-col md:flex-row items-center gap-4">
           <Image
             src="https://www.masjidtucson.org/images/catalog/QHICoverThumb.jpg"
@@ -201,7 +327,7 @@ export default function Resources() {
       </section>
 
       {/* The Computer Speaks */}
-      <section className="space-y-4">
+      <section id="computer-speaks" className="space-y-4">
         <div className="flex flex-col md:flex-row items-center gap-4">
           <Image
             src="https://www.masjidtucson.org/images/catalog/CompSpksCoverThumb.jpg"
@@ -233,7 +359,7 @@ export default function Resources() {
       </section>
 
       {/* Other Resources */}
-      <section className="space-y-4">
+      <section id="other-resources" className="space-y-4">
         <div className="flex flex-col md:flex-row items-center gap-4">
           <Image
             src="/book.png"
@@ -307,6 +433,6 @@ export default function Resources() {
           </CardContent>
         </Card>
       </section>
-    </div>
+    </main>
   );
 }

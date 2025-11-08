@@ -15,7 +15,7 @@ export default function QuranLayout({
   return (
     <AdminPanelLayout>
       <ContentLayout title="Downloads">
-        <main className="space-y-4">{children}</main>
+        {children}
       </ContentLayout>
     </AdminPanelLayout>
   );

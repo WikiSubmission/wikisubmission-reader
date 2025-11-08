@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/book.png",
+        url: "/brand-assets/logo-black.png",
         width: 125,
         height: 125,
         alt: "WikiSubmission Logo",

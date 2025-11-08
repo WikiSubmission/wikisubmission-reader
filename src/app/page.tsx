@@ -1,56 +1,114 @@
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemTitle,
+} from "@/components/ui/item"
+import { Identity } from "@/constants/identity";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { FaApple, FaAppStore, FaGithub } from "react-icons/fa";
+import { FaDiscord } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-background/80">
-      <main className="flex-1 flex flex-col items-center justify-start pt-16 sm:justify-center sm:pt-0 gap-8 p-4">
-        <section className="space-y-1">
-          <p className="font-bold text-center text-xs tracking-widest font-ultralight text-muted-foreground">
-            WIKISUBMISSION.ORG
-          </p>
-          <p className="text-center text-xs tracking-widest font-ultralight text-muted-foreground">
-            ACCESS THE FINAL TESTAMENT
-          </p>
+    <main className="flex flex-col min-h-screen items-center justify-center text-center space-y-8 md:p-24 p-4">
+
+      <section className="max-w-sm flex flex-col gap-4 max-w-md items-center">
+        <Image
+          src="/brand-assets/logo-black.png"
+          alt="WikiSubmission Logo"
+          width={72}
+          height={72}
+          className="rounded-full"
+        />
+
+        <h1 className="text-3xl font-semibold">
+          WikiSubmission
+        </h1>
+      </section>
+
+      <section className="space-y-2">
+        <section className="flex flex-col">
+          <Item asChild variant="outline">
+            <Link href="/quran">
+              <ItemContent>
+                <ItemTitle>
+                  Quran
+                </ItemTitle>
+                <ItemDescription>
+                  The Final Testament
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <Image src="/book.png" className="size-8 rounded-full" alt="Quran" width={500} height={500} />
+                <ChevronRight className="size-4" />
+              </ItemActions>
+            </Link>
+          </Item>
         </section>
-        <div className="animate-fade-in animation-delay-400">
-          <Image
-            src="/god-alone.gif"
-            alt="WikiSubmission"
-            className="rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
-            width={200}
-            height={200}
-            priority
-            unoptimized
-          />
-        </div>
 
-        <div className="animate-fade-in animation-delay-600">
-          <Link href="/quran">
-            <Button
-              variant="special"
-              className="px-8 py-6 text-lg hover:scale-103 transition-transform duration-300"
-            >
-              Enter
-            </Button>
-          </Link>
-        </div>
-      </main>
+        <section className="flex flex-col">
+          <Item asChild variant="outline">
+            <Link href="/quran">
+              <ItemContent>
+                <ItemTitle>
+                  iOS App
+                </ItemTitle>
+                <ItemDescription>
+                  iPhone, iPad and Mac
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <FaApple className="size-8" />
+                <ChevronRight className="size-4" />
+              </ItemActions>
+            </Link>
+          </Item>
+        </section>
 
-      <footer className="text-center text-sm text-muted-foreground p-4">
-        <p>
-          &copy; 2025 WikiSubmission. An{" "}
-          <a
-            href="https://github.com/WikiSubmission/wikisubmission-reader"
-            target="_blank"
-            className="text-primary"
-          >
-            open-source
-          </a>{" "}
-          project.
+        <p className="text-sm text-violet-600 tracking-widest" >
+          More coming soon.
         </p>
-      </footer>
-    </div>
+      </section>
+
+      <section className="max-w-md flex flex-wrap gap-4">
+        <Link href={Identity.social.github}>
+          <FaGithub className="size-4" />
+        </Link>
+        <Link href={Identity.social.twitter}>
+          <FaTwitter className="size-4" />
+        </Link>
+        <Link href={Identity.social.youtube}>
+          <FaYoutube className="size-4" />
+        </Link>
+        <Link href={Identity.social.discord}>
+          <FaDiscord className="size-4" />
+        </Link>
+      </section>
+
+      <section className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+        <Link href="/contact">
+          Contact
+        </Link>
+        <Link href="/terms-of-use">
+          Terms of Use
+        </Link>
+        <Link href="/privacy-policy">
+          Privacy Policy
+        </Link>
+      </section>
+
+      <section className="max-w-sm text-center text-xs text-muted-foreground space-y-2">
+        <p>
+          WikiSubmission is a 501(c)(3) nonprofit organization.  We provide free and open-source technology, educational resources, and creative media.
+        </p>
+      </section>
+    </main>
   );
 }
+
