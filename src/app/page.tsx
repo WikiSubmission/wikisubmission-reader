@@ -54,7 +54,7 @@ export default function Home() {
 
         <section className="flex flex-col">
           <Item asChild variant="outline">
-            <Link href="/quran">
+            <Link href="https://apps.apple.com/us/app/submission-religion-of-god/id6444260632" target="_blank" rel="noopener noreferrer">
               <ItemContent>
                 <ItemTitle>
                   iOS App
