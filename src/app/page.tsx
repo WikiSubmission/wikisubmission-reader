@@ -77,16 +77,16 @@ export default function Home() {
       </section>
 
       <section className="max-w-md flex flex-wrap gap-4">
-        <Link href={Identity.social.github}>
+        <Link href={Identity.social.github} target="_blank" rel="noopener noreferrer">
           <FaGithub className="size-4" />
         </Link>
-        <Link href={Identity.social.twitter}>
+        <Link href={Identity.social.twitter} target="_blank" rel="noopener noreferrer">
           <FaTwitter className="size-4" />
         </Link>
-        <Link href={Identity.social.youtube}>
+        <Link href={Identity.social.youtube} target="_blank" rel="noopener noreferrer">
           <FaYoutube className="size-4" />
         </Link>
-        <Link href={Identity.social.discord}>
+        <Link href={Identity.social.discord} target="_blank" rel="noopener noreferrer">
           <FaDiscord className="size-4" />
         </Link>
       </section>
