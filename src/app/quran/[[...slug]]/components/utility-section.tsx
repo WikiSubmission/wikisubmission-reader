@@ -61,7 +61,9 @@ export default function UtilitySection({
                 isScrolled ? "text-xs px-2 py-1" : ""
               }`}
             >
-              {result.response.data.map((v) => v.verse_number >= 1).length - 1}{" "}
+              {result.response.data.map((v) => v.verse_number >= 1).length - 
+                (result.response.data[0]?.chapter_number === 1 || 
+                 result.response.data[0]?.chapter_number === 9 ? 0 : 1)}{" "}
               verse{result.response.data.length !== 1 ? "s" : ""}
             </Badge>
           )}
