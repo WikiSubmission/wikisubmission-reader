@@ -101,6 +101,9 @@ export default function Home() {
         <Link href="/privacy-policy">
           Privacy Policy
         </Link>
+        <Link href="/donate">
+          Donate
+        </Link>
       </section>
 
       <section className="max-w-sm text-center text-xs text-muted-foreground space-y-2">
