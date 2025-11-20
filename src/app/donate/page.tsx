@@ -5,10 +5,28 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item";
-import { Separator } from "@/components/ui/separator";
-import { ChevronRight, Heart, Calendar, Quote } from "lucide-react";
+import { ChevronRight, Heart, Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Donate | WikiSubmission",
+  description: "Support WikiSubmission, a 501(c)(3) nonprofit organization providing free and open-source technology, educational resources, and creative media in the cause of God.",
+  openGraph: {
+    title: "Donate | WikiSubmission",
+    description: "Support WikiSubmission, a 501(c)(3) nonprofit organization providing free and open-source technology, educational resources, and creative media in the cause of God.",
+    url: "/donate",
+    images: [
+      {
+        url: "/brand-assets/logo-black.png",
+        width: 125,
+        height: 125,
+        alt: "WikiSubmission Logo",
+      },
+    ],
+  },
+}
 
 export default function DonatePage() {
   return (
