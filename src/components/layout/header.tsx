@@ -8,17 +8,17 @@ import { ThemeToggle } from "../ui/theme-toggle";
 
 export function Navbar() {
   return (
-    <header className="z-[50] sticky w-full bg-background/95 border-b backdrop-blur-sm dark:bg-black/[0.6] border-border/40">
-      <div className="container h-14 flex items-center">
+    <header className="sticky z-[50] w-full border-b border-border/40 bg-background/95 backdrop-blur-sm dark:bg-black/[0.6]">
+      <div className="container flex h-14 items-center">
         <Link
           href="/"
-          className="flex justify-start items-center hover:opacity-85 transition-opacity duration-300"
+          className="flex items-center justify-start transition-opacity duration-300 hover:opacity-85"
         >
           <span
-            className={`flex gap-1 items-center font-light tracking-widest ${Fonts.wiki.className}`}
+            className={`flex items-center gap-1 font-light tracking-widest ${Fonts.wiki.className}`}
           >
             <Image
-              src="/book.png"
+            src="https://library.wikisubmission.org/file/logo.png"
               alt="WikiSubmission Logo"
               className="rounded-full"
               width={25}
