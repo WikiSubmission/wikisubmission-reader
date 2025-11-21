@@ -20,7 +20,7 @@ export default function ContactPage() {
         height={72}
         className="rounded-full"
       />
-      
+
       <section className="max-w-sm flex gap-4 max-w-md items-center">
         <h1 className="text-3xl font-semibold">
           Contact Us
@@ -76,6 +76,9 @@ export default function ContactPage() {
               <ItemTitle>
                 Discord
               </ItemTitle>
+              <ItemDescription>
+                Connect with our community
+              </ItemDescription>
             </ItemContent>
             <ItemActions>
               <MessageSquare className="size-4" />
