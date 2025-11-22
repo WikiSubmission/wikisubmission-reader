@@ -1,24 +1,23 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import { InfoCard } from "./_components/data-card";
-import { TransactionSection } from "./_components/transaction";
+import Link from "next/link";
 import {
-  BarChartIcon,
-  DollarSignIcon,
-  GoalIcon,
-  TrendingUpIcon,
-  UsersIcon,
-  ZapIcon,
-} from "lucide-react";
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemTitle,
+} from "@/components/ui/item";
+import { ChevronRight, FileText, DollarSign, Users, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Transparency | WikiSubmission",
   description:
-    "Transparency page for WikiSubmission, a 501(c)(3) nonprofit organization providing free and open-source technology, educational resources, and creative media in the cause of God. Balance and historic donations will be displayed here.",
+    "WikiSubmission is committed to transparency in all aspects of our operations. Learn about our finances, governance, operations, and open-source initiatives.",
   openGraph: {
     title: "Transparency | WikiSubmission",
     description:
-      "Transparency page for WikiSubmission, a 501(c)(3) nonprofit organization providing free and open-source technology, educational resources, and creative media in the cause of God. Balance and historic donations will be displayed here.",
+      "WikiSubmission is committed to transparency in all aspects of our operations. Learn about our finances, governance, operations, and open-source initiatives.",
     url: "/transparency",
     images: [
       {
@@ -32,69 +31,94 @@ export const metadata: Metadata = {
 };
 
 export default function TransparencyPage() {
-  const currentBalance = 10000.5;
-  const monthlyGoal = 15000.0;
-  const totalYTDDonations = 85000.0;
-  const monthlyDeficit = currentBalance - monthlyGoal;
   return (
-    <main className="flex h-full flex-col items-center justify-center gap-5 space-y-8 p-4 text-center md:pt-10">
-      {/*Header section */}
-      <section className="flex max-w-2xl flex-col gap-10">
-        {/*Title and overview section */}
-        <div className="flex w-full flex-row items-center justify-center gap-10">
-          <Image
-            src="/brand-assets/logo-black.png"
-            alt="WikiSubmission Logo"
-            width={72}
-            height={72}
-            className="rounded-full"
-          />
+    <main className="flex flex-col min-h-screen items-center justify-center text-center space-y-8 md:p-24 p-4">
+      <Image
+        src="/brand-assets/logo-black.png"
+        alt="WikiSubmission Logo"
+        width={72}
+        height={72}
+        className="rounded-full"
+      />
 
-          <h1 className="text-3xl font-semibold">Transparency page</h1>
-        </div>
-        {/*Description of the page */}
-        <p className="text-start text-sm text-muted-foreground">
-          Transparency page for WikiSubmission, a 501(c)(3) nonprofit organization providing free
-          and open-source technology, educational resources, and creative media in the cause of God.
-          Current balance, transaction history as well as spending will be displayed here.
+      <section className="flex gap-4 max-w-md items-center">
+        <h1 className="text-3xl font-semibold">
+          Transparency
+        </h1>
+      </section>
+
+      <section className="max-w-2xl text-center text-sm text-muted-foreground">
+        <p>
+          WikiSubmission is committed to full transparency in all aspects of our operations. We believe in open communication with our community about how we operate, how we use donations, and how we make decisions.
         </p>
       </section>
-      {/*Balance section */}
-      <section className="grid w-full max-w-4xl grid-cols-2 gap-4 md:grid-cols-4">
-        <InfoCard
-          value={currentBalance}
-          title={"Current Funds"}
-          currencyCode={"USD"}
-          description="Total funds available across all accounts"
-        />
 
-        <InfoCard
-          value={monthlyGoal}
-          title={"Monthly Bill Goal"}
-          currencyCode={"USD"}
-          description="Needed by month-end for core operational bills"
-        />
+      <section className="max-w-sm flex flex-col gap-4 w-full">
+        <Item asChild variant="outline">
+          <Link href="https://github.com/WikiSubmission" target="_blank" rel="noopener noreferrer">
+            <ItemContent>
+              <ItemTitle>
+                Open Source Projects
+              </ItemTitle>
+              <ItemDescription>
+                All our code is publicly available on GitHub
+              </ItemDescription>
+            </ItemContent>
+            <ItemActions>
+              <FileText className="size-5" />
+              <ChevronRight className="size-4" />
+            </ItemActions>
+          </Link>
+        </Item>
 
-        <InfoCard
-          value={Math.abs(monthlyDeficit)}
-          title={monthlyDeficit >= 0 ? "Current Excess" : "Current Deficit"}
-          currencyCode={"USD"}
-          description={
-            monthlyDeficit >= 0
-              ? "Available after known monthly expenses"
-              : "Shortfall to meet monthly obligations"
-          }
-        />
+        <Item variant="outline" className="opacity-50 cursor-not-allowed">
+          <ItemContent>
+            <ItemTitle>
+              Financial Reports
+            </ItemTitle>
+            <ItemDescription>
+              Annual budgets, expenses, and donor information (coming soon)
+            </ItemDescription>
+          </ItemContent>
+          <ItemActions>
+            <DollarSign className="size-5" />
+          </ItemActions>
+        </Item>
 
-        <InfoCard
-          value={totalYTDDonations}
-          title={"Total Donations (YTD)"}
-          currencyCode={"USD"}
-          description="Cumulative funds received this calendar year"
-        />
+        <Item variant="outline" className="opacity-50 cursor-not-allowed">
+          <ItemContent>
+            <ItemTitle>
+              Governance Documents
+            </ItemTitle>
+            <ItemDescription>
+              Bylaws, policies, and organizational structure (coming soon)
+            </ItemDescription>
+          </ItemContent>
+          <ItemActions>
+            <Shield className="size-5" />
+          </ItemActions>
+        </Item>
+
+        <Item variant="outline" className="opacity-50 cursor-not-allowed">
+          <ItemContent>
+            <ItemTitle>
+              Team & Contributors
+            </ItemTitle>
+            <ItemDescription>
+              Meet the people behind WikiSubmission (coming soon)
+            </ItemDescription>
+          </ItemContent>
+          <ItemActions>
+            <Users className="size-5" />
+          </ItemActions>
+        </Item>
       </section>
-      {/*Transaction history section*/}
-      <TransactionSection />
+
+      <section className="max-w-2xl text-center text-sm text-muted-foreground">
+        <p>
+          We are continuously working to improve our transparency practices. If you have questions or would like to see additional information, please <Link href="/contact" className="underline hover:text-foreground">contact us</Link>.
+        </p>
+      </section>
     </main>
   );
 }
