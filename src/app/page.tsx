@@ -77,39 +77,43 @@ export default function Home() {
       </section>
 
       <section className="max-w-md flex flex-wrap gap-4">
-        <Link href={Identity.social.github} target="_blank" rel="noopener noreferrer">
+        <Link href={Identity.social.github} target="_blank" rel="noopener noreferrer" className="hover:text-violet-600 transition-colors">
           <FaGithub className="size-4" />
         </Link>
-        <Link href={Identity.social.twitter} target="_blank" rel="noopener noreferrer">
+        <Link href={Identity.social.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-violet-600 transition-colors">
           <FaTwitter className="size-4" />
         </Link>
-        <Link href={Identity.social.youtube} target="_blank" rel="noopener noreferrer">
+        <Link href={Identity.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-violet-600 transition-colors">
           <FaYoutube className="size-4" />
         </Link>
-        <Link href={Identity.social.discord} target="_blank" rel="noopener noreferrer">
+        <Link href={Identity.social.discord} target="_blank" rel="noopener noreferrer" className="hover:text-violet-600 transition-colors">
           <FaDiscord className="size-4" />
-        </Link>
-      </section>
-
-      <section className="flex flex-wrap gap-2 text-xs text-muted-foreground">
-        <Link href="/contact">
-          Contact
-        </Link>
-        <Link href="/terms-of-use">
-          Terms of Use
-        </Link>
-        <Link href="/privacy-policy">
-          Privacy Policy
-        </Link>
-        <Link href="/donate">
-          Donate
         </Link>
       </section>
 
       <section className="max-w-sm text-center text-xs text-muted-foreground space-y-2">
         <p>
-          WikiSubmission is a 501(c)(3) nonprofit organization.  We provide free and open-source technology, educational resources, and creative media.
+          WikiSubmission is a 501(c)(3) nonprofit organization.
         </p>
+
+        <p>
+          We provide free and open-source technology, educational resources, and creative media.
+        </p>
+      </section>
+
+      <section className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+        <Link href="/contact" className="hover:text-violet-600 transition-colors">
+          Contact
+        </Link>
+        <Link href="/terms-of-use" className="hover:text-violet-600 transition-colors">
+          Terms of Use
+        </Link>
+        <Link href="/privacy-policy" className="hover:text-violet-600 transition-colors">
+          Privacy Policy
+        </Link>
+        <Link href="/donate" className="hover:text-violet-600 transition-colors">
+          Donate
+        </Link>
       </section>
     </main>
   );
