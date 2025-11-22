@@ -87,12 +87,6 @@ export default function DonatePage() {
         </p>
       </section>
 
-      <section className="max-w-sm text-center italic text-sm text-muted-foreground">
-        <p>
-          <strong>[2:261]</strong> The example of those who spend their monies in the cause of GOD is that of a grain that produces seven spikes, with a hundred grains in each spike. GOD multiplies this manifold for whomever He wills. GOD is Bounteous, Knower.
-        </p>
-      </section>
-
       <section className="max-w-sm text-center text-sm text-muted-foreground space-y-3">
         <p>
           WikiSubmission is a 501(c)(3) public charity. Donations are tax-deductible under{" "}
@@ -121,6 +115,23 @@ export default function DonatePage() {
           >
             Publication 4221-PC
           </a>.
+        </p>
+        <p>
+          Visit our{" "}
+          <Link href="/transparency" className="underline hover:text-foreground">
+            Transparency
+          </Link>{" "}
+          page for information for our financials (coming soon). You can also{" "}
+          <Link href="/contact" className="underline hover:text-foreground">
+            contact us
+          </Link>{" "}
+          for more information.
+        </p>
+      </section>
+
+      <section className="max-w-sm text-center italic text-sm text-muted-foreground">
+        <p>
+          <strong>[2:261]</strong> The example of those who spend their monies in the cause of GOD is that of a grain that produces seven spikes, with a hundred grains in each spike. GOD multiplies this manifold for whomever He wills. GOD is Bounteous, Knower.
         </p>
       </section>
     </main >
