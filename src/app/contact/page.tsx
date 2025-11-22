@@ -21,7 +21,7 @@ export default function ContactPage() {
         className="rounded-full"
       />
 
-      <section className="max-w-sm flex gap-4 max-w-md items-center">
+      <section className=" flex gap-4 max-w-md items-center">
         <h1 className="text-3xl font-semibold">
           Contact Us
         </h1>
