@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function DonatePage() {
   return (
-    <main className="flex flex-col min-h-screen items-center justify-center text-center space-y-4 md:p-24 p-4">
+    <main className="flex flex-col min-h-screen items-center justify-center text-center space-y-4 md:p-24 p-8">
       <Image
         src="/brand-assets/logo-black.png"
         alt="WikiSubmission Logo"
@@ -83,21 +83,16 @@ export default function DonatePage() {
 
       <section className="max-w-sm text-center text-sm text-muted-foreground">
         <p>
-          Your donations directly support our cause. All funds are used to maintain our existing infrastructure and operations, and fund new technical and creative initiatives in the cause of God.
+          Your donations directly support our cause. All funds are used to maintain our infrastructure and operations and to fund new technical and creative initiatives in the cause of God. Donations do not purchase, unlock, or provide any in‑app features or content.
         </p>
       </section>
 
-      <section className="max-w-sm text-center text-sm text-muted-foreground space-y-3">
+      <section className="max-w-sm text-center text-sm text-muted-foreground space-y-3 border-t border-muted-foreground/20 pt-4">
         <p>
-          WikiSubmission is a 501(c)(3) public charity. Donations are tax-deductible under{" "}
-          <a
-            href="https://www.irs.gov/charities-non-profits/charitable-organizations/exemption-requirements-501c3-organizations"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-foreground"
-          >
-            IRC Section 170
-          </a>. For more information, see the IRS{" "}
+          WikiSubmission is a registered 501(c)(3) public charity (EIN: 39-4876245). Contributions from U.S. donors may be tax-deductible to the extent permitted by law. Please consult your tax advisor and the IRS for guidance.
+        </p>
+        <p>
+          For more information about tax rules and charitable giving, see the IRS{" "}
           <a
             href="https://www.irs.gov/charities"
             target="_blank"
@@ -106,30 +101,19 @@ export default function DonatePage() {
           >
             Tax Information for Charities
           </a>{" "}
-          and{" "}
+          and this{" "}
           <a
             href="https://www.irs.gov/pub/irs-pdf/p4221pc.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-foreground"
           >
-            Publication 4221-PC
+            IRS Publication 4221-PC
           </a>.
-        </p>
-        <p>
-          Visit our{" "}
-          <Link href="/transparency" className="underline hover:text-foreground">
-            Transparency
-          </Link>{" "}
-          page for information for our financials (coming soon). You can also{" "}
-          <Link href="/contact" className="underline hover:text-foreground">
-            contact us
-          </Link>{" "}
-          for more information.
         </p>
       </section>
 
-      <section className="max-w-sm text-center italic text-sm text-muted-foreground">
+      <section className="max-w-sm text-center italic text-sm text-muted-foreground border-t border-muted-foreground/20 pt-4">
         <p>
           <strong>[2:261]</strong> The example of those who spend their monies in the cause of GOD is that of a grain that produces seven spikes, with a hundred grains in each spike. GOD multiplies this manifold for whomever He wills. GOD is Bounteous, Knower.
         </p>
@@ -137,4 +121,3 @@ export default function DonatePage() {
     </main >
   );
 }
-
