@@ -71,6 +71,25 @@ export default function Home() {
           </Item>
         </section>
 
+        <section className="flex flex-col">
+          <Item asChild variant="outline">
+            <Link href={Identity.discordBotInvite} target="_blank" rel="noopener noreferrer">
+              <ItemContent>
+                <ItemTitle>
+                  Discord Bot
+                </ItemTitle>
+                <ItemDescription>
+                  Add our bot to your server
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <FaDiscord className="size-6" />
+                <ChevronRight className="size-4" />
+              </ItemActions>
+            </Link>
+          </Item>
+        </section>
+
         <p className="text-sm text-violet-600 tracking-widest" >
           More coming soon.
         </p>
