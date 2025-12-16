@@ -111,6 +111,6 @@ export default function DonatePage() {
           For any questions, please write to <a href={`mailto:${Identity.email}`} className="text-violet-600 hover:cursor-pointer hover:underline">{Identity.email}</a>.
         </p>
       </section>
-Ï    </main>
+    </main>
   );
 }
